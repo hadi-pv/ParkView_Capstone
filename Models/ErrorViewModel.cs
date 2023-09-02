@@ -1,4 +1,4 @@
-namespace PageView_Capstone.Models
+namespace ParkView_Capstone.Models
 {
     public class ErrorViewModel
     {

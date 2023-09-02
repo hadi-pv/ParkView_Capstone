@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\ParkView_Capstone.props" />
+</Project>
