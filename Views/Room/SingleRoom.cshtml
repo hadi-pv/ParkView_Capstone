@@ -6,66 +6,45 @@
 
 <h1>SingleRoom</h1>
 
-<div>
-    <h4>Room</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Room.RoomType.RoomName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Room.RoomType.RoomName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Room.RoomPrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Room.RoomPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Room.RoomQuantity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Room.RoomQuantity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Room.RoomType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Room.RoomType.RoomTypeId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Room.Hotel)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Room.Hotel.HotelId)
-        </dd>
-    </dl>
+<div class="container">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">More details on the room</h1>
+            <div class="card row m-3">
+                <div class="card-header">
+                    @Model.Room.RoomType.RoomName
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Room.Hotel.HotelName ( @Model.Room.Hotel.HotelLocation )</h5>
+                    <p class="card-text">@Model.Room.RoomType.RoomDescription</p>
+                    <p class="card-text">Price : @Model.Room.RoomPrice</p>
+                    <p class="card-text">Available Rooms : @Model.Room.RoomQuantity</p>
+                    <p class="card-text">Minimum room needed : @Model.Room.RoomReq</p>
+                    <p class="card-text">MaxPeople : @Model.Room.RoomType.MaxPeople , MaxAdult : @Model.Room.RoomType.MaxAdult , MaxChildren : @Model.Room.RoomType.MaxChildren</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div>
+<hr />
+<div class="container">
     <h4>Facilities</h4>
     <hr />
-@foreach(var facility in Model.Facilities)
-{
-
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(modelItem => facility.FacilityName)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(modelItem => facility.FacilityName)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(modelItem => facility.FacilityDescription)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(modelItem => facility.FacilityDescription)
-            </dd>
-        </dl>
-}
+    <div class="container row">
+        @foreach (var facility in Model.Facilities)
+        {
+            <div class="card col-3">
+                <div class="card-body">
+                    <h5 class="card-title">@facility.FacilityName</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Facility ID : @facility.FacilityTypeId</h6>
+                    <p class="card-text">@facility.FacilityDescription</p>
+                </div>
+            </div>
+        }
+    </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<hr/>
+<div class="container pe-5">
+    <a type="button" class="btn btn-success" asp-action="Index">Back to List</a>
 </div>

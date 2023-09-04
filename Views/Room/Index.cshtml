@@ -6,64 +6,24 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.RoomPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RoomQuantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RoomReq)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RoomType.MaxAdult)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RoomType.MaxChildren)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RoomType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hotel)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomQuantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomReq)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomType.MaxAdult)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomType.MaxChildren)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomType.RoomName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hotel.HotelName)
-            </td>
-            <td>
-                <a asp-action="SingleRoom" asp-route-roomid=@item.RoomId>View Details</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <div class="card row m-3">
+            <div class="card-header">
+                @item.RoomType.RoomName
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@item.Hotel.HotelName ( @item.Hotel.HotelLocation )</h5>
+                <p class="card-text">@item.RoomType.RoomDescription</p>
+                <p class="card-text">Price : @item.RoomPrice</p>
+                <p class="card-text">Available Rooms : @item.RoomQuantity</p>
+                <p class="card-text">Minimum room needed : @item.RoomReq</p>
+                <p class="card-text">MaxPeople : @item.RoomType.MaxPeople , MaxAdult : @item.RoomType.MaxAdult , MaxChildren : @item.RoomType.MaxChildren</p>
+                <a asp-action="SingleRoom" asp-route-roomid=@item.RoomId class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+    }
+</div>
+
+
