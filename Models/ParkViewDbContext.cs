@@ -4,6 +4,7 @@ using ParkView_Capstone.Models.Bookings;
 using ParkView_Capstone.Models.Facilities;
 using ParkView_Capstone.Models.Room;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ParkView_Capstone.Models
 {
@@ -29,5 +30,23 @@ namespace ParkView_Capstone.Models
         {
             base.OnModelCreating(modelBuilder);
         }
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+        {
+            builder.Properties<DateOnly>()
+                .HaveConversion<DateOnlyConverter>()
+                .HaveColumnType("date");
+        }  
+    }
+
+    public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
+    {
+        /// <summary>
+        /// Creates a new instance of this converter.
+        /// </summary>
+        public DateOnlyConverter() : base(
+                d => d.ToDateTime(TimeOnly.MinValue),
+                d => DateOnly.FromDateTime(d))
+        { }
     }
 }

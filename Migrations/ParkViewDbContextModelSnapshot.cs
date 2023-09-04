@@ -237,10 +237,10 @@ namespace ParkView_Capstone.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CheckInDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<DateTime>("CheckOutDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<int>("NumberOfAdults")
                         .HasColumnType("int");
@@ -274,7 +274,7 @@ namespace ParkView_Capstone.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingRoomDetailsId"), 1L, 1);
 
                     b.Property<DateTime>("BookingDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<int>("BookingId")
                         .HasColumnType("int");
@@ -382,6 +382,12 @@ namespace ParkView_Capstone.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomLockedId"), 1L, 1);
 
+                    b.Property<DateTime>("RoomCheckIn")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime>("RoomCheckOut")
+                        .HasColumnType("date");
+
                     b.Property<int>("RoomQuantity")
                         .HasColumnType("int");
 
@@ -402,6 +408,12 @@ namespace ParkView_Capstone.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomOccupiedId"), 1L, 1);
+
+                    b.Property<DateTime>("RoomCheckIn")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime>("RoomCheckOut")
+                        .HasColumnType("date");
 
                     b.Property<int>("RoomQuantity")
                         .HasColumnType("int");

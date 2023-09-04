@@ -8,7 +8,7 @@ namespace ParkView_Capstone.Models.Bookings
         public int BookingId { get; set; }
         public int RoomTypeId { get; set; }
         public int RoomQuantity { get; set; }
-        public DateTime BookingDate { get; set; }
+        public DateOnly BookingDate { get; set; }
         public int RoomPriceAmount { get; set; }
 
         public Booking Booking { get; set; }
