@@ -1,17 +1,18 @@
 ﻿using ParkView_Capstone.Models.Bookings;
-using ParkView_Capstone.Models.Room;
+using ParkView_Capstone.Models.Facilities;
+using ParkView_Capstone.Models.Rooms;
 
 namespace ParkView_Capstone.ViewModels
 {
     public class RoomsViewModel
     {
-        public IEnumerable<RoomType> Rooms { get; set; }
-        public Booking Booking { get; set; }
+        public Room Room { get; set; }
+        public IEnumerable<FacilityType> Facilities { get; set; }
 
-        public RoomsViewModel(IEnumerable<RoomType> rooms,Booking booking) 
+        public RoomsViewModel(Room room,IEnumerable<FacilityType> facilities) 
         {
-            Rooms = rooms;
-            Booking = booking;
+            Room = room;
+            Facilities = facilities;
         }
     }
 }

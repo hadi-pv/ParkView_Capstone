@@ -12,8 +12,8 @@ using ParkView_Capstone.Models;
 namespace ParkView_Capstone.Migrations
 {
     [DbContext(typeof(ParkViewDbContext))]
-    [Migration("20230902072913_foreignConstraintAdded")]
-    partial class foreignConstraintAdded
+    [Migration("20230904115748_1stmigration")]
+    partial class _1stmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -239,10 +239,10 @@ namespace ParkView_Capstone.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CheckInDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<DateTime>("CheckOutDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<int>("NumberOfAdults")
                         .HasColumnType("int");
@@ -276,13 +276,13 @@ namespace ParkView_Capstone.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingRoomDetailsId"), 1L, 1);
 
                     b.Property<DateTime>("BookingDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<int>("BookingId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomPriceAmount")
-                        .HasColumnType("int");
+                    b.Property<decimal>("RoomPriceAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("RoomQuantity")
                         .HasColumnType("int");
@@ -376,7 +376,65 @@ namespace ParkView_Capstone.Migrations
                     b.ToTable("FacilityType");
                 });
 
-            modelBuilder.Entity("ParkView_Capstone.Models.Room.RoomLocked", b =>
+            modelBuilder.Entity("ParkView_Capstone.Models.Hotels.Hotel", b =>
+                {
+                    b.Property<int>("HotelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HotelId"), 1L, 1);
+
+                    b.Property<string>("HotelDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HotelImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HotelLocation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HotelName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("HotelId");
+
+                    b.ToTable("Hotel");
+                });
+
+            modelBuilder.Entity("ParkView_Capstone.Models.Rooms.Room", b =>
+                {
+                    b.Property<int>("RoomId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomId"), 1L, 1);
+
+                    b.Property<int>("HotelId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("RoomPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("RoomQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoomTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoomId");
+
+                    b.HasIndex("HotelId");
+
+                    b.HasIndex("RoomTypeId");
+
+                    b.ToTable("Room");
+                });
+
+            modelBuilder.Entity("ParkView_Capstone.Models.Rooms.RoomLocked", b =>
                 {
                     b.Property<int>("RoomLockedId")
                         .ValueGeneratedOnAdd()
@@ -384,20 +442,26 @@ namespace ParkView_Capstone.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomLockedId"), 1L, 1);
 
-                    b.Property<int>("RoomQuantity")
+                    b.Property<DateTime>("RoomCheckIn")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime>("RoomCheckOut")
+                        .HasColumnType("date");
+
+                    b.Property<int>("RoomId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomTypeId")
+                    b.Property<int>("RoomQuantity")
                         .HasColumnType("int");
 
                     b.HasKey("RoomLockedId");
 
-                    b.HasIndex("RoomTypeId");
+                    b.HasIndex("RoomId");
 
                     b.ToTable("RoomLocked");
                 });
 
-            modelBuilder.Entity("ParkView_Capstone.Models.Room.RoomOccupied", b =>
+            modelBuilder.Entity("ParkView_Capstone.Models.Rooms.RoomOccupied", b =>
                 {
                     b.Property<int>("RoomOccupiedId")
                         .ValueGeneratedOnAdd()
@@ -405,20 +469,26 @@ namespace ParkView_Capstone.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomOccupiedId"), 1L, 1);
 
-                    b.Property<int>("RoomQuantity")
+                    b.Property<DateTime>("RoomCheckIn")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime>("RoomCheckOut")
+                        .HasColumnType("date");
+
+                    b.Property<int>("RoomId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomTypeId")
+                    b.Property<int>("RoomQuantity")
                         .HasColumnType("int");
 
                     b.HasKey("RoomOccupiedId");
 
-                    b.HasIndex("RoomTypeId");
+                    b.HasIndex("RoomId");
 
                     b.ToTable("RoomOccupied");
                 });
 
-            modelBuilder.Entity("ParkView_Capstone.Models.Room.RoomType", b =>
+            modelBuilder.Entity("ParkView_Capstone.Models.Rooms.RoomType", b =>
                 {
                     b.Property<int>("RoomTypeId")
                         .ValueGeneratedOnAdd()
@@ -439,23 +509,59 @@ namespace ParkView_Capstone.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RoomLocation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("RoomName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("RoomPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("RoomQuantity")
-                        .HasColumnType("int");
+                    b.Property<string>("RoomTypeImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RoomTypeId");
 
                     b.ToTable("RoomType");
+
+                    b.HasData(
+                        new
+                        {
+                            RoomTypeId = 1,
+                            MaxAdult = 6,
+                            MaxChildren = 3,
+                            MaxPeople = 9,
+                            RoomDescription = "It is a Presidential Suite",
+                            RoomName = "Presidential Suite",
+                            RoomTypeImage = ""
+                        },
+                        new
+                        {
+                            RoomTypeId = 2,
+                            MaxAdult = 5,
+                            MaxChildren = 2,
+                            MaxPeople = 7,
+                            RoomDescription = "It is a Executive",
+                            RoomName = "Executive",
+                            RoomTypeImage = ""
+                        },
+                        new
+                        {
+                            RoomTypeId = 3,
+                            MaxAdult = 4,
+                            MaxChildren = 2,
+                            MaxPeople = 6,
+                            RoomDescription = "It is a Super Deluxe",
+                            RoomName = "Super Deluxe",
+                            RoomTypeImage = ""
+                        },
+                        new
+                        {
+                            RoomTypeId = 4,
+                            MaxAdult = 2,
+                            MaxChildren = 2,
+                            MaxPeople = 4,
+                            RoomDescription = "It is a Deluxe",
+                            RoomName = "Deluxe",
+                            RoomTypeImage = ""
+                        });
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Services.Service", b =>
@@ -556,7 +662,7 @@ namespace ParkView_Capstone.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ParkView_Capstone.Models.Room.RoomType", "RoomType")
+                    b.HasOne("ParkView_Capstone.Models.Rooms.RoomType", "RoomType")
                         .WithMany()
                         .HasForeignKey("RoomTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -594,7 +700,7 @@ namespace ParkView_Capstone.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ParkView_Capstone.Models.Room.RoomType", "RoomType")
+                    b.HasOne("ParkView_Capstone.Models.Rooms.RoomType", "RoomType")
                         .WithMany()
                         .HasForeignKey("RoomTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -605,26 +711,45 @@ namespace ParkView_Capstone.Migrations
                     b.Navigation("RoomType");
                 });
 
-            modelBuilder.Entity("ParkView_Capstone.Models.Room.RoomLocked", b =>
+            modelBuilder.Entity("ParkView_Capstone.Models.Rooms.Room", b =>
                 {
-                    b.HasOne("ParkView_Capstone.Models.Room.RoomType", "RoomType")
+                    b.HasOne("ParkView_Capstone.Models.Hotels.Hotel", "Hotel")
+                        .WithMany()
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ParkView_Capstone.Models.Rooms.RoomType", "RoomType")
                         .WithMany()
                         .HasForeignKey("RoomTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Hotel");
 
                     b.Navigation("RoomType");
                 });
 
-            modelBuilder.Entity("ParkView_Capstone.Models.Room.RoomOccupied", b =>
+            modelBuilder.Entity("ParkView_Capstone.Models.Rooms.RoomLocked", b =>
                 {
-                    b.HasOne("ParkView_Capstone.Models.Room.RoomType", "RoomType")
+                    b.HasOne("ParkView_Capstone.Models.Rooms.Room", "Room")
                         .WithMany()
-                        .HasForeignKey("RoomTypeId")
+                        .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("RoomType");
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("ParkView_Capstone.Models.Rooms.RoomOccupied", b =>
+                {
+                    b.HasOne("ParkView_Capstone.Models.Rooms.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
                 });
 #pragma warning restore 612, 618
         }

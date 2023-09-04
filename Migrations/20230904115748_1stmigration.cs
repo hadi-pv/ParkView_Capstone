@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ParkView_Capstone.Migrations
 {
-    public partial class ModelIdentityCreation : Migration
+    public partial class _1stmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,73 +49,6 @@ namespace ParkView_Capstone.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookingRoomDetails",
-                columns: table => new
-                {
-                    BookingRoomDetailsId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BookingId = table.Column<int>(type: "int", nullable: false),
-                    RoomTypeId = table.Column<int>(type: "int", nullable: false),
-                    RoomQuantity = table.Column<int>(type: "int", nullable: false),
-                    BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RoomPriceAmount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BookingRoomDetails", x => x.BookingRoomDetailsId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Bookings",
-                columns: table => new
-                {
-                    BookingId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    BookingLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CheckInDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CheckOutDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    NumberOfAdults = table.Column<int>(type: "int", nullable: false),
-                    NumberOfChildren = table.Column<int>(type: "int", nullable: false),
-                    ServicePriceAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    RoomPriceFee = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bookings", x => x.BookingId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BookingServiceDetails",
-                columns: table => new
-                {
-                    BookingServiceDetailsId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BookingId = table.Column<int>(type: "int", nullable: false),
-                    ServiceId = table.Column<int>(type: "int", nullable: false),
-                    ServiceQuantity = table.Column<int>(type: "int", nullable: false),
-                    ServicePriceAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BookingServiceDetails", x => x.BookingServiceDetailsId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FacilityApply",
-                columns: table => new
-                {
-                    FacilityApplyId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FacilityTypeId = table.Column<int>(type: "int", nullable: false),
-                    RoomTypeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FacilityApply", x => x.FacilityApplyId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "FacilityType",
                 columns: table => new
                 {
@@ -131,31 +64,19 @@ namespace ParkView_Capstone.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RoomLocked",
+                name: "Hotel",
                 columns: table => new
                 {
-                    RoomLockedId = table.Column<int>(type: "int", nullable: false)
+                    HotelId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoomTypeId = table.Column<int>(type: "int", nullable: false),
-                    RoomQuantity = table.Column<int>(type: "int", nullable: false)
+                    HotelName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HotelLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HotelDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HotelImage = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RoomLocked", x => x.RoomLockedId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoomOccupied",
-                columns: table => new
-                {
-                    RoomOccupiedId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoomTypeId = table.Column<int>(type: "int", nullable: false),
-                    RoomQuantity = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoomOccupied", x => x.RoomOccupiedId);
+                    table.PrimaryKey("PK_Hotel", x => x.HotelId);
                 });
 
             migrationBuilder.CreateTable(
@@ -166,12 +87,10 @@ namespace ParkView_Capstone.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoomName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RoomDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoomPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    RoomQuantity = table.Column<int>(type: "int", nullable: false),
-                    RoomLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MaxAdult = table.Column<int>(type: "int", nullable: false),
                     MaxChildren = table.Column<int>(type: "int", nullable: false),
-                    MaxPeople = table.Column<int>(type: "int", nullable: false)
+                    MaxPeople = table.Column<int>(type: "int", nullable: false),
+                    RoomTypeImage = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -300,6 +219,198 @@ namespace ParkView_Capstone.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Bookings",
+                columns: table => new
+                {
+                    BookingId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    BookingLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CheckInDate = table.Column<DateTime>(type: "date", nullable: false),
+                    CheckOutDate = table.Column<DateTime>(type: "date", nullable: false),
+                    NumberOfAdults = table.Column<int>(type: "int", nullable: false),
+                    NumberOfChildren = table.Column<int>(type: "int", nullable: false),
+                    ServicePriceAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RoomPriceFee = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bookings", x => x.BookingId);
+                    table.ForeignKey(
+                        name: "FK_Bookings_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FacilityApply",
+                columns: table => new
+                {
+                    FacilityApplyId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FacilityTypeId = table.Column<int>(type: "int", nullable: false),
+                    RoomTypeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FacilityApply", x => x.FacilityApplyId);
+                    table.ForeignKey(
+                        name: "FK_FacilityApply_FacilityType_FacilityTypeId",
+                        column: x => x.FacilityTypeId,
+                        principalTable: "FacilityType",
+                        principalColumn: "FacilityTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FacilityApply_RoomType_RoomTypeId",
+                        column: x => x.RoomTypeId,
+                        principalTable: "RoomType",
+                        principalColumn: "RoomTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Room",
+                columns: table => new
+                {
+                    RoomId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoomTypeId = table.Column<int>(type: "int", nullable: false),
+                    HotelId = table.Column<int>(type: "int", nullable: false),
+                    RoomPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    RoomQuantity = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Room", x => x.RoomId);
+                    table.ForeignKey(
+                        name: "FK_Room_Hotel_HotelId",
+                        column: x => x.HotelId,
+                        principalTable: "Hotel",
+                        principalColumn: "HotelId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Room_RoomType_RoomTypeId",
+                        column: x => x.RoomTypeId,
+                        principalTable: "RoomType",
+                        principalColumn: "RoomTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BookingRoomDetails",
+                columns: table => new
+                {
+                    BookingRoomDetailsId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookingId = table.Column<int>(type: "int", nullable: false),
+                    RoomTypeId = table.Column<int>(type: "int", nullable: false),
+                    RoomQuantity = table.Column<int>(type: "int", nullable: false),
+                    BookingDate = table.Column<DateTime>(type: "date", nullable: false),
+                    RoomPriceAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookingRoomDetails", x => x.BookingRoomDetailsId);
+                    table.ForeignKey(
+                        name: "FK_BookingRoomDetails_Bookings_BookingId",
+                        column: x => x.BookingId,
+                        principalTable: "Bookings",
+                        principalColumn: "BookingId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BookingRoomDetails_RoomType_RoomTypeId",
+                        column: x => x.RoomTypeId,
+                        principalTable: "RoomType",
+                        principalColumn: "RoomTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BookingServiceDetails",
+                columns: table => new
+                {
+                    BookingServiceDetailsId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookingId = table.Column<int>(type: "int", nullable: false),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    ServiceQuantity = table.Column<int>(type: "int", nullable: false),
+                    ServicePriceAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookingServiceDetails", x => x.BookingServiceDetailsId);
+                    table.ForeignKey(
+                        name: "FK_BookingServiceDetails_Bookings_BookingId",
+                        column: x => x.BookingId,
+                        principalTable: "Bookings",
+                        principalColumn: "BookingId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BookingServiceDetails_Services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Services",
+                        principalColumn: "ServiceId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoomLocked",
+                columns: table => new
+                {
+                    RoomLockedId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    RoomQuantity = table.Column<int>(type: "int", nullable: false),
+                    RoomCheckIn = table.Column<DateTime>(type: "date", nullable: false),
+                    RoomCheckOut = table.Column<DateTime>(type: "date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoomLocked", x => x.RoomLockedId);
+                    table.ForeignKey(
+                        name: "FK_RoomLocked_Room_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Room",
+                        principalColumn: "RoomId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoomOccupied",
+                columns: table => new
+                {
+                    RoomOccupiedId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    RoomQuantity = table.Column<int>(type: "int", nullable: false),
+                    RoomCheckIn = table.Column<DateTime>(type: "date", nullable: false),
+                    RoomCheckOut = table.Column<DateTime>(type: "date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoomOccupied", x => x.RoomOccupiedId);
+                    table.ForeignKey(
+                        name: "FK_RoomOccupied_Room_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Room",
+                        principalColumn: "RoomId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "RoomType",
+                columns: new[] { "RoomTypeId", "MaxAdult", "MaxChildren", "MaxPeople", "RoomDescription", "RoomName", "RoomTypeImage" },
+                values: new object[,]
+                {
+                    { 1, 6, 3, 9, "It is a Presidential Suite", "Presidential Suite", "" },
+                    { 2, 5, 2, 7, "It is a Executive", "Executive", "" },
+                    { 3, 4, 2, 6, "It is a Super Deluxe", "Super Deluxe", "" },
+                    { 4, 2, 2, 4, "It is a Deluxe", "Deluxe", "" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -338,6 +449,61 @@ namespace ParkView_Capstone.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookingRoomDetails_BookingId",
+                table: "BookingRoomDetails",
+                column: "BookingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookingRoomDetails_RoomTypeId",
+                table: "BookingRoomDetails",
+                column: "RoomTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_UserId",
+                table: "Bookings",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookingServiceDetails_BookingId",
+                table: "BookingServiceDetails",
+                column: "BookingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookingServiceDetails_ServiceId",
+                table: "BookingServiceDetails",
+                column: "ServiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FacilityApply_FacilityTypeId",
+                table: "FacilityApply",
+                column: "FacilityTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FacilityApply_RoomTypeId",
+                table: "FacilityApply",
+                column: "RoomTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Room_HotelId",
+                table: "Room",
+                column: "HotelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Room_RoomTypeId",
+                table: "Room",
+                column: "RoomTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoomLocked_RoomId",
+                table: "RoomLocked",
+                column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoomOccupied_RoomId",
+                table: "RoomOccupied",
+                column: "RoomId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -361,16 +527,10 @@ namespace ParkView_Capstone.Migrations
                 name: "BookingRoomDetails");
 
             migrationBuilder.DropTable(
-                name: "Bookings");
-
-            migrationBuilder.DropTable(
                 name: "BookingServiceDetails");
 
             migrationBuilder.DropTable(
                 name: "FacilityApply");
-
-            migrationBuilder.DropTable(
-                name: "FacilityType");
 
             migrationBuilder.DropTable(
                 name: "RoomLocked");
@@ -379,16 +539,28 @@ namespace ParkView_Capstone.Migrations
                 name: "RoomOccupied");
 
             migrationBuilder.DropTable(
-                name: "RoomType");
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Bookings");
 
             migrationBuilder.DropTable(
                 name: "Services");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "FacilityType");
+
+            migrationBuilder.DropTable(
+                name: "Room");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Hotel");
+
+            migrationBuilder.DropTable(
+                name: "RoomType");
         }
     }
 }

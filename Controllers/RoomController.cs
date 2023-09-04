@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ParkView_Capstone.Models;
 using ParkView_Capstone.Models.Bookings;
-using ParkView_Capstone.Models.Room;
+using ParkView_Capstone.Models.Rooms;
 using ParkView_Capstone.ViewModels;
 
 namespace ParkView_Capstone.Controllers
@@ -18,36 +18,36 @@ namespace ParkView_Capstone.Controllers
 
         public IActionResult Index()
         {
-            booking = new Booking()
-            {
-                BookingLocation = "bangalore",
-                CheckInDate = new DateOnly(2023, 9, 4),
-                CheckOutDate = new DateOnly(2023, 9, 7),
-                NumberOfAdults = 3,
-                NumberOfChildren = 1
-            };
-            IEnumerable<RoomType> rooms = _roomRepo.GetAllAvailableRooms("bangalore", new DateOnly(2023, 9, 4), new DateOnly(2023, 9, 7), 3,1);
-            
-
-            RoomsViewModel roomsViewModel=new RoomsViewModel(rooms, booking);
+            IEnumerable<Room> rooms = _roomRepo.GetAllAvailableRooms("Mumbai", new DateOnly(2023, 9, 4), new DateOnly(2023, 9, 7), 4,2);
 
             return View(rooms);
         }
 
-        public IActionResult BookRoom(int roomId)
+        public IActionResult SingleRoom(int roomid)
         {
-            RoomType room = _roomRepo.GetAllRoomTypes.FirstOrDefault(r => r.RoomTypeId == roomId);
-            BookingRoomDetails roomDetails = new BookingRoomDetails()
-            {
-                Booking = booking,
-                BookingId=booking.BookingId,
-                RoomTypeId = roomId,
-                RoomType = room,
-                BookingDate = DateOnly.FromDateTime(DateTime.Now),
-                RoomQuantity = (int)room.ReqRooms,
-                RoomPriceAmount = room.ReqRooms * room.RoomPrice
-            };
-            return View(roomDetails);
+            var room=_roomRepo.GetAllRooms.FirstOrDefault(r=>r.RoomId == roomid);
+            var facilities = _roomRepo.GetAppliedFacilities(room.RoomTypeId);
+
+            RoomsViewModel roomsViewModel=new RoomsViewModel(room,facilities);
+
+            return View(roomsViewModel);
         }
+
+
+        //public IActionResult BookRoom(int roomId)
+        //{
+        //    RoomType room = _roomRepo.GetAllRoomTypes.FirstOrDefault(r => r.RoomTypeId == roomId);
+        //    BookingRoomDetails roomDetails = new BookingRoomDetails()
+        //    {
+        //        Booking = booking,
+        //        BookingId=booking.BookingId,
+        //        RoomTypeId = roomId,
+        //        RoomType = room,
+        //        BookingDate = DateOnly.FromDateTime(DateTime.Now),
+        //        RoomQuantity = (int)room.ReqRooms,
+        //        RoomPriceAmount = room.ReqRooms * room.RoomPrice
+        //    };
+        //    return View(roomDetails);
+        //}
     }
 }

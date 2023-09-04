@@ -1,5 +1,4 @@
-﻿using ParkView_Capstone.Models.Room;
-using ParkView_Capstone.Models.Services;
+﻿using ParkView_Capstone.Models.Services;
 
 namespace ParkView_Capstone.Models.Bookings
 {

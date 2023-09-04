@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RoomType>
+﻿@model IEnumerable<ParkView_Capstone.Models.Rooms.Room>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,31 +13,25 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.RoomName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RoomDescription)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.RoomPrice)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.RoomQuantity)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReqRooms)
+                @Html.DisplayNameFor(model => model.RoomReq)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RoomLocation)
+                @Html.DisplayNameFor(model => model.RoomType.MaxAdult)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaxAdult)
+                @Html.DisplayNameFor(model => model.RoomType.MaxChildren)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaxChildren)
+                @Html.DisplayNameFor(model => model.RoomType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaxPeople)
+                @Html.DisplayNameFor(model => model.Hotel)
             </th>
             <th></th>
         </tr>
@@ -46,34 +40,28 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.RoomName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomDescription)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.RoomPrice)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RoomQuantity)
             </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReqRooms)
-                </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RoomLocation)
+                @Html.DisplayFor(modelItem => item.RoomReq)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MaxAdult)
+                @Html.DisplayFor(modelItem => item.RoomType.MaxAdult)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MaxChildren)
+                @Html.DisplayFor(modelItem => item.RoomType.MaxChildren)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MaxPeople)
+                @Html.DisplayFor(modelItem => item.RoomType.RoomName)
             </td>
             <td>
-                <a asp-action="BookRoom" asp-route-roomId=@item.RoomTypeId>Book</a>
+                @Html.DisplayFor(modelItem => item.Hotel.HotelName)
+            </td>
+            <td>
+                <a asp-action="SingleRoom" asp-route-roomid=@item.RoomId>View Details</a>
             </td>
         </tr>
 }

@@ -1,18 +1,23 @@
-﻿using ParkView_Capstone.Models.Room;
+﻿using Microsoft.EntityFrameworkCore;
+using ParkView_Capstone.Models.Facilities;
+using ParkView_Capstone.Models.Rooms;
 
 namespace ParkView_Capstone.Models
 {
     public interface IRoomRepo
     {
+        public IEnumerable<Room> GetAllRooms { get; }
         public IEnumerable<RoomType> GetAllRoomTypes { get; }
         public IEnumerable<RoomLocked> GetAllRoomLocked { get; }
         public IEnumerable<RoomOccupied> GetAllRoomOccupied { get; }
 
-        public IEnumerable<RoomType> 
+        public IEnumerable<Room> 
             GetAllAvailableRooms(string location,DateOnly CheckIn,DateOnly CheckOut,int AdultNo,int ChildrenNo);
 
-        public void LockRoom(RoomType roomType);
-        public int IsRoomLocked(RoomType roomType, DateOnly CheckIn, DateOnly CheckOut);
-        public int IsRoomOccupied(RoomType roomType, DateOnly CheckIn, DateOnly CheckOut);
+        public int IsRoomLocked(Room roomType, DateOnly CheckIn, DateOnly CheckOut);
+        public int IsRoomOccupied(Room roomType, DateOnly CheckIn, DateOnly CheckOut);
+
+        public IEnumerable<FacilityType> GetAllFacilities { get; }
+        public IEnumerable<FacilityType> GetAppliedFacilities(int roomtypeid);
     }
 }

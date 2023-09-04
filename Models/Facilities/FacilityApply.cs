@@ -1,4 +1,4 @@
-﻿using ParkView_Capstone.Models.Room;
+﻿using ParkView_Capstone.Models.Rooms;
 
 namespace ParkView_Capstone.Models.Facilities
 {
