@@ -25,6 +25,9 @@
                 @Html.DisplayNameFor(model => model.RoomQuantity)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.ReqRooms)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.RoomLocation)
             </th>
             <th>
@@ -54,6 +57,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.RoomQuantity)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReqRooms)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RoomLocation)
             </td>
@@ -67,9 +73,7 @@
                 @Html.DisplayFor(modelItem => item.MaxPeople)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.RoomTypeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RoomTypeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RoomTypeId">Delete</a>
+                <a asp-action="BookRoom" asp-route-roomId=@item.RoomTypeId>Book</a>
             </td>
         </tr>
 }

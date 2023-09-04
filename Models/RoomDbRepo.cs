@@ -27,7 +27,7 @@ namespace ParkView_Capstone.Models
             {
                 var reqrooms = MathF.Ceiling(MathF.Min(MathF.Max((float)AdultNo / room.MaxAdult, (float)ChildrenNo / room.MaxChildren), (float)(AdultNo + ChildrenNo) / room.MaxPeople));
 
-                if (room.RoomQuantity - IsRoomLocked(room) - IsRoomOccupied(room) >= reqrooms) { room.RoomQuantity = (int)reqrooms;Console.WriteLine("Remaining Rooms : "+Convert.ToString(room.RoomQuantity - IsRoomLocked(room) - IsRoomOccupied(room))); }
+                if (room.RoomQuantity - IsRoomLocked(room,CheckIn,CheckOut) - IsRoomOccupied(room, CheckIn, CheckOut) >= reqrooms) { room.RoomQuantity= room.RoomQuantity - IsRoomLocked(room, CheckIn, CheckOut) - IsRoomOccupied(room, CheckIn, CheckOut); room.ReqRooms = (int)reqrooms; }
                 else rooms = rooms.Where(r => r.RoomTypeId != room.RoomTypeId);
                 
             }
@@ -36,16 +36,35 @@ namespace ParkView_Capstone.Models
         }
 
         //Check if it exists
-        public int IsRoomLocked(RoomType roomType)
+        public int IsRoomLocked(RoomType roomType, DateOnly CheckIn, DateOnly CheckOut)
         {
-            var locked=GetAllRoomLocked.Where(r=> r.RoomTypeId==roomType.RoomTypeId);
-            return locked.Select(r => r.RoomQuantity).Sum();
+            if(GetAllRoomLocked.Any(r => r.RoomTypeId == roomType.RoomTypeId))
+            {
+                var locked = GetAllRoomLocked
+                    .Where(r => r.RoomTypeId == roomType.RoomTypeId)
+                    .Where(r=>r.RoomCheckIn<=CheckIn && r.RoomCheckOut>CheckIn);
+                return locked.Select(r => r.RoomQuantity).Sum();
+            }
+            else
+            {
+                return 0;
+            }
+            
         }
 
-        public int IsRoomOccupied(RoomType roomType)
+        public int IsRoomOccupied(RoomType roomType,DateOnly CheckIn, DateOnly CheckOut)
         {
-            var occupied = GetAllRoomOccupied.Where(r => r.RoomTypeId == roomType.RoomTypeId);
-            return occupied.Select(r => r.RoomQuantity).Sum();
+            if (GetAllRoomOccupied.Any(r => r.RoomTypeId == roomType.RoomTypeId))
+            {
+                var occupied = GetAllRoomOccupied
+                    .Where(r => r.RoomTypeId == roomType.RoomTypeId)
+                    .Where(r => r.RoomCheckIn <= CheckIn && r.RoomCheckOut > CheckIn);
+                return occupied.Select(r => r.RoomQuantity).Sum();
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public void LockRoom(RoomType roomType)

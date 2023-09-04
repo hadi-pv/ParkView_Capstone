@@ -12,7 +12,7 @@ namespace ParkView_Capstone.Models
             GetAllAvailableRooms(string location,DateOnly CheckIn,DateOnly CheckOut,int AdultNo,int ChildrenNo);
 
         public void LockRoom(RoomType roomType);
-        public int IsRoomLocked(RoomType roomType);
-        public int IsRoomOccupied(RoomType roomType);
+        public int IsRoomLocked(RoomType roomType, DateOnly CheckIn, DateOnly CheckOut);
+        public int IsRoomOccupied(RoomType roomType, DateOnly CheckIn, DateOnly CheckOut);
     }
 }

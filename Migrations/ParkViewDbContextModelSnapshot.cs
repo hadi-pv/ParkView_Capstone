@@ -262,7 +262,7 @@ namespace ParkView_Capstone.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("Bookings", (string)null);
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Bookings.BookingRoomDetails", b =>
@@ -294,7 +294,7 @@ namespace ParkView_Capstone.Migrations
 
                     b.HasIndex("RoomTypeId");
 
-                    b.ToTable("BookingRoomDetails");
+                    b.ToTable("BookingRoomDetails", (string)null);
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Bookings.BookingServiceDetails", b =>
@@ -323,7 +323,7 @@ namespace ParkView_Capstone.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("BookingServiceDetails");
+                    b.ToTable("BookingServiceDetails", (string)null);
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Facilities.FacilityApply", b =>
@@ -346,7 +346,7 @@ namespace ParkView_Capstone.Migrations
 
                     b.HasIndex("RoomTypeId");
 
-                    b.ToTable("FacilityApply");
+                    b.ToTable("FacilityApply", (string)null);
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Facilities.FacilityType", b =>
@@ -371,7 +371,7 @@ namespace ParkView_Capstone.Migrations
 
                     b.HasKey("FacilityTypeId");
 
-                    b.ToTable("FacilityType");
+                    b.ToTable("FacilityType", (string)null);
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Room.RoomLocked", b =>
@@ -398,7 +398,7 @@ namespace ParkView_Capstone.Migrations
 
                     b.HasIndex("RoomTypeId");
 
-                    b.ToTable("RoomLocked");
+                    b.ToTable("RoomLocked", (string)null);
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Room.RoomOccupied", b =>
@@ -425,7 +425,7 @@ namespace ParkView_Capstone.Migrations
 
                     b.HasIndex("RoomTypeId");
 
-                    b.ToTable("RoomOccupied");
+                    b.ToTable("RoomOccupied", (string)null);
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Room.RoomType", b =>
@@ -465,7 +465,7 @@ namespace ParkView_Capstone.Migrations
 
                     b.HasKey("RoomTypeId");
 
-                    b.ToTable("RoomType");
+                    b.ToTable("RoomType", (string)null);
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Services.Service", b =>
@@ -493,7 +493,7 @@ namespace ParkView_Capstone.Migrations
 
                     b.HasKey("ServiceId");
 
-                    b.ToTable("Services");
+                    b.ToTable("Services", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

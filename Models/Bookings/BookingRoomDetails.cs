@@ -9,7 +9,7 @@ namespace ParkView_Capstone.Models.Bookings
         public int RoomTypeId { get; set; }
         public int RoomQuantity { get; set; }
         public DateOnly BookingDate { get; set; }
-        public int RoomPriceAmount { get; set; }
+        public decimal RoomPriceAmount { get; set; }
 
         public Booking Booking { get; set; }
         public RoomType RoomType { get; set; }
