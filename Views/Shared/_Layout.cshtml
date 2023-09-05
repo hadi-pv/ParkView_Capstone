@@ -15,9 +15,8 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 </head>
 <body>
-    
+    <div class="NavbarChanges">
        
-<<<<<<< HEAD
     <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light fixed-top">
             <div class="container-fluid">
@@ -46,42 +45,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">CONTACT US</a>
                         </li>
-
                         @await Component.InvokeAsync("CartIcon")
+                        <partial name="_LoginPartial" />
                     </ul>
-=======
-  
-        <header>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-fluid" >
-                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">Sports</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Sprots" asp-action="Index">Sports</a>
-                            </li>
-
-                           
-
-
-
-                            
-
-
-                        </ul>
-                    </div>
->>>>>>> 48323b492fa937736999f24a2b8253931427142f
                 </div>
-            </nav>
-        </header>
-   
-    
+            </div>
+        </nav>
+    </header>
+    </div>
    
         <main role="main" class="pb-3">
             @RenderBody()

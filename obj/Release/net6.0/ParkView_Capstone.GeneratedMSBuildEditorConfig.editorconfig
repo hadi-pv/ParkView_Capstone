@@ -7,8 +7,8 @@ build_property.InvariantGlobalization =
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
-build_property.RootNamespace = PageView_Capstone
-build_property.RootNamespace = PageView_Capstone
+build_property.RootNamespace = ParkView_Capstone
+build_property.RootNamespace = ParkView_Capstone
 build_property.ProjectDir = C:\Users\PranayMhaiske\Source\Repos\NewProj\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
@@ -78,4 +78,4 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/PranayMhaiske/source/repos/NewProj/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = b-1hhmei7o4j
+build_metadata.AdditionalFiles.CssScope = b-4sk371gvj0

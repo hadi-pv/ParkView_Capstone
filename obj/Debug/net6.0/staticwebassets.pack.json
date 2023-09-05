@@ -593,8 +593,120 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\about.png",
+      "PackagePath": "staticwebassets\\images\\about.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\background-1.png",
+      "PackagePath": "staticwebassets\\images\\background-1.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\background-2.png",
+      "PackagePath": "staticwebassets\\images\\background-2.png"
+    },
+    {
       "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\backgroundi.png",
       "PackagePath": "staticwebassets\\images\\backgroundi.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\banner-1.png",
+      "PackagePath": "staticwebassets\\images\\banner-1.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\banner-2.png",
+      "PackagePath": "staticwebassets\\images\\banner-2.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\banner-3.png",
+      "PackagePath": "staticwebassets\\images\\banner-3.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\blog-1.png",
+      "PackagePath": "staticwebassets\\images\\blog-1.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\blog-2.png",
+      "PackagePath": "staticwebassets\\images\\blog-2.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\blog-s1.png",
+      "PackagePath": "staticwebassets\\images\\blog-s1.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\blog-s2.png",
+      "PackagePath": "staticwebassets\\images\\blog-s2.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\blog-s3.png",
+      "PackagePath": "staticwebassets\\images\\blog-s3.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\gallery-1.png",
+      "PackagePath": "staticwebassets\\images\\gallery-1.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\gallery-2.png",
+      "PackagePath": "staticwebassets\\images\\gallery-2.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\gallery-3.png",
+      "PackagePath": "staticwebassets\\images\\gallery-3.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\gallery-4.png",
+      "PackagePath": "staticwebassets\\images\\gallery-4.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\gallery-5.png",
+      "PackagePath": "staticwebassets\\images\\gallery-5.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\gallery-6.png",
+      "PackagePath": "staticwebassets\\images\\gallery-6.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\logo-2.png",
+      "PackagePath": "staticwebassets\\images\\logo-2.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\logo.png",
+      "PackagePath": "staticwebassets\\images\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\room-1.png",
+      "PackagePath": "staticwebassets\\images\\room-1.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\room-2.png",
+      "PackagePath": "staticwebassets\\images\\room-2.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\room-3.png",
+      "PackagePath": "staticwebassets\\images\\room-3.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\room-4.png",
+      "PackagePath": "staticwebassets\\images\\room-4.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\room-5.png",
+      "PackagePath": "staticwebassets\\images\\room-5.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\room-6.png",
+      "PackagePath": "staticwebassets\\images\\room-6.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\room-7.png",
+      "PackagePath": "staticwebassets\\images\\room-7.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\room-8.png",
+      "PackagePath": "staticwebassets\\images\\room-8.png"
+    },
+    {
+      "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\service.png",
+      "PackagePath": "staticwebassets\\images\\service.png"
     },
     {
       "Id": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\js\\site.js",
