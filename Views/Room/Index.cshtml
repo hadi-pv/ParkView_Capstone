@@ -11,7 +11,7 @@
     {
         <div class="card row m-3">
             <div class="card-header">
-                @item.RoomType.RoomName
+                <span style="font-size:larger;font-weight:bold;">@item.RoomType.RoomName</span>&emsp;<a asp-action="SingleRoom" asp-route-roomid=@item.RoomId class="btn btn-primary">View Details</a>
             </div>
             <div class="card-body">
                 <h5 class="card-title">@item.Hotel.HotelName ( @item.Hotel.HotelLocation )</h5>
@@ -20,22 +20,63 @@
                 <p class="card-text">Available Rooms : @item.RoomQuantity</p>
                 <p class="card-text">Minimum room needed : @item.RoomReq</p>
                 <p class="card-text">MaxPeople : @item.RoomType.MaxPeople , MaxAdult : @item.RoomType.MaxAdult , MaxChildren : @item.RoomType.MaxChildren</p>
-                <a asp-action="SingleRoom" asp-route-roomid=@item.RoomId class="btn btn-primary">View Details</a>
-                @*<a asp-controller="BookingCart" asp-action="AddToBookingCart" asp-route-roomid=@item.RoomId
+                <div class="container m-2" style="border:1px solid black;border-radius:20px;padding:1px; ">
+                    <form class="row" asp-controller="BookingCart" asp-action="AddToBookingCart" method="post" style="display:flex;align-content:center;justify-content:center;">
+                        <div class="form-group col" hidden>
+                            <label class="control-label" asp-for="@Model.BookingRoomDetails.RoomId">Room ID</label>
+                            <input class="form-control" type="number" asp-for="@Model.BookingRoomDetails.RoomId" value=@item.RoomId />
+                        </div>
+                        <div class="col">
+                            <div class="form-group row">
+                                <label class="control-label" asp-for="@Model.BookingRoomDetails.CheckInDate">Check In Date</label>
+                                <input class="form-control" type="datetime" asp-for="@Model.BookingRoomDetails.CheckInDate" />
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label" asp-for="@Model.BookingRoomDetails.CheckOutDate">Check Out Date</label>
+                                <input class="form-control" type="datetime" asp-for="@Model.BookingRoomDetails.CheckOutDate" />
+                            </div>
+                        </div>
+                        <div class="form-group col">
+                            <label class="control-label" asp-for="@Model.BookingRoomDetails.AdultNo">Adult Number</label>
+                            <input class="form-control" type="number" asp-for="@Model.BookingRoomDetails.AdultNo" />
+                        </div>
+                        <div class="form-group col">
+                            <label class="control-label" asp-for="@Model.BookingRoomDetails.ChildrenNo">Children Number</label>
+                            <input class="form-control" type="number" asp-for="@Model.BookingRoomDetails.ChildrenNo" />
+                        </div>
+                        <div class="form-group col">
+                            <label class="control-label" asp-for="@Model.BookingRoomDetails.RoomQuantity">Room Quantity</label>
+                            <input class="form-control" type="number" asp-for="@Model.BookingRoomDetails.RoomQuantity" value=@item.RoomReq/>
+                        </div>
+                        <div class="form-group col" style="align-self:center;">
+                            <input type="submit" class="btn btn-primary" value="Add to Cart" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+@*@await Component.InvokeAsync("BookingRoomModal",new {
+                    bookingRoomDetails=Model.BookingRoomDetails,
+                    roomid=item.RoomId,
+                    reqrooms=(int)item.RoomReq
+                })*@
+@*<a asp-controller="BookingCart" asp-action="AddToBookingCart" asp-route-roomid=@item.RoomId
                    asp-route-qnty=2 asp-route-adultno=4 asp-route-childrenno=2
                 class="btn btn-primary">Book Room</a>*@
-                @Html.Partial("_PartialBookingRoomModal",new BookingRoomDetails{
+@*@Html.Partial("_PartialBookingRoomModal",new BookingRoomDetails{
                     RoomId=item.RoomId,
                     CheckInDate = Model.BookingRoomDetails.CheckInDate,
                     CheckOutDate = Model.BookingRoomDetails.CheckOutDate,
                     AdultNo = Model.BookingRoomDetails.AdultNo,
                     ChildrenNo = Model.BookingRoomDetails.ChildrenNo,
                     RoomQuantity = (int)item.RoomReq
-                });
-@*                <partial name="_PartialBookingRoomModal" model="@Model.BookingRoomDetails" view-data='@new ViewDataDictionary(ViewData) { { "RoomId", item.RoomId } }' />
-*@            </div>
-        </div>
-    }
-</div>
+                });*@
+@*<partial name="_PartialBookingRoomModal" model="@Model.BookingRoomDetails" view-data='@new ViewDataDictionary(ViewData) { { "RoomId", item.RoomId } }' />*@
+
 
 
