@@ -1,10 +1,8 @@
 ﻿@model RoomListViewModal
 
-@{
-    ViewData["Title"] = "Index";
-}
 
-<h1>Index</h1>
+
+<h1>Rooms</h1>
 
 <div class="container">
     @foreach (Room item in Model.Rooms)
@@ -20,8 +18,8 @@
                 <p class="card-text">Available Rooms : @item.RoomQuantity</p>
                 <p class="card-text">Minimum room needed : @item.RoomReq</p>
                 <p class="card-text">MaxPeople : @item.RoomType.MaxPeople , MaxAdult : @item.RoomType.MaxAdult , MaxChildren : @item.RoomType.MaxChildren</p>
-                <div class="container m-2" style="border:1px solid black;border-radius:20px;padding:1px; ">
-                    <form class="row" asp-controller="BookingCart" asp-action="AddToBookingCart" method="post" style="display:flex;align-content:center;justify-content:center;">
+                <div class="container m-2" style="border:1px solid black;border-radius:20px;">
+                    <form class="row m-2" asp-controller="BookingCart" asp-action="AddToBookingCart" method="post" style="display:flex;align-content:center;justify-content:center;">
                         <div class="form-group col" hidden>
                             <label class="control-label" asp-for="@Model.BookingRoomDetails.RoomId">Room ID</label>
                             <input class="form-control" type="number" asp-for="@Model.BookingRoomDetails.RoomId" value=@item.RoomId />

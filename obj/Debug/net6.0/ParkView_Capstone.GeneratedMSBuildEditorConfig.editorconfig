@@ -60,10 +60,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9vbVxTaW5nbGVSb29tLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/AbdulHadiPV/OneDrive - Kongsberg Digital AS/Desktop/Training/0Capstone/PageView_Capstone/Views/Shared/Components/BookingRoomModal/Default.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcQm9va2luZ1Jvb21Nb2RhbFxEZWZhdWx0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/AbdulHadiPV/OneDrive - Kongsberg Digital AS/Desktop/Training/0Capstone/PageView_Capstone/Views/Shared/Components/CartIcon/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcQ2FydEljb25cRGVmYXVsdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -74,10 +70,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/AbdulHadiPV/OneDrive - Kongsberg Digital AS/Desktop/Training/0Capstone/PageView_Capstone/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/AbdulHadiPV/OneDrive - Kongsberg Digital AS/Desktop/Training/0Capstone/PageView_Capstone/Views/Shared/_PartialBookingRoomModal.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QYXJ0aWFsQm9va2luZ1Jvb21Nb2RhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/AbdulHadiPV/OneDrive - Kongsberg Digital AS/Desktop/Training/0Capstone/PageView_Capstone/Views/Shared/_ValidationScriptsPartial.cshtml]
