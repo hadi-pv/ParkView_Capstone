@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using ParkView_Capstone.Models.Facilities;
+using ParkView_Capstone.Models.Hotels;
 using ParkView_Capstone.Models.Rooms;
 
 namespace ParkView_Capstone.Models
@@ -17,11 +19,14 @@ namespace ParkView_Capstone.Models
 
         public IEnumerable<RoomType> GetAllRoomTypes => _dbcontext.RoomType;
 
+       
         public IEnumerable<RoomOccupied> GetAllRoomOccupied => _dbcontext.RoomOccupied;
 
         public IEnumerable<RoomLocked> GetAllRoomLocked => _dbcontext.RoomLocked;
 
         public IEnumerable<FacilityType> GetAllFacilities => _dbcontext.FacilityType;
+
+        public IEnumerable<Hotel> GetAllHotels => _dbcontext.Hotel;
 
         public IEnumerable<Room> 
             GetAllAvailableRooms(string location, DateOnly CheckIn, DateOnly CheckOut, int AdultNo, int ChildrenNo)
@@ -49,6 +54,7 @@ namespace ParkView_Capstone.Models
             return rooms;
         }
 
+      
         //Check if it exists
         public int IsRoomLocked(Room room, DateOnly CheckIn, DateOnly CheckOut)
         {

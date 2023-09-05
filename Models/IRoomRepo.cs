@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ParkView_Capstone.Models.Facilities;
 using ParkView_Capstone.Models.Rooms;
+using ParkView_Capstone.Models.Hotels;
 
 namespace ParkView_Capstone.Models
 {
@@ -8,6 +9,8 @@ namespace ParkView_Capstone.Models
     {
         public IEnumerable<Room> GetAllRooms { get; }
         public IEnumerable<RoomType> GetAllRoomTypes { get; }
+
+        public IEnumerable<Hotel> GetAllHotels { get; }
         public IEnumerable<RoomLocked> GetAllRoomLocked { get; }
         public IEnumerable<RoomOccupied> GetAllRoomOccupied { get; }
 
