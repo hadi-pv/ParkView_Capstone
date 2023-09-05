@@ -1,17 +1,24 @@
-﻿using ParkView_Capstone.Models.Rooms;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using ParkView_Capstone.Models.Rooms;
 
 namespace ParkView_Capstone.Models.Bookings
 {
     public class BookingRoomDetails
     {
         public int BookingRoomDetailsId { get; set; }
-        public int BookingId { get; set; }
-        public int RoomTypeId { get; set; }
+        public int RoomId { get; set; }
         public int RoomQuantity { get; set; }
-        public DateOnly BookingDate { get; set; }
-        public decimal RoomPriceAmount { get; set; }
+        public decimal RoomPrice { get; set; }
+        public int AdultNo { get; set; }
+        public int ChildrenNo { get; set; }
+        public DateOnly CheckInDate { get; set; }
+        public DateOnly CheckOutDate { get; set; }
 
-        public Booking Booking { get; set; }
-        public RoomType RoomType { get; set; }
+        [BindNever]
+        public int TotalPeople => AdultNo + ChildrenNo;
+        [BindNever]
+        public decimal RoomPriceAmount => RoomPrice * RoomQuantity;
+
+        public Room Room { get; set; }
     }
 }

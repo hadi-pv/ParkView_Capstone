@@ -9,7 +9,6 @@ namespace ParkView_Capstone.Controllers
     public class RoomController : Controller
     {
         private readonly IRoomRepo _roomRepo;
-        private static Booking booking;
 
         public RoomController(IRoomRepo roomRepo) 
         { 
@@ -20,7 +19,19 @@ namespace ParkView_Capstone.Controllers
         {
             IEnumerable<Room> rooms = _roomRepo.GetAllAvailableRooms("Mumbai", new DateOnly(2023, 9, 4), new DateOnly(2023, 9, 7), 4,2);
 
-            return View(rooms);
+            RoomListViewModal roomListViewModal = new RoomListViewModal()
+            {
+                Rooms = rooms,
+                BookingRoomDetails = new BookingRoomDetails()
+                {
+                    CheckInDate = new DateOnly(2023, 9, 4),
+                    CheckOutDate = new DateOnly(2023, 9, 7),
+                    AdultNo = 4,
+                    ChildrenNo = 2
+                }
+            };
+
+            return View(roomListViewModal); 
         }
 
         public IActionResult SingleRoom(int roomid)
