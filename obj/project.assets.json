@@ -11093,24 +11093,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\AbdulHadiPV\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\PranayMhaiske\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\ParkView_Capstone.csproj",
+      "projectUniqueName": "C:\\Users\\PranayMhaiske\\Source\\Repos\\NewProj\\ParkView_Capstone.csproj",
       "projectName": "ParkView_Capstone",
-      "projectPath": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\ParkView_Capstone.csproj",
-      "packagesPath": "C:\\Users\\AbdulHadiPV\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\obj\\",
+      "projectPath": "C:\\Users\\PranayMhaiske\\Source\\Repos\\NewProj\\ParkView_Capstone.csproj",
+      "packagesPath": "C:\\Users\\PranayMhaiske\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\PranayMhaiske\\Source\\Repos\\NewProj\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\AbdulHadiPV\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\PranayMhaiske\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11118,7 +11113,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\sdk\\7.0.307\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -11179,7 +11174,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.307\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
       }
     }
   }
