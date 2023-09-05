@@ -665,12 +665,28 @@
       "PackagePath": "staticwebassets\\images\\gallery-6.png"
     },
     {
-      "Id": "C:\\Users\\PranayMhaiske\\Source\\Repos\\NewProj\\wwwroot\\images\\logo-2.png",
-      "PackagePath": "staticwebassets\\images\\logo-2.png"
+      "Id": "C:\\Users\\PranayMhaiske\\Source\\Repos\\NewProj\\wwwroot\\images\\hotel1",
+      "PackagePath": "staticwebassets\\images"
     },
     {
-      "Id": "C:\\Users\\PranayMhaiske\\Source\\Repos\\NewProj\\wwwroot\\images\\logo.png",
-      "PackagePath": "staticwebassets\\images\\logo.png"
+      "Id": "C:\\Users\\PranayMhaiske\\Source\\Repos\\NewProj\\wwwroot\\images\\hotel2.png",
+      "PackagePath": "staticwebassets\\images\\hotel2.png"
+    },
+    {
+      "Id": "C:\\Users\\PranayMhaiske\\Source\\Repos\\NewProj\\wwwroot\\images\\hotel3.jpeg",
+      "PackagePath": "staticwebassets\\images\\hotel3.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\PranayMhaiske\\Source\\Repos\\NewProj\\wwwroot\\images\\hotell1.jpeg",
+      "PackagePath": "staticwebassets\\images\\hotell1.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\PranayMhaiske\\Source\\Repos\\NewProj\\wwwroot\\images\\loader.PNG",
+      "PackagePath": "staticwebassets\\images\\loader.PNG"
+    },
+    {
+      "Id": "C:\\Users\\PranayMhaiske\\Source\\Repos\\NewProj\\wwwroot\\images\\logo3.png",
+      "PackagePath": "staticwebassets\\images\\logo3.png"
     },
     {
       "Id": "C:\\Users\\PranayMhaiske\\Source\\Repos\\NewProj\\wwwroot\\images\\room-1.png",

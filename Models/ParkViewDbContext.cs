@@ -15,6 +15,7 @@ namespace ParkView_Capstone.Models
 
         public DbSet<Service> Services { get; set; }
 
+        public DbSet<Hotel> Hotel { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<BookingRoomDetails> BookingRoomDetails { get; set; }
         public DbSet<BookingServiceDetails> BookingServiceDetails { get; set; }

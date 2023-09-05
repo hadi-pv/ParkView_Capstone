@@ -1,1 +1,105 @@
-﻿
+﻿a {
+    color: #0077cc;
+}
+
+.navbar navbar-expand-sm navbar-toggleable-sm navbar-light fixed-top {
+    background-color: rgb(244, 207, 113);
+}
+
+.scroll-navbar {
+    background-color: rgb(244, 207, 113); /* Change to your desired color */
+    transition: background-color 0.3s ease; /* Add a smooth transition effect */
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+
+
+
+ul {
+   
+    margin-left: 50px;
+    margin-bottom: 0px;
+}
+
+footer {
+    background: #282834;
+    color: #b6b7b9;
+    padding: 10% 0 5% 0;
+}
+
+    footer .grid {
+        grid-template-columns: 6fr 3fr 3fr;
+    }
+
+    footer p {
+        color: #b6b7b9;
+        font-size: 15px;
+        line-height: 25px;
+    }
+
+    footer .icon i {
+        margin: 20px 20px 20px 0;
+        color: #b6b7b9;
+    }
+
+    footer h2 {
+        color: #fff;
+        margin-bottom: 10px;
+    }
+
+    footer li {
+        margin-bottom: 20px;
+    }
+
+    footer i {
+        color: #7fc142;
+        margin: 20px 0;
+        margin-right: 20px;
+    }
+
+    footer label {
+        margin: 20px 0;
+    }
+
+.legal {
+    padding: 15px 0;
+    background: #282834;
+    color: #b6b7b9;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
