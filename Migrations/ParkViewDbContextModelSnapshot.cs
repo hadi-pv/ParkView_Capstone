@@ -224,45 +224,34 @@ namespace ParkView_Capstone.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ParkView_Capstone.Models.Bookings.Booking", b =>
+            modelBuilder.Entity("ParkView_Capstone.Models.Bookings.BookingCartItem", b =>
                 {
-                    b.Property<int>("BookingId")
+                    b.Property<int>("BookingCartItemId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingCartItemId"), 1L, 1);
 
-                    b.Property<string>("BookingLocation")
+                    b.Property<string>("BookingCartId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CheckInDate")
-                        .HasColumnType("date");
-
-                    b.Property<DateTime>("CheckOutDate")
-                        .HasColumnType("date");
-
-                    b.Property<int>("NumberOfAdults")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOfChildren")
+                    b.Property<int>("BookingRoomDetailsId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("RoomPriceFee")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("ServicePriceAmount")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("BookingId");
+                    b.HasKey("BookingCartItemId");
+
+                    b.HasIndex("BookingRoomDetailsId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("BookingCartItems");
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Bookings.BookingRoomDetails", b =>
@@ -273,26 +262,30 @@ namespace ParkView_Capstone.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingRoomDetailsId"), 1L, 1);
 
-                    b.Property<DateTime>("BookingDate")
-                        .HasColumnType("date");
-
-                    b.Property<int>("BookingId")
+                    b.Property<int>("AdultNo")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("RoomPriceAmount")
+                    b.Property<DateTime>("CheckInDate")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime>("CheckOutDate")
+                        .HasColumnType("date");
+
+                    b.Property<int>("ChildrenNo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("RoomPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("RoomQuantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomTypeId")
-                        .HasColumnType("int");
-
                     b.HasKey("BookingRoomDetailsId");
 
-                    b.HasIndex("BookingId");
-
-                    b.HasIndex("RoomTypeId");
+                    b.HasIndex("RoomId");
 
                     b.ToTable("BookingRoomDetails");
                 });
@@ -305,9 +298,6 @@ namespace ParkView_Capstone.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingServiceDetailsId"), 1L, 1);
 
-                    b.Property<int>("BookingId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
 
@@ -318,8 +308,6 @@ namespace ParkView_Capstone.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("BookingServiceDetailsId");
-
-                    b.HasIndex("BookingId");
 
                     b.HasIndex("ServiceId");
 
@@ -718,51 +706,41 @@ namespace ParkView_Capstone.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ParkView_Capstone.Models.Bookings.Booking", b =>
+            modelBuilder.Entity("ParkView_Capstone.Models.Bookings.BookingCartItem", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("ParkView_Capstone.Models.Bookings.BookingRoomDetails", "BookingRoomDetails")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("BookingRoomDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("BookingRoomDetails");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Bookings.BookingRoomDetails", b =>
                 {
-                    b.HasOne("ParkView_Capstone.Models.Bookings.Booking", "Booking")
+                    b.HasOne("ParkView_Capstone.Models.Rooms.Room", "Room")
                         .WithMany()
-                        .HasForeignKey("BookingId")
+                        .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ParkView_Capstone.Models.Rooms.RoomType", "RoomType")
-                        .WithMany()
-                        .HasForeignKey("RoomTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Booking");
-
-                    b.Navigation("RoomType");
+                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Bookings.BookingServiceDetails", b =>
                 {
-                    b.HasOne("ParkView_Capstone.Models.Bookings.Booking", "Booking")
-                        .WithMany()
-                        .HasForeignKey("BookingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ParkView_Capstone.Models.Services.Service", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Booking");
 
                     b.Navigation("Service");
                 });

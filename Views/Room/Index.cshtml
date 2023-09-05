@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ParkView_Capstone.Models.Rooms.Room>
+﻿@model RoomListViewModal
 
 @{
     ViewData["Title"] = "Index";
@@ -8,7 +8,7 @@
 
 
 <div class="container">
-    @foreach (var item in Model)
+    @foreach (Room item in Model.Rooms)
     {
         <div class="card row m-3">
             <div class="card-header">
@@ -22,7 +22,19 @@
                 <p class="card-text">Minimum room needed : @item.RoomReq</p>
                 <p class="card-text">MaxPeople : @item.RoomType.MaxPeople , MaxAdult : @item.RoomType.MaxAdult , MaxChildren : @item.RoomType.MaxChildren</p>
                 <a asp-action="SingleRoom" asp-route-roomid=@item.RoomId class="btn btn-primary">View Details</a>
-            </div>
+                @*<a asp-controller="BookingCart" asp-action="AddToBookingCart" asp-route-roomid=@item.RoomId
+                   asp-route-qnty=2 asp-route-adultno=4 asp-route-childrenno=2
+                class="btn btn-primary">Book Room</a>*@
+                @Html.Partial("_PartialBookingRoomModal",new BookingRoomDetails{
+                    RoomId=item.RoomId,
+                    CheckInDate = Model.BookingRoomDetails.CheckInDate,
+                    CheckOutDate = Model.BookingRoomDetails.CheckOutDate,
+                    AdultNo = Model.BookingRoomDetails.AdultNo,
+                    ChildrenNo = Model.BookingRoomDetails.ChildrenNo,
+                    RoomQuantity = (int)item.RoomReq
+                });
+@*                <partial name="_PartialBookingRoomModal" model="@Model.BookingRoomDetails" view-data='@new ViewDataDictionary(ViewData) { { "RoomId", item.RoomId } }' />
+*@            </div>
         </div>
     }
 </div>

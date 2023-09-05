@@ -31,8 +31,16 @@ namespace ParkView_Capstone.Models
         public IEnumerable<Room> 
             GetAllAvailableRooms(string location, DateOnly CheckIn, DateOnly CheckOut, int AdultNo, int ChildrenNo)
         {
-            IEnumerable<Room> rooms = GetAllRooms
-                .Where(r=>r.Hotel.HotelLocation.ToLower()==location.ToLower());
+            IEnumerable<Room> rooms;
+            if (location != "")
+            {
+                rooms = GetAllRooms
+                .Where(r => r.Hotel.HotelLocation.ToLower() == location.ToLower());
+            }
+            else
+            {
+                 rooms = GetAllRooms;
+            }
 
             foreach(var room in rooms)
             {

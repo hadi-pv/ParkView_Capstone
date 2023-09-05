@@ -1,0 +1,66 @@
+﻿@model BookingCartViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                RoomQuantity
+            </th>
+            <th>
+                RoomPrice
+            </th>
+            <th>
+                AdultNo
+            </th>
+            <th>
+                ChildrenNo
+            </th>
+            <th>
+                CheckInDate
+            </th>
+            <th>
+                CheckOutDate
+            </th>
+            <th>
+                Room
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.bookingCart) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingRoomDetails.RoomQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingRoomDetails.RoomPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingRoomDetails.AdultNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingRoomDetails.ChildrenNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingRoomDetails.CheckInDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingRoomDetails.CheckOutDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingRoomDetails.Room)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
