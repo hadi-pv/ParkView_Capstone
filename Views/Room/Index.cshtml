@@ -8,7 +8,7 @@
         {
             <div class="card row m-3 box-shadow" style="border-radius:10px;background-color:antiquewhite;">
                 <div class="card-header" style="background-color:#282834;color:white;">
-                    <span style="font-size:larger;font-weight:bold;font-size:xx-large;">@item.RoomType.RoomName.ToUpper()</span>
+                    <span style="font-weight:bold;font-size:xx-large;">@item.RoomType.RoomName.ToUpper()</span>
                     <a asp-action="SingleRoom" asp-route-roomid=@item.RoomId class="btn" style="background-color:#7FC142;color:white;font-weight:bold;float:right;">View Details</a>
                 </div>
                 <div class="card-body">
@@ -17,13 +17,14 @@
                         <hr style="color:#282834;">
                         <div class="row">
                             <div class="col" style="font-weight:bold;">
+                                <img src="@item.RoomType.RoomTypeImage" class="img-fluid" alt="Room Photo"/><br/><br/>
                                 <button type="button" class="btn" style="background-color:#7FC142;color:white;font-weight:bold;">
                                     Available Rooms &emsp;<span class="badge badge-light" style="color:green;background-color:white;">@item.RoomQuantity</span>
                                 </button><br><br>
                                 <button type="button" class="btn" style="background-color:#7FC142;color:white;font-weight:bold;">
                                     Price for a single room &emsp;<span class="badge badge-light" style="color:green;background-color:white;">@item.RoomPrice</span>
+                                    <span style="font-size:small;"> / Per Night</span>
                                 </button><br><br>
-                                <p class="card-text">Description:<br/>&emsp;@item.RoomType.RoomDescription</p>
                             </div>
                             <div class="col">
                                 <form asp-controller="BookingCart" asp-action="AddToBookingCart" method="post" style="display:flex;align-content:center;justify-content:center;">
@@ -34,30 +35,30 @@
                                         </div>
                                         <div class="row m-1">
                                             <div class="form-group col">
-                                                <label class="control-label" asp-for="@Model.BookingRoomDetails.CheckInDate">Check In Date</label>
+                                                <label class="control-label" asp-for="@Model.BookingRoomDetails.CheckInDate">Check In Date : </label>
                                                 <input class="form-control" type="date" asp-for=@Model.BookingRoomDetails.CheckInDate value=@Model.BookingRoomDetails.CheckInDate.ToString("yyyy-MM-dd") />
                                             </div>
                                             <div class="form-group col">
-                                                <label class="control-label" asp-for="@Model.BookingRoomDetails.CheckOutDate">Check Out Date</label>
+                                                <label class="control-label" asp-for="@Model.BookingRoomDetails.CheckOutDate">Check Out Date : </label>
                                                 <input class="form-control" type="date" asp-for="@Model.BookingRoomDetails.CheckOutDate" value=@Model.BookingRoomDetails.CheckOutDate.ToString("yyyy-MM-dd") />
                                             </div>
                                         </div>
                                         <div class="form-group row m-1">
-                                            <span class="col-8"><label class="control-label" asp-for="@Model.BookingRoomDetails.AdultNo">Number of Adult</label></span>
+                                            <span class="col-8"><label class="control-label" asp-for="@Model.BookingRoomDetails.AdultNo">Number of Adult : </label></span>
                                             <span class="col-4">
                                                 <input class="form-control col-8" type="number" asp-for="@Model.BookingRoomDetails.AdultNo"
                                                        value=@Model.BookingRoomDetails.AdultNo id="adult" />
                                             </span>
                                         </div>
                                         <div class="form-group row m-1">
-                                            <span class="col-8"><label class="control-label" asp-for="@Model.BookingRoomDetails.ChildrenNo">Number of Children</label></span>
+                                            <span class="col-8"><label class="control-label" asp-for="@Model.BookingRoomDetails.ChildrenNo">Number of Children : </label></span>
                                             <span class="col-4">
                                                 <input class="form-control" type="number" asp-for="@Model.BookingRoomDetails.ChildrenNo"
                                                        value=@Model.BookingRoomDetails.ChildrenNo id="child" />
                                             </span>
                                         </div>
                                         <div class="form-group row m-1">
-                                            <span class="col-8"><label class="control-label" asp-for="@Model.BookingRoomDetails.RoomQuantity">Room Quantity</label></span>
+                                            <span class="col-8"><label class="control-label" asp-for="@Model.BookingRoomDetails.RoomQuantity">Room Quantity : </label></span>
                                             <span class="col-4">
                                                 <input class="form-control" type="number" asp-for="@Model.BookingRoomDetails.RoomQuantity"
                                                        id="minroomreq" value=@item.RoomReq />
