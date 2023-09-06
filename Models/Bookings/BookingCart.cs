@@ -110,6 +110,7 @@ namespace ParkView_Capstone.Models.Bookings
             session.Clear();
         }
 
+
         private int DaysDifferenceDateOnlyConverted(DateOnly dateOnly1, DateOnly dateOnly2)
         {
             return (new DateTime(dateOnly1.Year, dateOnly1.Month, dateOnly1.Day) - new DateTime(dateOnly2.Year, dateOnly2.Month, dateOnly2.Day)).Days;
