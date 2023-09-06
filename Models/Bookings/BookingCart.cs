@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ParkView_Capstone.Models.Rooms;
 
 namespace ParkView_Capstone.Models.Bookings
 {
@@ -8,10 +9,12 @@ namespace ParkView_Capstone.Models.Bookings
         public List<BookingCartItem> BookingCartItems { get; set; }
         public decimal Total { get; set; }
         private readonly ParkViewDbContext _dbcontext;
+        public IServiceProvider serviceProvider { get; set; }
 
-        public BookingCart(ParkViewDbContext dbcontext)
+        public BookingCart(ParkViewDbContext dbcontext, IServiceProvider serviceProvider)
         {
             _dbcontext = dbcontext;
+            this.serviceProvider = serviceProvider;
         }
 
         public static BookingCart GetCart(IServiceProvider services)
@@ -24,7 +27,7 @@ namespace ParkView_Capstone.Models.Bookings
                 cartid = Guid.NewGuid().ToString();
                 session.SetString("CartId", cartid);
             }
-            return new BookingCart(context) { BookingCartId = cartid };
+            return new BookingCart(context,services) { BookingCartId = cartid };
         }
 
         public void AddToBookingCart(BookingRoomDetails roomDetails)
@@ -70,7 +73,34 @@ namespace ParkView_Capstone.Models.Bookings
                 (BookingCartItems = _dbcontext.BookingCartItems
                 .Where(c => c.BookingCartId == BookingCartId)
                 .Include(s => s.BookingRoomDetails).Include(s=>s.BookingRoomDetails.Room)
+                .Include(s => s.BookingRoomDetails.Room.RoomType).Include(s => s.BookingRoomDetails.Room.Hotel)
                 .ToList());
+        }
+
+        public void CompleteBooking(IEnumerable<BookingCartItem> bookingCartItems)
+        {
+            foreach(BookingCartItem bookingCartItem in bookingCartItems)
+            {
+                _dbcontext.RoomOccupied.Add(new RoomOccupied()
+                {
+                    RoomId = bookingCartItem.BookingRoomDetails.RoomId,
+                    RoomCheckIn = bookingCartItem.BookingRoomDetails.CheckInDate,
+                    RoomCheckOut = bookingCartItem.BookingRoomDetails.CheckOutDate,
+                    RoomQuantity = bookingCartItem.BookingRoomDetails.RoomQuantity,
+                    BookingRoomDetailsId = bookingCartItem.BookingRoomDetailsId,
+                    IsCancelled=false,
+                    Room = bookingCartItem.BookingRoomDetails.Room
+                });
+            }
+            _dbcontext.SaveChanges();
+            deleteSession();
+        }
+
+        public void deleteSession()
+        {
+            ISession session = serviceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext.Session;
+            BookingCartItems = default(List<BookingCartItem>);
+            session.Clear();
         }
     }
 }

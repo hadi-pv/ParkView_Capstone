@@ -242,14 +242,17 @@ namespace ParkView_Capstone.Migrations
                     b.Property<decimal>("RoomPriceFee")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UserId")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("BookingCartItemId");
 
                     b.HasIndex("BookingRoomDetailsId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("BookingCartItems");
                 });
@@ -283,9 +286,17 @@ namespace ParkView_Capstone.Migrations
                     b.Property<int>("RoomQuantity")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("BookingRoomDetailsId");
 
                     b.HasIndex("RoomId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("BookingRoomDetails");
                 });
@@ -532,6 +543,12 @@ namespace ParkView_Capstone.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomOccupiedId"), 1L, 1);
 
+                    b.Property<int>("BookingRoomDetailsId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsCancelled")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("RoomCheckIn")
                         .HasColumnType("date");
 
@@ -544,9 +561,17 @@ namespace ParkView_Capstone.Migrations
                     b.Property<int>("RoomQuantity")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("RoomOccupiedId");
 
                     b.HasIndex("RoomId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("RoomOccupied");
                 });
@@ -716,7 +741,7 @@ namespace ParkView_Capstone.Migrations
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("BookingRoomDetails");
 
@@ -731,7 +756,13 @@ namespace ParkView_Capstone.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
                     b.Navigation("Room");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Bookings.BookingServiceDetails", b =>
@@ -802,7 +833,13 @@ namespace ParkView_Capstone.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
                     b.Navigation("Room");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

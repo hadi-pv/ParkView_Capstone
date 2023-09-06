@@ -30,6 +30,21 @@ namespace ParkView_Capstone.Controllers
             return View(bookingcartviewmodel);
         }
 
+
+        public RedirectToActionResult AddRoomQuantity(int bookingdetailsid,int quantity)
+        {
+            var bookingcartitem = _bookingCart.GetBookingCartItems().SingleOrDefault(m => m.BookingCartItemId == bookingdetailsid);
+            if (quantity == 0)
+            {
+                _bookingCart.RemoveFromCart(bookingcartitem);
+            }
+            else
+            {
+                bookingcartitem.BookingRoomDetails.RoomQuantity= quantity;
+            }
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public RedirectToActionResult AddToBookingCart(BookingRoomDetails bookingRoomDetails)
         {
@@ -46,8 +61,8 @@ namespace ParkView_Capstone.Controllers
                     RoomPrice = room.RoomPrice,
                     AdultNo = bookingRoomDetails.AdultNo,
                     ChildrenNo = bookingRoomDetails.ChildrenNo,
-                    CheckInDate = bookingRoomDetails.CheckInDate,
-                    CheckOutDate = bookingRoomDetails.CheckOutDate
+                    CheckInDate = new DateOnly(2023, 9, 2),
+                    CheckOutDate = new DateOnly(2023, 9, 5)
                 };
                 _bookingCart.AddToBookingCart(selectedroom);
             }
@@ -58,5 +73,21 @@ namespace ParkView_Capstone.Controllers
 
             return RedirectToAction("Index");
         }
+
+
+        public IActionResult CompleteBooking()
+        {
+            var bookingcartitems=_bookingCart.GetBookingCartItems();
+            if (bookingcartitems == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                _bookingCart.CompleteBooking(bookingcartitems);
+                return View();
+            }
+        }
+            
     }
 }

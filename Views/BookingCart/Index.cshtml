@@ -1,63 +1,50 @@
 ﻿@model BookingCartViewModel
 
+<div class="container">
+    <h3>Booking Cart : </h3>
+    <hr/>
+    @foreach (var item in Model.bookingCart)
+    {
+        <div class="card mb-2">
+            <div class="card-header">
+                @item.BookingRoomDetails.Room.RoomType.RoomName ( @item.BookingRoomDetails.Room.Hotel.HotelName)
+            </div>
+            <div class="card-body container row">
+                <div class="col-md-8">
+                    Booked Date : @item.BookingRoomDetails.CheckInDate to @item.BookingRoomDetails.CheckOutDate<br/>
+                    Booked for @item.BookingRoomDetails.AdultNo adults and @item.BookingRoomDetails.ChildrenNo children.<br/>
+                    Max Adult : @item.BookingRoomDetails.Room.RoomType.MaxAdult*@item.BookingRoomDetails.RoomQuantity , Max Children : @item.BookingRoomDetails.Room.RoomType.MaxChildren * @item.BookingRoomDetails.RoomQuantity
+                    <div class="container row">
+                        <div class="col">
+                            Quantity of Rooms : @item.BookingRoomDetails.RoomQuantity
+                        </div>
+                        <div class="col">
+                            Price : @item.BookingRoomDetails.RoomPrice * @item.BookingRoomDetails.RoomQuantity = @item.RoomPriceFee
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" style="padding:1vh;">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a type="button" class="btn btn-warning text-dark" asp-action="AddRoomQuantity" asp-route-bookingdetailsid=@item.BookingCartItemId asp-route-quantity=@item.BookingRoomDetails.RoomQuantity-1>-</a>
+                        <button type="button" class="btn btn-outline-warning text-dark" disabled>Room Quantity : @item.BookingRoomDetails.RoomQuantity</button>
+                        <a type="button" class="btn btn-warning text-dark" asp-action="AddRoomQuantity" asp-route-bookingdetailsid=@item.BookingCartItemId asp-route-quantity=@item.BookingRoomDetails.RoomQuantity+1>+</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 
-<h1>Index</h1>
+    <hr />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                RoomQuantity
-            </th>
-            <th>
-                RoomPrice
-            </th>
-            <th>
-                AdultNo
-            </th>
-            <th>
-                ChildrenNo
-            </th>
-            <th>
-                CheckInDate
-            </th>
-            <th>
-                CheckOutDate
-            </th>
-            <th>
-                Room
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.bookingCart) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingRoomDetails.RoomQuantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingRoomDetails.RoomPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingRoomDetails.AdultNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingRoomDetails.ChildrenNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingRoomDetails.CheckInDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingRoomDetails.CheckOutDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingRoomDetails.Room)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+   <div class="row">
+       <div class="col">
+            <h3>
+                Total : @Model.bookingCart.Select(b=>b.RoomPriceFee).Sum()
+            </h3>
+       </div>
+       <div class="col">
+            <a type="button" class="btn btn-primary" asp-action="CompleteBooking">Proceed To Pay</a>
+       </div>
+   </div>
+
+</div>
