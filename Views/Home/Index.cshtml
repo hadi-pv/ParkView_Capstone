@@ -200,7 +200,7 @@ header .navlinks span {
 /*--------book---------*/
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-gap: 20px;
 }
 
@@ -683,7 +683,10 @@ footer label {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 /*--------footer---------*/
-
+input:hover {
+    color:green;
+    font-weight:bold;
+}
 }
 </style>
 <body>
@@ -699,11 +702,25 @@ footer label {
         <div class="content">
             <div class="owl-carousel owl-theme">
                 <div class="item">
-                    <img src="images/banner-1.png" alt="">
+                    <img style="height:450px;"src="images/banner-1.png" alt="">
                     <div class="text">
-                        <h1>Spend Your Holiday</h1>
-                        <p>
-                            Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por incid.
+                        <h1 style="color:white;">Spend Your Holiday</h1>
+                        <p style="color:white;">
+                             Great International Hotel
+                        </p>
+                        <div class="flex">
+                            <button class="primary-btn">READ MORE</button>
+                            <button class="secondary-btn">CONTACT US</button>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="item">
+                    <img style="height:450px;" src="images/banner-2.png" alt="">
+                    <div class="text">
+                        <h1 style="color:white;">Spacious & Royal Executive Hotels</h1>
+                        <p style="color:white;">
+                            Luxury Hotel
                         </p>
                         <div class="flex">
                             <button class="primary-btn">READ MORE</button>
@@ -712,24 +729,11 @@ footer label {
                     </div>
                 </div>
                 <div class="item">
-                    <img src="images/banner-2.png" alt="">
+                    <img style="height:450px;" src="images/banner-3.png" alt="">
                     <div class="text">
-                        <h1>Spend Your Holiday</h1>
-                        <p>
-                            Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por incid.
-                        </p>
-                        <div class="flex">
-                            <button class="primary-btn">READ MORE</button>
-                            <button class="secondary-btn">CONTACT US</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="images/banner-3.png" alt="">
-                    <div class="text">
-                        <h1>Spend Your Holiday</h1>
-                        <p>
-                            Lorem ipsum dolor sit amet constur adipisicing elit sed do eiusmtem por incid.
+                        <h1 style="color:white;">Luxury Services</h1>
+                        <p style="color:white;">
+                            Early Booking
                         </p>
                         <div class="flex">
                             <button class="primary-btn">READ MORE</button>
@@ -738,6 +742,7 @@ footer label {
                     </div>
                 </div>
             </div>
+            
         </div>
     </section>
 
@@ -751,13 +756,16 @@ footer label {
             margin: 0,
             nav: true,
             dots: false,
+            autoplay: true,
+            autoplayTimeout: 4000,
+            autoplayHoverPause: true,
             navText: ["<i class = 'fa fa-chevron-left'></i>", "<i class = 'fa fa-chevron-right'></i>"],
             responsive: {
                 0: {
                     items: 1
                 },
                 768: {
-                    items: 1
+                    items: 1,
                 },
                 1000: {
                     items: 1
@@ -768,23 +776,31 @@ footer label {
 
 
 
-
     <section class="book">
         <div class="container flex_space">
             <div class="text">
-                <h1> <span>Book </span> Your Rooms </h1>
+                <h1> <span>Book</span> Your Rooms </h1>
             </div>
+            <br />
             <div class="form">
                 <form class="grid">
-                    <input type="date" placeholder="Araival Date">
-                    <input type="date" placeholder="Departure Date">
-                    <input type="number" placeholder="Adults">
-                    <input type="number" placeholder="Childern">
-                    <input type="submit" value="CHECK AVAILABILITY">
+                    <select style="border-radius: 10%;" name="location" id="location">
+                        <option value="" disabled selected hidden>Location</option>
+                        <option value="mumbai">Mumbai</option>
+                        <option value="Blr">Bangalore</option>
+                        <option value="chennai">Chennai</option>
+                        
+                    </select>
+                    <input style="border-radius: 10%;"  type="date" placeholder="Araival Date">
+                    <input style="border-radius: 10%;" type="date" placeholder="Departure Date">
+                    <input style="border-radius: 10%;" type="number" placeholder="Adults">
+                    <input style="border-radius: 10%;"  type="number" placeholder="Childern">
+                    <input style="border-radius: 10%;" type="submit" value="CHECK AVAILABILITY">
                 </form>
             </div>
         </div>
     </section>
+    
 
 
 
@@ -796,8 +812,7 @@ footer label {
                     <h2>ParkView Hotel</h2>
                 </div>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    The ParkView Palace Hotel, commonly referred to as the ParkView Hotel, is an iconic luxury hotel situated in Mumbai, India. Established in 1903 by the Palace family, it boasts a captivating blend of architectural styles and has become a symbol of luxury and hospitality. Nestled in the Colaba area overlooking the Arabian Sea, the hotel offers opulent rooms and suites, award-winning dining options, and a rich history. The ParkView Hotel has hosted numerous prominent figures and remains a sought-after destination for both leisure and business travelers, as well as a historic landmark in the vibrant city of Mumbai.
                 </p>
                 <button class="primary-btn">ABOUT US</button>
             </div>
@@ -838,12 +853,12 @@ footer label {
 
                 <h2>Our Hotels</h2>
                 <p>
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                    Hotels often cater to business travelers by offering conference rooms, business centers, and high-speed internet access to meet the needs of professionals <br />on the road.
                 </p>
             </div>
 
             <div class="content mtop">
-                <div class="owl-carousel owl-carousel1 owl-theme">
+                <div class="owl-carousel  owl-theme non-nav">
                     @foreach (var item in Model)
                     {
                         <div class="items">
@@ -871,7 +886,7 @@ footer label {
                 
                 <h2>Our Rooms</h2>
                 <p>
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                    Hotel rooms come in various types, such as standard rooms, deluxe rooms, suites, and specialty rooms. Each offers different amenities and levels <br /> of comfort to cater to guests' preferences.
                 </p>
             </div>
 
@@ -922,6 +937,25 @@ footer label {
             nav: true,
             dots: false,
             navText: ["<i class = 'fa fa-chevron-left'></i>", "<i class = 'fa fa-chevron-right'></i>"],
+            responsive: {
+                0: {
+                    items: 1
+                },
+                768: {
+                    items: 2,
+                    margin: 10,
+                },
+                1000: {
+                    items: 3
+                }
+            }
+        })
+        $('.non-nav').owlCarousel({
+            loop: true,
+            margin: 40,
+            
+            dots: false,
+        
             responsive: {
                 0: {
                     items: 1
