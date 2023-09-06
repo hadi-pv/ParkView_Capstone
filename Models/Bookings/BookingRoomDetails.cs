@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ParkView_Capstone.Models.Rooms;
+using System.ComponentModel.DataAnnotations;
 
 namespace ParkView_Capstone.Models.Bookings
 {
@@ -20,8 +21,9 @@ namespace ParkView_Capstone.Models.Bookings
         public int TotalPeople => AdultNo + ChildrenNo;
         [BindNever]
         public decimal RoomPriceAmount => RoomPrice * RoomQuantity;
-
-        public IdentityUser User { get; set; }
-        public Room Room { get; set; }
+        [BindNever]
+        public IdentityUser? User { get; set; }
+        [BindNever]
+        public Room? Room { get; set; }
     }
 }

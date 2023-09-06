@@ -1,0 +1,813 @@
+﻿@using Microsoft.CodeAnalysis.Differencing;
+@model IEnumerable<ParkView_Capstone.Models.Rooms.Room>
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParkView Hotel</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    h1, h2 {
+        font-family: sans-serif;
+        font-weight: 400;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+        a:hover {
+            color: green;
+        }
+
+    li {
+        list-style: none;
+    }
+
+    .flex {
+        display: flex;
+    }
+
+    .flex_space {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    button {
+        border: none;
+        background: none;
+        outline: none;
+        transition: 0.5s;
+        cursor: pointer;
+    }
+
+    .primary-btn {
+        padding: 15px 40px;
+        background: #7fc142;
+        font-weight: bold;
+        color: white;
+    }
+
+    .secondary-btn {
+        padding: 15px 40px;
+        background: none;
+        border: 2px solid white;
+        font-weight: bold;
+        color: white;
+    }
+
+    .container {
+        max-width: 85%;
+        margin: auto;
+    }
+
+    /*--------header---------*/
+    header {
+        height: 10vh;
+        line-height: 10vh;
+        padding: 0 20px;
+    }
+
+        header img {
+            margin: 20px 0;
+        }
+
+        header ul {
+            display: inline-block;
+        }
+
+            header ul li {
+                display: inline-block;
+                text-transform: uppercase;
+            }
+
+                header ul li a {
+                    color: #000;
+                    margin: 0 10px;
+                    transition: 0.5s;
+                }
+
+                    header ul li a:hover {
+                        color: #7fc142;
+                    }
+
+        header i {
+            margin: 0 20px;
+        }
+
+        header button {
+            padding: 13px 40px;
+        }
+
+        header .navlinks span {
+            display: none;
+        }
+
+
+
+        header ul li {
+            display: block;
+        }
+
+            header ul li a {
+                color: white;
+            }
+
+        header i {
+            color: white;
+        }
+
+        header .navlinks span {
+            color: black;
+            display: block;
+            cursor: pointer;
+            line-height: 10vh;
+            font-size: 25px;
+        }
+
+    }
+
+    /*--------header---------*/
+    /*--------home---------*/
+    .home {
+        height: 100vh;
+        color: #fff;
+    }
+
+        .home img {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .home .text {
+            position: absolute;
+            top: 35%;
+            left: 5%;
+        }
+
+            .home .text h1 {
+                font-size: 80px;
+                font-family: serif;
+                font-weight: 400;
+            }
+
+        .home p {
+            margin: 20px 0;
+        }
+
+        .home button {
+            margin-right: 20px;
+        }
+
+    .owl-nav .owl-prev,
+    .owl-nav .owl-next {
+        position: absolute;
+        top: 40%;
+        height: 50px;
+        width: 50px;
+        background: rgba(0, 0, 0, 0.5) !important;
+        color: #fff;
+    }
+
+    .owl-nav .owl-prev {
+        left: 0;
+    }
+
+    .owl-nav .owl-next {
+        right: 0;
+    }
+
+    /*--------home---------*/
+    /*--------book---------*/
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-gap: 20px;
+    }
+
+    input {
+        outline: none;
+        border: none;
+        width: 100%;
+    }
+
+    .book {
+        padding: 40px 0;
+        background: #282834;
+        color: #fff;
+    }
+
+    h1 {
+        font-family: serif;
+    }
+
+    .book h1 {
+        font-size: 28px;
+    }
+
+        .book h1 span {
+            color: #7fc142;
+        }
+
+    .book input {
+        padding: 20px;
+    }
+
+        .book input:nth-last-child(1) {
+            background: #7fc142;
+            color: #fff;
+        }
+
+    /*--------book---------*/
+    /*--------about---------*/
+    .left, .right {
+        width: 50%;
+        padding: 30px;
+    }
+
+    .top {
+        margin-top: 80px;
+    }
+
+    .mtop {
+        margin-top: 40px;
+    }
+
+    .heading h1 {
+        font-size: 100px;
+        font-weight: 500;
+        opacity: 0.1;
+        font-family: serif;
+        position: absolute;
+        top: -30px;
+    }
+
+    .heading h2 {
+        margin: 30px 0;
+        font-size: 45px;
+        font-family: serif;
+        font-weight: 400;
+    }
+
+    .about .heading h1 {
+        top: 55px;
+    }
+
+    .about {
+        position: relative;
+    }
+
+        .about .left {
+            margin-top: 30px;
+        }
+
+        .about p {
+            font-size: 15px;
+        }
+
+        .about button {
+            margin: 30px 0;
+        }
+
+    /*--------about---------*/
+    /*--------counter---------*/
+    .counter {
+        background-image: url("../images/background-1.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 30vh;
+        width: 100%;
+        color: #fff;
+    }
+
+        .counter .grid {
+            grid-template-columns: repeat(4, 1fr);
+            text-align: center;
+            place-items: center;
+            padding-top: 60px;
+        }
+
+        .counter h1 {
+            font-size: 50px;
+        }
+
+        .counter hr {
+            width: 50%;
+            margin: 10px auto;
+            background: #7fc142;
+            height: 2px;
+            border: none;
+        }
+
+    /*--------counter---------*/
+    /*--------rooms---------*/
+    .rooms {
+        position: relative;
+    }
+
+        .rooms .text {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-top: none;
+            padding: 30px;
+        }
+
+        .rooms i {
+            font-size: 12px;
+            color: #fbb234;
+            margin: 15px 0;
+            margin-right: 5px;
+        }
+
+        .rooms p {
+            margin: 20px 0;
+            opacity: 0.7;
+        }
+
+        .rooms h5 {
+            font-size: 20px;
+            line-height: 10px;
+            margin-left: 20px;
+            font-weight: 350;
+            color: #7fc142;
+        }
+
+        .rooms h3 span {
+            font-size: 15px;
+            font-weight: 400;
+            color: #000;
+        }
+
+    .owl-carousel1 .owl-nav .owl-prev,
+    .owl-carousel1 .owl-nav .owl-next {
+        position: absolute;
+        top: -20%;
+        height: 50px;
+        width: 50px;
+        background: #7fc142 !important;
+    }
+
+        .owl-carousel1 .owl-nav .owl-prev i,
+        .owl-carousel1 .owl-nav .owl-next i {
+            color: #fff;
+        }
+
+    .owl-carousel1 .owl-nav .owl-prev {
+        left: 90%;
+    }
+
+    .owl-carousel1 .owl-nav .owl-next {
+        right: 0;
+    }
+
+    /*--------rooms---------*/
+    /*--------gallery---------*/
+    .gallery {
+        position: relative;
+    }
+
+        .gallery img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .gallery .img {
+            position: relative;
+        }
+
+            .gallery .img::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                background: rgba(126, 193, 65, 0.86);
+                width: 255px;
+                height: 251px;
+                z-index: 2;
+                opacity: 0;
+                transition: 0.5s;
+            }
+
+    .overlay {
+        position: absolute;
+        top: 35%;
+        left: 25%;
+        z-index: 3;
+        text-align: center;
+        color: white;
+        opacity: 0;
+        transition: 0.5s;
+    }
+
+    .gallery span {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        border-radius: 50%;
+        text-align: center;
+        border: 2px solid white;
+    }
+
+    .overlay h3 {
+        margin-top: 20px;
+        font-weight: 500;
+    }
+
+    .gallery .items:hover .overlay,
+    .gallery .items:hover .img::after {
+        opacity: 1;
+        cursor: pointer;
+    }
+
+    .gallery .owl-nav .owl-prev {
+        left: 85%;
+    }
+
+    .gallery .owl-nav .owl-next {
+        right: 5%;
+    }
+
+    .gallery .owl-nav .owl-next,
+    .gallery .owl-nav .owl-prev {
+        top: -40%;
+    }
+
+    /*--------gallery---------*/
+    /*--------services---------*/
+    .services {
+        position: relative;
+    }
+
+    .grid2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 30px;
+    }
+
+    .services .left {
+        padding: 30px 0;
+    }
+
+    .services .box {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: 0.5s;
+        padding: 20px;
+    }
+
+        .services .box .text {
+            padding: 30px 0;
+            border: 1px dashed #fff;
+        }
+
+    .services i {
+        font-size: 50px;
+        color: #7fc142;
+        transition: 0.5s;
+    }
+
+    .services h3 {
+        font-size: 20px;
+        font-weight: 400;
+        margin-top: 20p;
+        transition: 0.5s;
+    }
+
+    .services img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .services .box:hover {
+        background: #7fc142;
+        color: #fff;
+        cursor: pointer;
+    }
+
+        .services .box:hover i,
+        .services .box:hover h3 {
+            color: #fff;
+        }
+
+    /*--------services---------*/
+    /*--------Customer---------*/
+    .Customer {
+        background-image: url("../images/background-2.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 70vh;
+        width: 100%;
+        color: #fff;
+        text-align: center;
+    }
+
+        .Customer .container {
+            max-width: 70%;
+        }
+
+        .Customer .item {
+            padding: 10% 0;
+        }
+
+        .Customer i {
+            width: 100px;
+            height: 100px;
+            background: rgba(126, 193, 64, 0.57);
+            line-height: 100px;
+            border-radius: 50%;
+            font-size: 50px;
+            margin-bottom: 50px;
+        }
+
+        .Customer p {
+            line-height: 30px;
+        }
+
+        .Customer h3 {
+            margin-top: 20px;
+            color: #7fc142;
+        }
+
+        .Customer span {
+            font-size: 15px;
+        }
+
+    .owl-carousel2 .owl-dots {
+        position: absolute;
+        bottom: 70px;
+        left: 46.6%;
+    }
+
+        .owl-carousel2 .owl-dots i {
+            color: #7fc142;
+        }
+
+            .owl-carousel2 .owl-dots i:hover button {
+                color: #7fc142 !important;
+            }
+
+    .owl-carousel2 span {
+        border: 2px solid #fff;
+        background: transparent !important;
+    }
+
+    .owl-carousel2 .active span {
+        background: #7fc142 !important;
+        border: 2px solid #7fc142;
+    }
+
+    /*--------Customer---------*/
+    /*--------news---------*/
+    .news {
+        position: relative;
+    }
+
+        .news i {
+            color: #7fc142;
+            text-transform: capitalize;
+            font-size: 18px;
+        }
+
+        .news label {
+            margin-top: 12px;
+            margin-right: 20px;
+        }
+
+        .news .left {
+            padding: 30px 0;
+            width: 65%;
+        }
+
+        .news .right {
+            width: 35%;
+        }
+
+        .news img {
+            width: 100%;
+        }
+
+        .news .items p {
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .news .box {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            padding: 40px 0;
+        }
+
+            .news .box:nth-child(1) {
+                padding-top: 0;
+            }
+
+            .news .box:nth-last-child(1) {
+                border-bottom: none;
+            }
+
+            .news .box img {
+                width: 110px;
+                height: 114px;
+            }
+
+        .news .stext {
+            padding: 0 0 0 20px;
+        }
+
+
+
+
+
+    /*--------footer---------*/
+    footer {
+        background: #282834;
+        color: #b6b7b9;
+        padding: 10% 0 5% 0;
+    }
+
+        footer .grid {
+            grid-template-columns: 6fr 3fr 3fr;
+        }
+
+        footer p {
+            color: #b6b7b9;
+            font-size: 15px;
+            line-height: 25px;
+        }
+
+        footer .icon i {
+            margin: 20px 20px 20px 0;
+            color: #b6b7b9;
+        }
+
+        footer h2 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        footer li {
+            margin-bottom: 20px;
+        }
+
+        footer i {
+            color: #7fc142;
+            margin: 20px 0;
+            margin-right: 20px;
+        }
+
+        footer label {
+            margin: 20px 0;
+        }
+
+    .legal {
+        padding: 15px 0;
+        background: #282834;
+        color: #b6b7b9;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    /*--------footer---------*/
+    input:hover {
+        color: green;
+        font-weight: bold;
+    }
+
+    }
+</style>
+
+<body>
+
+
+
+
+
+
+
+
+    <section class="home">
+        <div class="content">
+            <div class="owl-carousel owl-theme">
+                <div class="item">
+                    <img style="height:450px;" src="/images/banner-3.png" alt="">
+                    <div class="text">
+                        <h1 style="color:white;">About Us</h1>
+                       
+
+                    </div>
+                </div>
+              
+            </div>
+
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.js" integrity="sha512-gY25nC63ddE0LcLPhxUJGFxa2GoIyA5FLym4UJqHDEMHjp8RET6Zn/SHo1sltt3WuVtqfyxECP38/daUc/WVEA==" crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 0,
+            nav: true,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 4000,
+            autoplayHoverPause: true,
+            navText: ["<i class = 'fa fa-chevron-left'></i>", "<i class = 'fa fa-chevron-right'></i>"],
+            responsive: {
+                0: {
+                    items: 1
+                },
+                768: {
+                    items: 1,
+                },
+                1000: {
+                    items: 1
+                }
+            }
+        })
+    </script>
+
+
+
+    <section class="book">
+        <div class="container flex_space">
+            <div class="text">
+                <h1> <span>Book</span> Your Rooms </h1>
+            </div>
+            <br />
+            <div class="form">
+                <form class="grid">
+                    <select style="border-radius: 10%;" name="location" id="location">
+                        <option value="" disabled selected hidden>Location</option>
+                        <option value="mumbai">Mumbai</option>
+                        <option value="Blr">Bangalore</option>
+                        <option value="chennai">Chennai</option>
+
+                    </select>
+                    <input style="border-radius: 10%;" type="date" placeholder="Araival Date">
+                    <input style="border-radius: 10%;" type="date" placeholder="Departure Date">
+                    <input style="border-radius: 10%;" type="number" placeholder="Adults">
+                    <input style="border-radius: 10%;" type="number" placeholder="Childern">
+                    <input style="border-radius: 10%;" type="submit" value="CHECK AVAILABILITY">
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <br />
+    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
+        <h2 class="w3-wide">THE PARKVIEW HOTEL</h2>
+        <p class="w3-opacity"><i>Hotel Chain</i></p>
+        <p class="w3-justify">
+            The ParkView Palace Hotel, affectionately known as the ParkView Hotel, stands as a living testament to luxury and history in Mumbai, India. Its doors first swung open in 1903, a creation of the visionary Tata family, and since then, it has remained an architectural masterpiece that blends Indian, Islamic, and Renaissance influences into its design. Located in the prestigious Colaba neighborhood with sweeping views of the Arabian Sea and the iconic Gateway of India, the hotel is a beacon of opulence and elegance. Its accommodation options range from the opulent suites of the Palace Wing to the charmingly historic rooms of the Heritage Wing, all adorned with plush furnishings and modern amenities.Culinary excellence is a hallmark of the ParkView Hotel, offering an array of fine dining experiences that span Indian, Continental, Chinese, and more, often adorned with accolades and awards. The hotel has also been a chosen venue for numerous high-profile weddings, conferences, and events, thanks to its grand ballrooms and banquet facilities.While known for its luxurious offerings, the ParkView Hotel also holds a somber place in history due to the tragic events of November 26, 2008, when it was targeted during the Mumbai attacks. The bravery and resilience displayed by the staff during those trying times earned widespread admiration.
+        </p>
+
+    </div>
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/032d11eac3.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

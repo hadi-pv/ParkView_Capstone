@@ -48,11 +48,12 @@ namespace ParkView_Capstone.Controllers
         [HttpPost]
         public RedirectToActionResult AddToBookingCart(BookingRoomDetails bookingRoomDetails)
         {
-            Console.WriteLine(ModelState.IsValid);
-            if(!ModelState.IsValid)
+            Console.WriteLine(ModelState);
+            if(ModelState.IsValid)
             {
                 Room room = _roomRepo.GetAllRooms.First(r => r.RoomId == bookingRoomDetails.RoomId);
-                Console.WriteLine(room.RoomType.RoomName);
+                Console.WriteLine(bookingRoomDetails.CheckInDate);
+
                 var selectedroom = new BookingRoomDetails()
                 {
                     RoomId = bookingRoomDetails.RoomId,
@@ -61,8 +62,8 @@ namespace ParkView_Capstone.Controllers
                     RoomPrice = room.RoomPrice,
                     AdultNo = bookingRoomDetails.AdultNo,
                     ChildrenNo = bookingRoomDetails.ChildrenNo,
-                    CheckInDate = new DateOnly(2023, 9, 2),
-                    CheckOutDate = new DateOnly(2023, 9, 5)
+                    CheckInDate = DateOnly.ParseExact(bookingRoomDetails.CheckInDate.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null),
+                    CheckOutDate = DateOnly.ParseExact(bookingRoomDetails.CheckOutDate.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null)
                 };
                 _bookingCart.AddToBookingCart(selectedroom);
             }

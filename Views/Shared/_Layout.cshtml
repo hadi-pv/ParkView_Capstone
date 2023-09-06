@@ -21,6 +21,9 @@
             background-color: white; /* Change to your desired color */
             transition: background-color 0.3s ease; /* Add a smooth transition effect */
         }
+        .scroll-navbar1{
+            background-color: rgba(255,255,255,0.5);
+        }
 
         .nav {
           
@@ -102,6 +105,7 @@
 
         a {
             text-decoration: none;
+            font-weight:bold;
         }
 
         li {
@@ -772,7 +776,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">HOME</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">ABOUT</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Aboutus">ABOUT</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Room" asp-action="Index">ROOMS</a>
@@ -872,18 +876,19 @@
                 navbar.classList.add("scroll-navbar");
             } else {
                 navbar.classList.remove("scroll-navbar");
+               
             }
         });
-        var menulist = document.getElementById('menulist');
-        menulist.style.maxHeight = "0px";
+        //var menulist = document.getElementById('menulist');
+        //menulist.style.maxHeight = "0px";
 
-        function menutoggle() {
-            if (menulist.style.maxHeight == "0px") {
-                menulist.style.maxHeight = "100vh";
-            } else {
-                menulist.style.maxHeight = "0px";
-            }
-        }
+        //function menutoggle() {
+        //    if (menulist.style.maxHeight == "0px") {
+        //        menulist.style.maxHeight = "100vh";
+        //    } else {
+        //        menulist.style.maxHeight = "0px";
+        //    }
+        //}
     </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

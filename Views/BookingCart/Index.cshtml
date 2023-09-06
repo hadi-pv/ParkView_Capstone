@@ -19,7 +19,9 @@
                             Quantity of Rooms : @item.BookingRoomDetails.RoomQuantity
                         </div>
                         <div class="col">
-                            Price : @item.BookingRoomDetails.RoomPrice * @item.BookingRoomDetails.RoomQuantity = @item.RoomPriceFee
+                            Price : @item.BookingRoomDetails.RoomPrice
+                            * @Convert.ToInt32((new DateTime(@item.BookingRoomDetails.CheckOutDate.Year, @item.BookingRoomDetails.CheckOutDate.Month, @item.BookingRoomDetails.CheckOutDate.Day) - new DateTime(@item.BookingRoomDetails.CheckInDate.Year, @item.BookingRoomDetails.CheckInDate.Month, @item.BookingRoomDetails.CheckInDate.Day)).Days)
+                                * @item.BookingRoomDetails.RoomQuantity = @item.RoomPriceFee
                         </div>
                     </div>
                 </div>

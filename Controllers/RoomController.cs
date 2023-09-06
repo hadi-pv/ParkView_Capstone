@@ -17,7 +17,7 @@ namespace ParkView_Capstone.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Room> rooms = _roomRepo.GetAllAvailableRooms("Chennai", new DateOnly(2023, 9, 4), new DateOnly(2023, 9, 7), 4,2);
+            IEnumerable<Room> rooms = _roomRepo.GetAllAvailableRooms("Bengaluru", new DateOnly(2023, 9, 4), new DateOnly(2023, 9, 7), 5,3);
 
             RoomListViewModal roomListViewModal = new RoomListViewModal()
             {
@@ -26,8 +26,8 @@ namespace ParkView_Capstone.Controllers
                 {
                     CheckInDate = new DateOnly(2023, 9, 4),
                     CheckOutDate = new DateOnly(2023, 9, 7),
-                    AdultNo = 4,
-                    ChildrenNo = 2
+                    AdultNo = 5,
+                    ChildrenNo = 3
                 }
             };
 

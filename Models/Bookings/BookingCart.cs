@@ -43,13 +43,13 @@ namespace ParkView_Capstone.Models.Bookings
                     BookingCartId = BookingCartId,
                     BookingRoomDetailsId = roomDetails.BookingRoomDetailsId,
                     BookingRoomDetails = roomDetails,
-                    RoomPriceFee = roomDetails.RoomPriceAmount,
+                    RoomPriceFee = roomDetails.RoomPriceAmount * DaysDifferenceDateOnlyConverted(roomDetails.CheckOutDate,roomDetails.CheckInDate),
                 };
                 _dbcontext.BookingCartItems.Add(brdetails);
             }
             else
             {
-                brdetails.BookingRoomDetails.RoomQuantity=roomDetails.RoomQuantity;
+                brdetails.BookingRoomDetails=roomDetails;
             }
             _dbcontext.SaveChanges();
         }
@@ -101,6 +101,11 @@ namespace ParkView_Capstone.Models.Bookings
             ISession session = serviceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext.Session;
             BookingCartItems = default(List<BookingCartItem>);
             session.Clear();
+        }
+
+        private int DaysDifferenceDateOnlyConverted(DateOnly dateOnly1, DateOnly dateOnly2)
+        {
+            return (new DateTime(dateOnly1.Year, dateOnly1.Month, dateOnly1.Day) - new DateTime(dateOnly2.Year, dateOnly2.Month, dateOnly2.Day)).Days;
         }
     }
 }
