@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParkView_Capstone.Models;
 
@@ -11,9 +12,10 @@ using ParkView_Capstone.Models;
 namespace ParkView_Capstone.Migrations
 {
     [DbContext(typeof(ParkViewDbContext))]
-    partial class ParkViewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230906173122_migration12")]
+    partial class migration12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,9 +234,6 @@ namespace ParkView_Capstone.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingCartItemId"), 1L, 1);
 
-                    b.Property<DateTime>("BookedDate")
-                        .HasColumnType("date");
-
                     b.Property<string>("BookingCartId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -245,13 +244,17 @@ namespace ParkView_Capstone.Migrations
                     b.Property<decimal>("RoomPriceFee")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("BookingCartItemId");
 
                     b.HasIndex("BookingRoomDetailsId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("BookingCartItems");
                 });
@@ -266,9 +269,6 @@ namespace ParkView_Capstone.Migrations
 
                     b.Property<int>("AdultNo")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("BookedDate")
-                        .HasColumnType("date");
 
                     b.Property<DateTime>("CheckInDate")
                         .HasColumnType("date");
@@ -288,12 +288,17 @@ namespace ParkView_Capstone.Migrations
                     b.Property<int>("RoomQuantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("BookingRoomDetailsId");
 
                     b.HasIndex("RoomId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("BookingRoomDetails");
                 });
@@ -314,10 +319,6 @@ namespace ParkView_Capstone.Migrations
 
                     b.Property<int>("ServiceQuantity")
                         .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BookingServiceDetailsId");
 
@@ -562,13 +563,17 @@ namespace ParkView_Capstone.Migrations
                     b.Property<int>("RoomQuantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("RoomOccupiedId");
 
                     b.HasIndex("RoomId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("RoomOccupied");
                 });
@@ -594,9 +599,6 @@ namespace ParkView_Capstone.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("RoomGst")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("RoomName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -617,7 +619,6 @@ namespace ParkView_Capstone.Migrations
                             MaxChildren = 3,
                             MaxPeople = 9,
                             RoomDescription = "It is a Presidential Suite",
-                            RoomGst = 18m,
                             RoomName = "Presidential Suite",
                             RoomTypeImage = ""
                         },
@@ -628,7 +629,6 @@ namespace ParkView_Capstone.Migrations
                             MaxChildren = 2,
                             MaxPeople = 7,
                             RoomDescription = "It is a Executive",
-                            RoomGst = 18m,
                             RoomName = "Executive",
                             RoomTypeImage = ""
                         },
@@ -639,7 +639,6 @@ namespace ParkView_Capstone.Migrations
                             MaxChildren = 2,
                             MaxPeople = 6,
                             RoomDescription = "It is a Super Deluxe",
-                            RoomGst = 12m,
                             RoomName = "Super Deluxe",
                             RoomTypeImage = ""
                         },
@@ -650,7 +649,6 @@ namespace ParkView_Capstone.Migrations
                             MaxChildren = 2,
                             MaxPeople = 4,
                             RoomDescription = "It is a Deluxe",
-                            RoomGst = 12m,
                             RoomName = "Deluxe",
                             RoomTypeImage = ""
                         });
@@ -743,7 +741,13 @@ namespace ParkView_Capstone.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
                     b.Navigation("BookingRoomDetails");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Bookings.BookingRoomDetails", b =>
@@ -754,7 +758,13 @@ namespace ParkView_Capstone.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
                     b.Navigation("Room");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Bookings.BookingServiceDetails", b =>
@@ -825,7 +835,13 @@ namespace ParkView_Capstone.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
                     b.Navigation("Room");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

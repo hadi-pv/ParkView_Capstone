@@ -57,7 +57,8 @@ namespace ParkView_Capstone.Models
                     RoomTypeImage = "",
                     MaxAdult = 6,
                     MaxChildren = 3,
-                    MaxPeople = 9
+                    MaxPeople = 9,
+                    RoomGst=18
                 });
             modelBuilder.Entity<RoomType>().HasData(
                 new RoomType()
@@ -68,7 +69,8 @@ namespace ParkView_Capstone.Models
                     RoomTypeImage = "",
                     MaxAdult = 5,
                     MaxChildren = 2,
-                    MaxPeople = 7
+                    MaxPeople = 7,
+                    RoomGst = 18
                 });
             modelBuilder.Entity<RoomType>().HasData(
                 new RoomType()
@@ -79,7 +81,8 @@ namespace ParkView_Capstone.Models
                     RoomTypeImage = "",
                     MaxAdult = 4,
                     MaxChildren = 2,
-                    MaxPeople = 6
+                    MaxPeople = 6,
+                    RoomGst = 12
                 });
             modelBuilder.Entity<RoomType>().HasData(
                 new RoomType()
@@ -90,7 +93,8 @@ namespace ParkView_Capstone.Models
                     RoomTypeImage = "",
                     MaxAdult = 2,
                     MaxChildren = 2,
-                    MaxPeople = 4
+                    MaxPeople = 4,
+                    RoomGst = 12
                 });
 
 

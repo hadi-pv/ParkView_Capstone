@@ -3,18 +3,25 @@ using ParkView_Capstone.Models;
 using ParkView_Capstone.Models.Bookings;
 using ParkView_Capstone.Models.Rooms;
 using ParkView_Capstone.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ParkView_Capstone.Controllers
 {
+    [Authorize]
     public class BookingCartController : Controller
     {
         private readonly IRoomRepo _roomRepo;
         private readonly BookingCart _bookingCart;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly ParkViewDbContext _dbcontext;
 
-        public BookingCartController(IRoomRepo roomRepo, BookingCart bookingCart)
+        public BookingCartController(IRoomRepo roomRepo, BookingCart bookingCart,UserManager<IdentityUser> userManager,ParkViewDbContext parkViewDbContext)
         {
             _roomRepo = roomRepo;
             _bookingCart = bookingCart;
+            _userManager = userManager;
+            _dbcontext = parkViewDbContext;
         }
 
         public IActionResult Index()
@@ -40,8 +47,9 @@ namespace ParkView_Capstone.Controllers
             }
             else
             {
-                bookingcartitem.BookingRoomDetails.RoomQuantity= quantity;
+                bookingcartitem.BookingRoomDetails.RoomQuantity = quantity;
             }
+            _dbcontext.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -63,7 +71,9 @@ namespace ParkView_Capstone.Controllers
                     AdultNo = bookingRoomDetails.AdultNo,
                     ChildrenNo = bookingRoomDetails.ChildrenNo,
                     CheckInDate = DateOnly.ParseExact(bookingRoomDetails.CheckInDate.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null),
-                    CheckOutDate = DateOnly.ParseExact(bookingRoomDetails.CheckOutDate.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null)
+                    CheckOutDate = DateOnly.ParseExact(bookingRoomDetails.CheckOutDate.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null),
+                    BookedDate = new DateOnly(DateTime.Now.Date.Year, DateTime.Now.Date.Month, DateTime.Now.Date.Day),
+                    UserId = _userManager.GetUserId(HttpContext.User)
                 };
                 _bookingCart.AddToBookingCart(selectedroom);
             }
@@ -76,7 +86,7 @@ namespace ParkView_Capstone.Controllers
         }
 
 
-        public IActionResult CompleteBooking()
+        public IActionResult CompleteBooking(decimal total)
         {
             var bookingcartitems=_bookingCart.GetBookingCartItems();
             if (bookingcartitems == null)
@@ -86,7 +96,20 @@ namespace ParkView_Capstone.Controllers
             else
             {
                 _bookingCart.CompleteBooking(bookingcartitems);
-                return View();
+                decimal gstamt=0;
+                foreach (var item in bookingcartitems)
+                {
+                    gstamt = item.RoomPriceFee * item.BookingRoomDetails.Room.RoomType.RoomGst;
+                }
+                CheckOut checkOut = new CheckOut()
+                {
+                    BookingCartId = bookingcartitems.First().BookingCartId,
+                    Items = bookingcartitems,
+                    BookedDate = new DateOnly(DateTime.Now.Date.Year, DateTime.Now.Date.Month, DateTime.Now.Date.Day),
+                    Total = total+gstamt,
+                    User = _dbcontext.Users.SingleOrDefault(s=>s.Id==bookingcartitems.First().UserId)
+                };
+                return View(checkOut);
             }
         }
             

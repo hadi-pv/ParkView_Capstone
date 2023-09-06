@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParkView_Capstone.Models;
 
@@ -11,9 +12,10 @@ using ParkView_Capstone.Models;
 namespace ParkView_Capstone.Migrations
 {
     [DbContext(typeof(ParkViewDbContext))]
-    partial class ParkViewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230906174851_migration14")]
+    partial class migration14
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -289,6 +291,7 @@ namespace ParkView_Capstone.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BookingRoomDetailsId");
@@ -594,9 +597,6 @@ namespace ParkView_Capstone.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("RoomGst")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("RoomName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -617,7 +617,6 @@ namespace ParkView_Capstone.Migrations
                             MaxChildren = 3,
                             MaxPeople = 9,
                             RoomDescription = "It is a Presidential Suite",
-                            RoomGst = 18m,
                             RoomName = "Presidential Suite",
                             RoomTypeImage = ""
                         },
@@ -628,7 +627,6 @@ namespace ParkView_Capstone.Migrations
                             MaxChildren = 2,
                             MaxPeople = 7,
                             RoomDescription = "It is a Executive",
-                            RoomGst = 18m,
                             RoomName = "Executive",
                             RoomTypeImage = ""
                         },
@@ -639,7 +637,6 @@ namespace ParkView_Capstone.Migrations
                             MaxChildren = 2,
                             MaxPeople = 6,
                             RoomDescription = "It is a Super Deluxe",
-                            RoomGst = 12m,
                             RoomName = "Super Deluxe",
                             RoomTypeImage = ""
                         },
@@ -650,7 +647,6 @@ namespace ParkView_Capstone.Migrations
                             MaxChildren = 2,
                             MaxPeople = 4,
                             RoomDescription = "It is a Deluxe",
-                            RoomGst = 12m,
                             RoomName = "Deluxe",
                             RoomTypeImage = ""
                         });

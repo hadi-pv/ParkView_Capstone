@@ -1,7 +1,90 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
+@model CheckOut
 
-<h1>Booking Completed</h1>
+
+    <style>
+
+        .receipt {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .header {
+            background-color: #282834;
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .info {
+            margin-top: 20px;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+
+        .total {
+            background-color: #282834;
+            color: #fff;
+            padding: 10px;
+            border-radius: 0 0 10px 10px;
+            margin-top: 20px;
+        }
+
+            .total p {
+                margin: 0;
+            }
+    </style>
+
+    <div class="receipt">
+        <div class="header">
+            <h1>Hotel Booking Receipt</h1>
+        </div>
+
+        <div class="info">
+            <p><strong>Receipt Number:</strong> @Model.BookingCartId</p>
+            <p><strong>Date:</strong> @Model.BookedDate</p>
+            <p><strong>Customer Name:</strong> @Model.User.UserName</p>
+            <p><strong>UserName:</strong> @Model.User.UserName</p>
+        </div>
+
+        <table class="table table-striped" width="100%">
+            <tr>
+                <th>Room Type</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Gst Percentage</th>
+                <th>Gst Amount</th>
+                <th>Total</th>
+            </tr>
+            @foreach(var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.BookingRoomDetails.Room.RoomType.RoomName</td>
+                    <td>@item.BookingRoomDetails.RoomQuantity</td>
+                    <td>@item.BookingRoomDetails.RoomPrice</td>
+                    <td>@item.BookingRoomDetails.Room.RoomType.RoomGst</td>
+                    @{
+                        var gstamt = item.BookingRoomDetails.Room.RoomType.RoomGst * item.RoomPriceFee;
+                        var roomprice = item.RoomPriceFee + gstamt;
+                    }
+                    <td>@gstamt</td>
+                    <td>@roomprice</td>
+                </tr>
+            }
+        </table>
+
+        <div class="total">
+            <p><strong>Total Amount:</strong> @Model.Total</p>
+        </div>
+    </div>
+

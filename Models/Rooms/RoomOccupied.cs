@@ -11,10 +11,9 @@ namespace ParkView_Capstone.Models.Rooms
         public int BookingRoomDetailsId { get; set; }
         public DateOnly RoomCheckIn { get; set; }
         public DateOnly RoomCheckOut { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public bool IsCancelled { get; set; }
 
-        public IdentityUser User { get; set; }
         public Room Room { get; set; }
     }
 }

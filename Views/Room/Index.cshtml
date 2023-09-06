@@ -1,141 +1,142 @@
 ﻿@model RoomListViewModal
 
 
+<section class="book">
+    <div class="container flex_space">
+        <div class="text">
+            <h1> <span>Book</span> Your Rooms </h1>
+        </div>
+        <br />
+        <div class="form">
+            <form class="grid">
+                <select style="border-radius: 10px;" name="location" id="location">
+                    <option value="" disabled selected hidden>Location</option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="Blr">Bangalore</option>
+                    <option value="chennai">Chennai</option>
 
-<div>
-    <div class="container">
-        @foreach (Room item in Model.Rooms)
-        {
-            <div class="card row m-3 box-shadow" style="border-radius:10px;background-color:antiquewhite;">
-                <div class="card-header" style="background-color:#282834;color:white;">
-                    <span style="font-weight:bold;font-size:xx-large;">@item.RoomType.RoomName.ToUpper()</span>
-                    <a asp-action="SingleRoom" asp-route-roomid=@item.RoomId class="btn" style="background-color:#7FC142;color:white;font-weight:bold;float:right;">View Details</a>
-                </div>
-                <div class="card-body">
-                    <div class="container-fluid m-2">
-                        <h5 class="card-title" style="font-weight:bold;font-size:larger;">@item.Hotel.HotelName ( @item.Hotel.HotelLocation )</h5>
-                        <hr style="color:#282834;">
-                        <div class="row">
-                            <div class="col" style="font-weight:bold;">
-                                <img src="@item.RoomType.RoomTypeImage" class="img-fluid" alt="Room Photo"/><br/><br/>
-                                <button type="button" class="btn" style="background-color:#7FC142;color:white;font-weight:bold;">
-                                    Available Rooms &emsp;<span class="badge badge-light" style="color:green;background-color:white;">@item.RoomQuantity</span>
-                                </button><br><br>
-                                <button type="button" class="btn" style="background-color:#7FC142;color:white;font-weight:bold;">
-                                    Price for a single room &emsp;<span class="badge badge-light" style="color:green;background-color:white;">@item.RoomPrice</span>
-                                    <span style="font-size:small;"> / Per Night</span>
-                                </button><br><br>
-                            </div>
-                            <div class="col">
-                                <form asp-controller="BookingCart" asp-action="AddToBookingCart" method="post" style="display:flex;align-content:center;justify-content:center;">
-                                    <div class="container p-2" style="background-color:#282834;border-radius:10px;color:white;font-weight:bold;">
-                                        <div class="row" hidden>
-                                            <label class="control-label" asp-for="@Model.BookingRoomDetails.RoomId">Room ID</label>
-                                            <input class="form-control" type="number" asp-for="@Model.BookingRoomDetails.RoomId" value=@item.RoomId />
+                </select>
+                <input style="border-radius: 10px;" type="date" placeholder="Araival Date">
+                <input style="border-radius: 10px;" type="date" placeholder="Departure Date">
+                <input style="border-radius: 10px;" type="number" placeholder="Adults">
+                <input style="border-radius: 10px;" type="number" placeholder="Childern">
+                <input style="border-radius: 10px;" type="submit" value="CHECK AVAILABILITY">
+            </form>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <br/>
+    <h1 style="color:#282834;font-weight:bold;">Available Rooms</h1>
+    <hr />
+    @foreach (Room item in Model.Rooms)
+    {
+        <div class="card row m-3 box-shadow" style="border-radius:10px;border: 2px solid #282834;">
+            <div class="card-header" style="background-color:#282834;color:white;">
+                <span style="font-weight:bold;font-size:xx-large;">@item.RoomType.RoomName.ToUpper()</span>
+                <a asp-action="SingleRoom" asp-route-roomid=@item.RoomId class="btn" style="background-color:#25a18e;color:white;font-weight:bold;float:right;">View Details</a>
+            </div>
+            <div class="card-body">
+                <div class="container-fluid m-2">
+                    <h5 class="card-title" style="font-weight:bold;font-size:larger;">@item.Hotel.HotelName ( @item.Hotel.HotelLocation )</h5>
+                    <hr style="color:#282834;">
+                    <div class="row">
+                        <div class="col" style="font-weight:bold;">
+                            <img src="@item.RoomType.RoomTypeImage" class="img-fluid" alt="Room Photo"/><br/><br/>
+                            <button type="button" class="btn" style="background-color:#25a18e;color:white;font-weight:bold;">
+                                Available Rooms &emsp;<span class="badge badge-light" style="color:green;background-color:white;">@item.RoomQuantity</span>
+                            </button><br><br>
+                            <button type="button" class="btn" style="background-color:#25a18e;color:white;font-weight:bold;">
+                                Price for a single room &emsp;<span class="badge badge-light" style="color:green;background-color:white;">@item.RoomPrice</span>
+                                <span style="font-size:small;"> / Per Night</span>
+                            </button><br><br>
+                        </div>
+                        <div class="col">
+                            <form asp-controller="BookingCart" asp-action="AddToBookingCart" method="post" style="display:flex;align-content:center;justify-content:center;">
+                                <div class="container p-2" style="background-color:#282834;border-radius:10px;color:white;font-weight:bold;">
+                                    <div class="row" hidden>
+                                        <label class="control-label" asp-for="@Model.BookingRoomDetails.RoomId">Room ID</label>
+                                        <input class="form-control" type="number" asp-for="@Model.BookingRoomDetails.RoomId" value=@item.RoomId />
+                                    </div>
+                                    <div class="row m-1">
+                                        <div class="form-group col">
+                                            <label class="control-label" asp-for="@Model.BookingRoomDetails.CheckInDate">Check In Date : </label>
+                                            <input class="form-control" type="date" asp-for=@Model.BookingRoomDetails.CheckInDate value=@Model.BookingRoomDetails.CheckInDate.ToString("yyyy-MM-dd") />
                                         </div>
-                                        <div class="row m-1">
-                                            <div class="form-group col">
-                                                <label class="control-label" asp-for="@Model.BookingRoomDetails.CheckInDate">Check In Date : </label>
-                                                <input class="form-control" type="date" asp-for=@Model.BookingRoomDetails.CheckInDate value=@Model.BookingRoomDetails.CheckInDate.ToString("yyyy-MM-dd") />
-                                            </div>
-                                            <div class="form-group col">
-                                                <label class="control-label" asp-for="@Model.BookingRoomDetails.CheckOutDate">Check Out Date : </label>
-                                                <input class="form-control" type="date" asp-for="@Model.BookingRoomDetails.CheckOutDate" value=@Model.BookingRoomDetails.CheckOutDate.ToString("yyyy-MM-dd") />
-                                            </div>
-                                        </div>
-                                        <div class="form-group row m-1">
-                                            <span class="col-8"><label class="control-label" asp-for="@Model.BookingRoomDetails.AdultNo">Number of Adult : </label></span>
-                                            <span class="col-4">
-                                                <input class="form-control col-8" type="number" asp-for="@Model.BookingRoomDetails.AdultNo"
-                                                       value=@Model.BookingRoomDetails.AdultNo id="adult" />
-                                            </span>
-                                        </div>
-                                        <div class="form-group row m-1">
-                                            <span class="col-8"><label class="control-label" asp-for="@Model.BookingRoomDetails.ChildrenNo">Number of Children : </label></span>
-                                            <span class="col-4">
-                                                <input class="form-control" type="number" asp-for="@Model.BookingRoomDetails.ChildrenNo"
-                                                       value=@Model.BookingRoomDetails.ChildrenNo id="child" />
-                                            </span>
-                                        </div>
-                                        <div class="form-group row m-1">
-                                            <span class="col-8"><label class="control-label" asp-for="@Model.BookingRoomDetails.RoomQuantity">Room Quantity : </label></span>
-                                            <span class="col-4">
-                                                <input class="form-control" type="number" asp-for="@Model.BookingRoomDetails.RoomQuantity"
-                                                       id="minroomreq" value=@item.RoomReq />
-                                            </span>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group row m-1" style="align-self:center;">
-                                            <input type="submit" class="btn" value="Add to Cart" style="background-color:#7FC142;color:white;font-weight:bold;" />
+                                        <div class="form-group col">
+                                            <label class="control-label" asp-for="@Model.BookingRoomDetails.CheckOutDate">Check Out Date : </label>
+                                            <input class="form-control" type="date" asp-for="@Model.BookingRoomDetails.CheckOutDate" value=@Model.BookingRoomDetails.CheckOutDate.ToString("yyyy-MM-dd") />
                                         </div>
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="form-group row m-1">
+                                        <span class="col-8"><label class="control-label" asp-for="@Model.BookingRoomDetails.AdultNo">Number of Adult : </label></span>
+                                        <span class="col-4">
+                                            <input class="form-control col-8" type="number" asp-for="@Model.BookingRoomDetails.AdultNo"
+                                                   value=@Model.BookingRoomDetails.AdultNo id="adult" />
+                                        </span>
+                                    </div>
+                                    <div class="form-group row m-1">
+                                        <span class="col-8"><label class="control-label" asp-for="@Model.BookingRoomDetails.ChildrenNo">Number of Children : </label></span>
+                                        <span class="col-4">
+                                            <input class="form-control" type="number" asp-for="@Model.BookingRoomDetails.ChildrenNo"
+                                                   value=@Model.BookingRoomDetails.ChildrenNo id="child"  />
+                                        </span>
+                                    </div>
+                                    <div class="form-group row m-1">
+                                        <span class="col-8"><label class="control-label" asp-for="@Model.BookingRoomDetails.RoomQuantity">Room Quantity : </label></span>
+                                        <span class="col-4">
+                                            <input class="form-control" type="number" asp-for="@Model.BookingRoomDetails.RoomQuantity"
+                                                   id="minroomreq" value=@item.RoomReq />
+                                        </span>
+                                    </div>
+                                    <hr />
+                                    <div class="form-group row m-1" style="align-self:center;">
+                                        <input type="submit" class="btn" value="Add to Cart" style="background-color:#25a18e;color:white;font-weight:bold;" />
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer container row" style="background-color:#282834;color:white;align-content:center;justify-content:center;border-radius:10px;margin-bottom:1vh;font-weight:bold;">
-                    <div class="col">MaxPeople : <span id="maxpeople">@item.RoomType.MaxPeople</span></div>
-                    <div class="col">MaxAdult : <span id="maxadult">@item.RoomType.MaxAdult</span></div>
-                    <div class="col">MaxChildren : <span id="maxchild">@item.RoomType.MaxChildren</span></div>
-                </div>
             </div>
-        }
-
-    </div>
-
+            <div class="card-footer container row" style="background-color:#282834;color:white;align-content:center;justify-content:center;border-radius:10px;margin-bottom:1vh;font-weight:bold;">
+                <div class="col">MaxPeople : <span id="maxpeople">@item.RoomType.MaxPeople</span></div>
+                <div class="col">MaxAdult : <span id="maxadult">@item.RoomType.MaxAdult</span></div>
+                <div class="col">MaxChildren : <span id="maxchild">@item.RoomType.MaxChildren</span></div>
+            </div>
+        </div>
+    }
 
 </div>
 
 
-
 @section Scripts{
-    <script>
-        $('#adult').on('input', change);
-        $('#child').on('input', change);
+    @foreach(var item in Model.Rooms)
+    {
+        <script>
+            $('#adult').on('input', change);
+            $('#child').on('input', change);
 
-        function change() {
-            // Get the value of the "otherInput" element
-            var AdultNo = parseFloat($('#adult').val());
-            var ChildrenNo = parseFloat($('#child').val());
-            var maxadult = parseFloat($('#maxadult').text());
-            var maxchild = parseFloat($('#maxchild').text());
-            var maxpeople = parseFloat($('#maxpeople').text());
+            function change() {
+                // Get the value of the "otherInput" element
+                var AdultNo = parseFloat($('#adult').val());
+                var ChildrenNo = parseFloat($('#child').val());
+                var maxadult = parseFloat($('#maxadult').text());
+                var maxchild = parseFloat($('#maxchild').text());
+                var maxpeople = parseFloat($('#maxpeople').text());
 
-            var otherValue = Math.ceil(Math.min(
-                Math.max(AdultNo / maxadult, ChildrenNo / maxchild),
-                (AdultNo + ChildrenNo) / maxpeople
-            ));
+                var otherValue = Math.ceil(Math.min(
+                    Math.max(AdultNo / maxadult, ChildrenNo / maxchild),
+                    (AdultNo + ChildrenNo) / maxpeople
+                ));
 
-            // Set the minimum value of the "minroomreq" element based on the "otherValue"
-            $('#minroomreq').val(otherValue);
-        }
+                // Set the minimum value of the "minroomreq" element based on the "otherValue"
+                $('#minroomreq').val(otherValue);
+            }
 
-        // Trigger the change function initially
-        change();
-    </script>
+            // Trigger the change function initially
+            change();
+        </script>
+    }
 }
-
-@*@await Component.InvokeAsync("BookingRoomModal",new {
-                    bookingRoomDetails=Model.BookingRoomDetails,
-                    roomid=item.RoomId,
-                    reqrooms=(int)item.RoomReq
-                })*@
-@*<a asp-controller="BookingCart" asp-action="AddToBookingCart" asp-route-roomid=@item.RoomId
-                   asp-route-qnty=2 asp-route-adultno=4 asp-route-childrenno=2
-                class="btn btn-primary">Book Room</a>*@
-@*@Html.Partial("_PartialBookingRoomModal",new BookingRoomDetails{
-                    RoomId=item.RoomId,
-                    CheckInDate = Model.BookingRoomDetails.CheckInDate,
-                    CheckOutDate = Model.BookingRoomDetails.CheckOutDate,
-                    AdultNo = Model.BookingRoomDetails.AdultNo,
-                    ChildrenNo = Model.BookingRoomDetails.ChildrenNo,
-                    RoomQuantity = (int)item.RoomReq
-                });*@
-@*<partial name="_PartialBookingRoomModal" model="@Model.BookingRoomDetails" view-data='@new ViewDataDictionary(ViewData) { { "RoomId", item.RoomId } }' />*@
-@*
-min=@MathF.Ceiling(MathF.Min(MathF.Max((float)@Model.BookingRoomDetails.AdultNo / @item.RoomType.MaxAdult,
-                               (float)@Model.BookingRoomDetails.ChildrenNo / @item.RoomType.MaxChildren),
-                               (float)(@Model.BookingRoomDetails.AdultNo + @Model.BookingRoomDetails.ChildrenNo) / @item.RoomType.MaxPeople))*@
-
 

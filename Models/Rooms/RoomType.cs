@@ -13,5 +13,6 @@ namespace ParkView_Capstone.Models.Rooms
         public int MaxChildren { get; set; }
         public int MaxPeople { get; set; }
         public string RoomTypeImage { get; set; }
+        public decimal RoomGst { get; set; }
     }
 }
