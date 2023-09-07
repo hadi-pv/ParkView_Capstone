@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using ParkView_Capstone.Models.Hotels;
 using ParkView_Capstone.Models.Services;
+using Razorpay.Api;
+using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow.ValueContentAnalysis;
 
 namespace ParkView_Capstone.Controllers
 {
@@ -102,7 +104,7 @@ namespace ParkView_Capstone.Controllers
             }
             else
             {
-                _bookingCart.CompleteBooking(bookingcartitems);
+                //_bookingCart.CompleteBooking(bookingcartitems);
                 decimal gstamt=0;
                 foreach (var item in bookingcartitems)
                 {
@@ -116,6 +118,14 @@ namespace ParkView_Capstone.Controllers
                     Total = total+gstamt,
                     User = _dbcontext.Users.SingleOrDefault(s=>s.Id==bookingcartitems.First().UserId)
                 };
+                var key = "rzp_test_HUUxPpsvhCwwbi";
+                var secret = "fIEMLCIeIOR4oU5I0NPWq7xe";
+                RazorpayClient client = new RazorpayClient(key, secret);
+                Dictionary<string, object> options = new Dictionary<string, object>();
+                options.Add("amount", Convert.ToDecimal(checkOut.Total / 100) * 100);
+                options.Add("currency", "INR");
+                Order order = client.Order.Create(options);
+                ViewBag.orderId = order["id"].ToString();
                 return View(checkOut);
             }
         }
@@ -141,6 +151,20 @@ namespace ParkView_Capstone.Controllers
             }
             return View(checkOutList);
         }
+
+        public RedirectToActionResult DeleteBooking(int bookingid)
+        {
+            _bookingCart.DeleteBooking(bookingid);
+            return RedirectToActionPermanent("ShowPrevOrders");
+        }
+
+        public IActionResult SuccessfulPayment()
+        {
+            var bookingcartitems = _bookingCart.GetBookingCartItems();
+            _bookingCart.CompleteBooking(bookingcartitems);
+            return View();
+        }
+
             
     }
 }

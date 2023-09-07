@@ -1,6 +1,7 @@
 ﻿@model RoomsViewModel
 
-
+<section style="height:5vh;background-color:#282834;">
+</section>
 <div class="container-fluid m-2 row">
     <div class="col">
         <div class="jumbotron jumbotron-fluid">
@@ -9,9 +10,12 @@
                     @Model.Room.RoomType.RoomName
                 </h1>
                 <hr />
+                <a type="button" class="btn" style="background-color:#25a18e;font-weight:bold;color:white;" asp-action="RoomType" >Back to List</a>
                 <div class="card row m-3" style="border:none;">
                     <div class="card-body">
-                        <p class="card-text">@Model.Room.RoomType.RoomDescription</p>
+                        <img class="img-fluid" src="@Model.Room.RoomType.RoomTypeImage" />
+                        <br/><br/>
+                        <p class="card-text">Desciption : @Model.Room.RoomType.RoomDescription</p>
                         <p class="card-text">Price : @Model.Room.RoomPrice</p>
                         <p class="card-text">Available Rooms : @Model.Room.RoomQuantity</p>
                         <p class="card-text">Minimum room needed : @Model.Room.RoomReq</p>
@@ -30,7 +34,7 @@
                 <div class="card col-6" style="border-radius:10px;border-color:#282834;">
                     <div class="card-body">
                         <h5 class="card-title" style="background-color:#282834;color:white;padding:10px;border-radius:10px;justify-content:center;">
-                            @facility.FacilityName
+                            &emsp;@facility.FacilityName
                         </h5>
                         <p class="card-text">@facility.FacilityDescription</p>
                     </div>
@@ -40,7 +44,4 @@
     </div>
 </div>
 
-<hr/>
-<div class="container pe-5">
-    <a type="button" class="btn btn-success" asp-action="Index">Back to List</a>
-</div>
+

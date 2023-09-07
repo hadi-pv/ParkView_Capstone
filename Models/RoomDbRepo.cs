@@ -15,6 +15,8 @@ namespace ParkView_Capstone.Models
             _dbcontext = parkViewDbContext;
         }
 
+        public static IEnumerable<Room> GlobalRooms { get; set; }
+
         public IEnumerable<Room> GetAllRooms => _dbcontext.Room.Include(r=>r.RoomType).Include(r=>r.Hotel);
 
         public IEnumerable<RoomType> GetAllRoomTypes => _dbcontext.RoomType;
@@ -37,7 +39,10 @@ namespace ParkView_Capstone.Models
                 rooms = GetAllRooms
                 .Where(r => r.Hotel.HotelLocation.ToLower() == location.ToLower());
             }
-            else
+            else if(AdultNo==default(int) & location == null)
+            {
+                rooms = GlobalRooms;
+            }
             {
                  rooms = GetAllRooms;
             }
@@ -50,6 +55,8 @@ namespace ParkView_Capstone.Models
                 else rooms = rooms.Where(r => r.RoomTypeId != room.RoomTypeId);
                 
             }
+
+            GlobalRooms = rooms;
 
             return rooms;
         }

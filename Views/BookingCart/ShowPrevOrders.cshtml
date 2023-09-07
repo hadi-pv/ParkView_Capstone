@@ -48,7 +48,7 @@
 {
     <div class="receipt">
         <div class="header">
-            <h1>Hotel Booking Receipt</h1>
+            <h1>Hotel Booking Receipt</h1>&emsp;
         </div>
 
         <div class="info">
@@ -68,6 +68,7 @@
                 <th>Gst Percentage</th>
                 <th>Gst Amount</th>
                 <th>Total</th>
+                <th></th>
             </tr>
             @foreach (var item in checkout.Items)
             {
@@ -84,6 +85,9 @@
                     }
                     <td>@gstamt</td>
                     <td>@roomprice</td>
+                    <td><a class="btn btn-danger" asp-action="DeleteBooking" asp-route-bookingid=@item.BookingRoomDetailsId
+                           onclick="return confirm ('You sure you want to Cancel Booking?');">Cancel Booking</a>
+                    </td>
                 </tr>
             }
         </table>

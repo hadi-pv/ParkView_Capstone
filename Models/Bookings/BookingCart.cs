@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ParkView_Capstone.Models.Rooms;
+using ParkView_Capstone.Models.Services;
 
 namespace ParkView_Capstone.Models.Bookings
 {
@@ -11,9 +12,9 @@ namespace ParkView_Capstone.Models.Bookings
         public decimal Total { get; set; }
         private readonly ParkViewDbContext _dbcontext;
         public IServiceProvider serviceProvider { get; set; }
-        private readonly IdentityUser _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public BookingCart(ParkViewDbContext dbcontext, IServiceProvider serviceProvider, IdentityUser userManager)
+        public BookingCart(ParkViewDbContext dbcontext, IServiceProvider serviceProvider, UserManager<IdentityUser> userManager)
         {
             _dbcontext = dbcontext;
             this.serviceProvider = serviceProvider;
@@ -24,7 +25,7 @@ namespace ParkView_Capstone.Models.Bookings
         {
             ISession session = services.GetRequiredService<IHttpContextAccessor>().HttpContext.Session;
             var context = services.GetService<ParkViewDbContext>();
-            var user=services.GetService<IdentityUser>();
+            var user=services.GetService<UserManager<IdentityUser>>();
             string cartid = session.GetString("CartId");
             if (cartid == null)
             {
@@ -51,6 +52,14 @@ namespace ParkView_Capstone.Models.Bookings
                     RoomPriceFee = roomDetails.RoomPriceAmount * DaysDifferenceDateOnlyConverted(roomDetails.CheckOutDate,roomDetails.CheckInDate),
                     UserId = roomDetails.UserId
                 };
+                _dbcontext.RoomLocked.Add(new RoomLocked()
+                {
+                    RoomId = roomDetails.RoomId,
+                    RoomCheckIn = roomDetails.CheckInDate,
+                    RoomCheckOut = roomDetails.CheckOutDate,
+                    RoomQuantity = roomDetails.RoomQuantity,
+                    UserId = roomDetails.UserId
+                });
                 _dbcontext.BookingCartItems.Add(brdetails);
             }
             else
@@ -105,7 +114,7 @@ namespace ParkView_Capstone.Models.Bookings
 
         public Dictionary<string,List<BookingCartItem>> GetAllPrevorders(string userid)
         {
-            List<int> bookedrooms = _dbcontext.RoomOccupied.Where(r => r.UserId == userid).Select(r => r.BookingRoomDetailsId).ToList();
+            List<int> bookedrooms = _dbcontext.RoomOccupied.Where(r => r.UserId == userid && !r.IsCancelled).Select(r => r.BookingRoomDetailsId).ToList();
             List<BookingRoomDetails> bookingRoomDetails = _dbcontext.BookingRoomDetails.Where(b => bookedrooms.Contains(b.BookingRoomDetailsId)).ToList();
             Dictionary<string, List<BookingCartItem>> result=new Dictionary<string, List<BookingCartItem>>();
             foreach(BookingRoomDetails item in bookingRoomDetails)
@@ -127,11 +136,20 @@ namespace ParkView_Capstone.Models.Bookings
             return result;
         }
 
-        public void deleteSession()
+        public void DeleteBooking(int bookingid)
         {
+            var booking=_dbcontext.RoomOccupied.SingleOrDefault(o=>o.BookingRoomDetailsId==bookingid);
+            _dbcontext.Remove(booking);
+            _dbcontext.SaveChanges();
+        }
+
+        public void deleteSession()
+        { 
             ISession session = serviceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext.Session;
             BookingCartItems = default(List<BookingCartItem>);
             session.Clear();
+            _dbcontext.RoomLocked.RemoveRange(_dbcontext.RoomLocked.Where(r => r.UserId == _userManager.GetUserId(serviceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext.User).ToString()));
+            _dbcontext.SaveChanges();
         }
 
 

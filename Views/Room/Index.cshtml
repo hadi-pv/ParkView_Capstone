@@ -23,7 +23,7 @@
                 </select>
                 <input asp-for=@Model.BookingRoomDetails.CheckInDate style="border-radius: 10px;" type="date" class="form-control" name="checkin" placeholder="Araival Date" value=@cidate.ToString("yyyy-MM-dd")>
                 <input asp-for=@Model.BookingRoomDetails.CheckOutDate style="border-radius: 10px;" type="date" name="checkout" placeholder="Departure Date" value=@codate.ToString("yyyy-MM-dd")>
-                <input asp-for=@Model.BookingRoomDetails.AdultNo style="border-radius: 10px;" type="number" name="Adults" placeholder="Adults">
+                <input asp-for=@Model.BookingRoomDetails.AdultNo style="border-radius: 10px;" type="number" name="Adults" placeholder="Adults" min=1 required>
                 <input asp-for=@Model.BookingRoomDetails.ChildrenNo style="border-radius: 10px;" type="number" name="Child" placeholder="Childern">
                 <input style="border-radius: 10px;background-color:#7FC142;color:white;font-weight:bold;" type="submit" value="CHECK AVAILABILITY">
             </form>
@@ -39,7 +39,7 @@
         <div class="card row m-3 box-shadow" style="border-radius:10px;border: 2px solid #282834;">
             <div class="card-header" style="background-color:#282834;color:white;">
                 <span style="font-weight:bold;font-size:xx-large;">@item.RoomType.RoomName.ToUpper()</span>
-                <a asp-action="SingleRoom" asp-route-roomid=@item.RoomId class="btn" style="background-color:#25a18e;color:white;font-weight:bold;float:right;">View Details</a>
+                <a asp-action="RoomType" class="btn" style="background-color:#25a18e;color:white;font-weight:bold;float:right;">View Details</a>
             </div>
             <div class="card-body">
                 <div class="container-fluid m-2">
@@ -67,25 +67,29 @@
                                         <div class="form-group col">
                                             
                                             <label class="control-label" asp-for="@Model.BookingRoomDetails.CheckInDate">Check In Date : </label>
-                                            <input class="form-control" type="date" asp-for=@Model.BookingRoomDetails.CheckInDate value=@cidate.ToString("yyyy-MM-dd") name="cidate"/>
+                                            <input class="form-control" type="date" asp-for=@Model.BookingRoomDetails.CheckInDate value=@cidate.ToString("yyyy-MM-dd") name="cidate" required/>
+                                            <span asp-validation-for="@Model.BookingRoomDetails.CheckInDate" class="text-danger"></span>
                                         </div>
                                         <div class="form-group col">
                                             <label class="control-label" asp-for="@Model.BookingRoomDetails.CheckOutDate">Check Out Date : </label>
-                                            <input class="form-control" type="date" asp-for="@Model.BookingRoomDetails.CheckOutDate" value=@codate.ToString("yyyy-MM-dd") name="codate"/>
+                                            <input class="form-control" type="date" asp-for="@Model.BookingRoomDetails.CheckOutDate" value=@codate.ToString("yyyy-MM-dd") name="codate" required/>
+                                            <span asp-validation-for="@Model.BookingRoomDetails.CheckOutDate" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="form-group row m-1">
                                         <span class="col-8"><label class="control-label" asp-for="@Model.BookingRoomDetails.AdultNo">Number of Adult : </label></span>
                                         <span class="col-4">
                                             <input class="form-control col-8" type="number" asp-for="@Model.BookingRoomDetails.AdultNo"
-                                                   value=@Model.BookingRoomDetails.AdultNo id="adult" />
+                                                   value=@Model.BookingRoomDetails.AdultNo id="adult" min=1 required/>
+                                            <span asp-validation-for="@Model.BookingRoomDetails.AdultNo" class="text-danger"></span>
                                         </span>
                                     </div>
                                     <div class="form-group row m-1">
                                         <span class="col-8"><label class="control-label" asp-for="@Model.BookingRoomDetails.ChildrenNo">Number of Children : </label></span>
                                         <span class="col-4">
                                             <input class="form-control" type="number" asp-for="@Model.BookingRoomDetails.ChildrenNo"
-                                                   value=@Model.BookingRoomDetails.ChildrenNo id="child"  />
+                                                   value=@Model.BookingRoomDetails.ChildrenNo id="child" min=0 />
+                                            <span asp-validation-for="@Model.BookingRoomDetails.ChildrenNo" class="text-danger"></span>
                                         </span>
                                     </div>
                                     <div class="form-group row m-1">

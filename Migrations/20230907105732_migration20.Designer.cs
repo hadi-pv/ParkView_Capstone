@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParkView_Capstone.Models;
 
@@ -11,9 +12,10 @@ using ParkView_Capstone.Models;
 namespace ParkView_Capstone.Migrations
 {
     [DbContext(typeof(ParkViewDbContext))]
-    partial class ParkViewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230907105732_migration20")]
+    partial class migration20
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -531,10 +533,6 @@ namespace ParkView_Capstone.Migrations
 
                     b.Property<int>("RoomQuantity")
                         .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RoomLockedId");
 

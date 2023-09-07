@@ -1,4 +1,4 @@
-﻿@model RoomListViewModal
+﻿@model IEnumerable<ParkView_Capstone.Models.Rooms.Room>
 <style>
     .grid {
         display: grid;
@@ -90,7 +90,7 @@
 <h4 style="text-align:center;color:green;font-weight:bold">BANGALORE</h4>
 
 <div  style="margin:10px;"class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach (Room item in Model.Rooms)
+    @foreach (Room item in Model)
     {
         @if (item.HotelId == 1)
         {
@@ -101,6 +101,8 @@
                         <h5 class="card-title">@item.RoomType.RoomName</h5>
                         <p class="card-text">@item.RoomType.RoomDescription</p>
                         <h5>Rs. @item.RoomPrice</h5>
+                        <hr/>
+                        <a type="button" class="btn" style="color:white;background-color:#7FC142" asp-action="SingleRoom" asp-route-roomid=@item.RoomId>More Details</a>
                     </div>
                 </div>
             </div>
@@ -113,7 +115,7 @@
 <h4 style="text-align:center;color:green;font-weight:bold">CHENNAI</h4>
 
 <div style="margin:10px;" class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach (Room item in Model.Rooms)
+    @foreach (Room item in Model)
     {
         @if (item.HotelId == 3)
         {
@@ -124,6 +126,8 @@
                         <h5 class="card-title">@item.RoomType.RoomName</h5>
                         <p class="card-text">@item.RoomType.RoomDescription</p>
                         <h5>Rs. @item.RoomPrice</h5>
+                        <hr/>
+                        <a type="button" class="btn" style="color:white;background-color:#7FC142" asp-action="SingleRoom" asp-route-roomid=@item.RoomId>More Details</a>
                     </div>
                 </div>
             </div>
@@ -136,7 +140,7 @@
 <h4 style="text-align:center;color:green;font-weight:bold">MUMBAI</h4>
 
 <div style="margin:10px;" class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach (Room item in Model.Rooms)
+    @foreach (Room item in Model)
     {
         
             @if (item.HotelId == 1)
@@ -148,6 +152,8 @@
                         <h5 class="card-title">@item.RoomType.RoomName</h5>
                         <p class="card-text">@item.RoomType.RoomDescription</p>
                         <h5>Rs. @item.RoomPrice</h5>
+                        <hr/>
+                        <a type="button" class="btn" style="color:white;background-color:#7FC142" asp-action="SingleRoom" asp-route-roomid=@item.RoomId>More Details</a>
                     </div>
                 </div>
             </div>

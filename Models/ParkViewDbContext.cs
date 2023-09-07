@@ -54,7 +54,7 @@ namespace ParkView_Capstone.Models
                     RoomTypeId = 1,
                     RoomName = "Presidential Suite",
                     RoomDescription = "It is a Presidential Suite",
-                    RoomTypeImage = "",
+                    RoomTypeImage = "/images/room-1.png",
                     MaxAdult = 6,
                     MaxChildren = 3,
                     MaxPeople = 9,
@@ -66,7 +66,7 @@ namespace ParkView_Capstone.Models
                     RoomTypeId = 2,
                     RoomName = "Executive",
                     RoomDescription = "It is a Executive",
-                    RoomTypeImage = "",
+                    RoomTypeImage = "/images/room-2.png",
                     MaxAdult = 5,
                     MaxChildren = 2,
                     MaxPeople = 7,
@@ -78,7 +78,7 @@ namespace ParkView_Capstone.Models
                     RoomTypeId = 3,
                     RoomName = "Super Deluxe",
                     RoomDescription = "It is a Super Deluxe",
-                    RoomTypeImage = "",
+                    RoomTypeImage = "/images/room-3.png",
                     MaxAdult = 4,
                     MaxChildren = 2,
                     MaxPeople = 6,
@@ -90,7 +90,7 @@ namespace ParkView_Capstone.Models
                     RoomTypeId = 4,
                     RoomName = "Deluxe",
                     RoomDescription = "It is a Deluxe",
-                    RoomTypeImage = "",
+                    RoomTypeImage = "/images/room-5.png",
                     MaxAdult = 2,
                     MaxChildren = 2,
                     MaxPeople = 4,
@@ -107,7 +107,7 @@ namespace ParkView_Capstone.Models
                     HotelName = "ParkView Bombay",
                     HotelLocation = "Mumbai",
                     HotelDescription = "In the center of city",
-                    HotelImage = ""
+                    HotelImage = "/images/hotel2.png"
                 });
             modelBuilder.Entity<Hotel>().HasData(
                 new Hotel()
@@ -116,7 +116,7 @@ namespace ParkView_Capstone.Models
                     HotelName = "ParkView Bangalore",
                     HotelLocation = "Bengaluru",
                     HotelDescription = "In the center of city",
-                    HotelImage = ""
+                    HotelImage = "/images/hotel3.jpeg"
                 });
             modelBuilder.Entity<Hotel>().HasData(
                 new Hotel()
@@ -125,7 +125,7 @@ namespace ParkView_Capstone.Models
                     HotelName = "ParkView Chennai",
                     HotelLocation = "Chennai",
                     HotelDescription = "In the center of city",
-                    HotelImage = ""
+                    HotelImage = "/images/hotell1.jpeg"
                 });
 
 

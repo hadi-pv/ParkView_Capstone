@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ParkView_Capstone.Models.Bookings;
-
+using ParkView_Capstone.Models.Rooms;
 
 namespace ParkView_Capstone.Models
 {

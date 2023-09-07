@@ -1,6 +1,12 @@
 ﻿
 @model CheckOut
 
+<form method="post" name="razorpayForm">
+    <input id="razorpay_payment_id" type="hidden" name="razorpay_payment_id" />
+    <input id="razorpay_order_id" type="hidden" name="razorpay_order_id" />
+    <input id="razorpay_signature" type="hidden" name="razorpay_signature" />
+</form>
+
 
     <style>
 
@@ -85,10 +91,63 @@
                     <td>@roomprice</td>
                 </tr>
             }
+            <tr>
+                <td colspan="5"></td>
+                <td colspan="3"><p><strong>Total Amount:</strong> @Model.Total</p></td>
+            </tr>
         </table>
 
-        <div class="total">
-            <p><strong>Total Amount:</strong> @Model.Total</p>
+        <div class="total row">
+            <a id="rzp-button1" type="button" class="btn" style="width:20%;background-color:#25a18e;color:white;font-weight:bold;font-size:medium;float:right;margin-left:auto;" asp-action="SuccessfulPayment" asp-route-amount=@Model.Total>Proceed To Pay</a>
         </div>
+
     </div>
+
+
+@section Scripts{
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        var orderId = "@ViewBag.orderid"
+        var options = {
+            "key": "rzp_test_HUUxPpsvhCwwbi", // Enter the Key ID generated from the Dashboard
+            "amount": "@Model.Total", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Park View",
+            "description": "Book Luxury Room and World Class Services",
+            "order_id": orderId,
+            "image": "~/images/logo3.png",
+            "callback_url": "https://localhost:7112/BookingCart/SuccessfulPayment",
+            "handler":function(response){
+                @ViewBag.paymentid=response.
+                if (typeof response.razorpay_payment_id == 'undefined' || response.razorpay_payment_id < 1) {
+                    redirect_url = '/BookingCart';
+                } else {
+                    redirect_url = 'https://localhost:7112/BookingCart/SuccessfulPayment';
+                }
+                location.href = redirect_url;
+            },
+            "redirect": true,
+            "prefill": {
+                "name": "Kongsberg India",
+                "email": "kongsberg.india@example.com",
+                "contact": "+919000090000",
+            },
+            "notes": {
+                "address": "Hello World"
+            },
+            "theme": {
+                "color": "#25a18e"
+            }
+        }
+        var rzp = new Razorpay(options);
+        document.getElementById('rzp-button1').onclick = function (e) {
+            rzp.open();
+            e.preventDefault();
+        }
+        window.location.href = "https://localhost:7112/BookingCart/SuccessfulPayment";
+    </script>
+}
+
+   
+
 

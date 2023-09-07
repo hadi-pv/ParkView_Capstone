@@ -7,6 +7,7 @@
         public int RoomQuantity { get; set; }
         public DateOnly RoomCheckIn { get; set; }
         public DateOnly RoomCheckOut { get; set; }
+        public string UserId { get; set; }
 
         public Room Room { get; set; }
     }

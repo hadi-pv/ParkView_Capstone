@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParkView_Capstone.Models;
 
@@ -11,9 +12,10 @@ using ParkView_Capstone.Models;
 namespace ParkView_Capstone.Migrations
 {
     [DbContext(typeof(ParkViewDbContext))]
-    partial class ParkViewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230907093235_migration18")]
+    partial class migration18
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -469,7 +471,7 @@ namespace ParkView_Capstone.Migrations
                         {
                             HotelId = 2,
                             HotelDescription = "In the center of city",
-                            HotelImage = "/images/hotel3.jpeg",
+                            HotelImage = "/images/hotel3.png",
                             HotelLocation = "Bengaluru",
                             HotelName = "ParkView Bangalore"
                         },
@@ -477,7 +479,7 @@ namespace ParkView_Capstone.Migrations
                         {
                             HotelId = 3,
                             HotelDescription = "In the center of city",
-                            HotelImage = "/images/hotell1.jpeg",
+                            HotelImage = "/images/hotel1.png",
                             HotelLocation = "Chennai",
                             HotelName = "ParkView Chennai"
                         });
@@ -531,10 +533,6 @@ namespace ParkView_Capstone.Migrations
 
                     b.Property<int>("RoomQuantity")
                         .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RoomLockedId");
 
