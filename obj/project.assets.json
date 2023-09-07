@@ -11098,11 +11098,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PranayMhaiske\\Source\\Repos\\NewProj2.0\\ParkView_Capstone.csproj",
+      "projectUniqueName": "C:\\Users\\PranayMhaiske\\source\\repos\\NewProj2.0\\ParkView_Capstone.csproj",
       "projectName": "ParkView_Capstone",
-      "projectPath": "C:\\Users\\PranayMhaiske\\Source\\Repos\\NewProj2.0\\ParkView_Capstone.csproj",
+      "projectPath": "C:\\Users\\PranayMhaiske\\source\\repos\\NewProj2.0\\ParkView_Capstone.csproj",
       "packagesPath": "C:\\Users\\PranayMhaiske\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PranayMhaiske\\Source\\Repos\\NewProj2.0\\obj\\",
+      "outputPath": "C:\\Users\\PranayMhaiske\\source\\repos\\NewProj2.0\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\PranayMhaiske\\AppData\\Roaming\\NuGet\\NuGet.Config",

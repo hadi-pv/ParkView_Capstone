@@ -1,4 +1,6 @@
-﻿using ParkView_Capstone.Models.Bookings;
+﻿using Microsoft.EntityFrameworkCore;
+using ParkView_Capstone.Models.Bookings;
+
 
 namespace ParkView_Capstone.Models
 {
@@ -10,19 +12,18 @@ namespace ParkView_Capstone.Models
         {
             _dbcontext= dbcontext;
         }
-        public IEnumerable<BookingRoomDetails> BookingRoomDetails => _dbcontext.BookingRoomDetails;
+        public IEnumerable<BookingRoomDetails> BookingRoomDetails => _dbcontext.BookingRoomDetails.Include(b=>b.Room).Include(b=>b.Room.RoomType).Include(b=>b.Room.Hotel);
 
         public void AddBookingRoomDetails(BookingRoomDetails bookingRoomDetails)
         {
             if (_dbcontext.BookingRoomDetails.Any(b => b.RoomId == bookingRoomDetails.RoomId))
             {
-                _dbcontext.BookingRoomDetails.First(b => b.RoomId == bookingRoomDetails.RoomId).RoomQuantity = bookingRoomDetails.RoomQuantity;
+                BookingRoomDetails.First(b => b.RoomId == bookingRoomDetails.RoomId).RoomQuantity = bookingRoomDetails.RoomQuantity;
             }
             else
             {
-                _dbcontext.BookingRoomDetails.Add(bookingRoomDetails);
+                BookingRoomDetails.Append(bookingRoomDetails);
             }
-            _dbcontext.SaveChanges();
         }
 
         public BookingRoomDetails GetBookingRoomDetails(int bookingroomdetailsid)

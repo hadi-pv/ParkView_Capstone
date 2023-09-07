@@ -78,7 +78,7 @@ namespace ParkView_Capstone.Models
             {
                 var occupied = GetAllRoomOccupied
                     .Where(r => r.RoomId == room.RoomId)
-                    .Where(r => r.RoomCheckIn <= CheckIn && r.RoomCheckOut > CheckIn);
+                    .Where(r => r.RoomCheckIn <= CheckIn && r.RoomCheckOut >= CheckIn && !r.IsCancelled);
                 return occupied.Select(r => r.RoomQuantity).Sum();
             }
             else

@@ -1,5 +1,7 @@
 ﻿@using Microsoft.CodeAnalysis.Differencing;
-@model IEnumerable<ParkView_Capstone.Models.Rooms.Room>
+
+ 
+@model RoomListViewModal
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -783,18 +785,18 @@ input:hover {
             </div>
             <br />
             <div class="form">
-                <form class="grid">
+                <form class="grid" asp-controller="Room" asp-action="Index" method="post">
                     <select style="border-radius: 10px;" name="location" id="location">
                         <option value="" disabled selected hidden>Location</option>
-                        <option value="mumbai">Mumbai</option>
-                        <option value="Blr">Bangalore</option>
-                        <option value="chennai">Chennai</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Bengaluru">Bangalore</option>
+                        <option value="Chennai">Chennai</option>
 
                     </select>
-                    <input style="border-radius: 10px;" type="date" placeholder="Araival Date">
-                    <input style="border-radius: 10px;" type="date" placeholder="Departure Date">
-                    <input style="border-radius: 10px;" type="number" placeholder="Adults">
-                    <input style="border-radius: 10px;" type="number" placeholder="Childern">
+                    <input style="border-radius: 10px;" type="date" asp-for="@Model.BookingRoomDetails.CheckInDate" class="form-control" name="CheckInDate" placeholder="Araival Date" value="@Model.BookingRoomDetails.CheckInDate.ToString("yyyy-MM-dd")">
+                    <input style="border-radius: 10px;" type="date" name="Ddate" placeholder="Departure Date">
+                    <input style="border-radius: 10px;" type="number" name="Adults" placeholder="Adults">
+                    <input style="border-radius: 10px;" type="number" name="Child" placeholder="Childern">
                     <input style="border-radius: 10px;" type="submit" value="CHECK AVAILABILITY">
                 </form>
             </div>
@@ -859,7 +861,7 @@ input:hover {
 
             <div class="content mtop">
                 <div class="owl-carousel  owl-theme non-nav">
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Rooms)
                     {
                         <div class="items">
                             <div class="image">
@@ -892,7 +894,7 @@ input:hover {
 
             <div class="content mtop">
                 <div class="owl-carousel owl-carousel1 owl-theme">
-                   @foreach(var item in Model.Select(r=>r.RoomType).Distinct()) {
+                   @foreach(var item in Model.Rooms.Select(r=>r.RoomType).Distinct()) {
                     <div class="items">
                         <div class="image">
                             <img src=@item.RoomTypeImage alt="">

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using ParkView_Capstone.Models.Rooms;
 
 namespace ParkView_Capstone.Models.Bookings
 {
@@ -8,23 +10,28 @@ namespace ParkView_Capstone.Models.Bookings
         public List<BookingCartItem> BookingCartItems { get; set; }
         public decimal Total { get; set; }
         private readonly ParkViewDbContext _dbcontext;
+        public IServiceProvider serviceProvider { get; set; }
+        private readonly IdentityUser _userManager;
 
-        public BookingCart(ParkViewDbContext dbcontext)
+        public BookingCart(ParkViewDbContext dbcontext, IServiceProvider serviceProvider, IdentityUser userManager)
         {
             _dbcontext = dbcontext;
+            this.serviceProvider = serviceProvider;
+            _userManager = userManager;
         }
 
         public static BookingCart GetCart(IServiceProvider services)
         {
             ISession session = services.GetRequiredService<IHttpContextAccessor>().HttpContext.Session;
             var context = services.GetService<ParkViewDbContext>();
+            var user=services.GetService<IdentityUser>();
             string cartid = session.GetString("CartId");
             if (cartid == null)
             {
                 cartid = Guid.NewGuid().ToString();
                 session.SetString("CartId", cartid);
             }
-            return new BookingCart(context) { BookingCartId = cartid };
+            return new BookingCart(context,services,user) { BookingCartId = cartid };
         }
 
         public void AddToBookingCart(BookingRoomDetails roomDetails)
@@ -40,13 +47,15 @@ namespace ParkView_Capstone.Models.Bookings
                     BookingCartId = BookingCartId,
                     BookingRoomDetailsId = roomDetails.BookingRoomDetailsId,
                     BookingRoomDetails = roomDetails,
-                    RoomPriceFee = roomDetails.RoomPriceAmount,
+                    BookedDate = new DateOnly(DateTime.Now.Date.Year, DateTime.Now.Date.Month, DateTime.Now.Date.Day),
+                    RoomPriceFee = roomDetails.RoomPriceAmount * DaysDifferenceDateOnlyConverted(roomDetails.CheckOutDate,roomDetails.CheckInDate),
+                    UserId = roomDetails.UserId
                 };
                 _dbcontext.BookingCartItems.Add(brdetails);
             }
             else
             {
-                brdetails.BookingRoomDetails.RoomQuantity=roomDetails.RoomQuantity;
+                brdetails.BookingRoomDetails=roomDetails;
             }
             _dbcontext.SaveChanges();
         }
@@ -70,7 +79,41 @@ namespace ParkView_Capstone.Models.Bookings
                 (BookingCartItems = _dbcontext.BookingCartItems
                 .Where(c => c.BookingCartId == BookingCartId)
                 .Include(s => s.BookingRoomDetails).Include(s=>s.BookingRoomDetails.Room)
+                .Include(s => s.BookingRoomDetails.Room.RoomType).Include(s => s.BookingRoomDetails.Room.Hotel)
                 .ToList());
+        }
+
+        public void CompleteBooking(IEnumerable<BookingCartItem> bookingCartItems)
+        {
+            foreach(BookingCartItem bookingCartItem in bookingCartItems)
+            {
+                _dbcontext.RoomOccupied.Add(new RoomOccupied()
+                {
+                    RoomId = bookingCartItem.BookingRoomDetails.RoomId,
+                    RoomCheckIn = bookingCartItem.BookingRoomDetails.CheckInDate,
+                    RoomCheckOut = bookingCartItem.BookingRoomDetails.CheckOutDate,
+                    RoomQuantity = bookingCartItem.BookingRoomDetails.RoomQuantity,
+                    BookingRoomDetailsId = bookingCartItem.BookingRoomDetailsId,
+                    IsCancelled=false,
+                    Room = bookingCartItem.BookingRoomDetails.Room,
+                    UserId = bookingCartItem.BookingRoomDetails.UserId
+                });
+            }
+            _dbcontext.SaveChanges();
+            deleteSession();
+        }
+
+        public void deleteSession()
+        {
+            ISession session = serviceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext.Session;
+            BookingCartItems = default(List<BookingCartItem>);
+            session.Clear();
+        }
+
+
+        private int DaysDifferenceDateOnlyConverted(DateOnly dateOnly1, DateOnly dateOnly2)
+        {
+            return (new DateTime(dateOnly1.Year, dateOnly1.Month, dateOnly1.Day) - new DateTime(dateOnly2.Year, dateOnly2.Month, dateOnly2.Day)).Days;
         }
     }
 }

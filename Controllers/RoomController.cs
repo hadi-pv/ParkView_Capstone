@@ -15,19 +15,19 @@ namespace ParkView_Capstone.Controllers
             _roomRepo = roomRepo;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string location , BookingRoomDetails bookingRoomDetails, int Adults , int Child)
         {
-            IEnumerable<Room> rooms = _roomRepo.GetAllAvailableRooms("Bengaluru", new DateOnly(2023, 9, 4), new DateOnly(2023, 9, 7), 4,2);
+            IEnumerable<Room> rooms = _roomRepo.GetAllAvailableRooms(location, bookingRoomDetails.CheckInDate,  new DateOnly(2023, 9, 7), Adults,Child);
 
             RoomListViewModal roomListViewModal = new RoomListViewModal()
             {
                 Rooms = rooms,
                 BookingRoomDetails = new BookingRoomDetails()
                 {
-                    CheckInDate = new DateOnly(2023, 9, 4),
+                    CheckInDate = bookingRoomDetails.CheckInDate,
                     CheckOutDate = new DateOnly(2023, 9, 7),
-                    AdultNo = 4,
-                    ChildrenNo = 2
+                    AdultNo = Adults,
+                    ChildrenNo = Child
                 }
             };
 

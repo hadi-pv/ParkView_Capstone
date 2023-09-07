@@ -1,63 +1,64 @@
 ﻿@model BookingCartViewModel
 
+<div class="container">
+    <h3>Booking Cart : </h3>
+    <hr/>
+    @foreach (var item in Model.bookingCart)
+    {
+        <div class="card mb-2">
+            <div class="card-header" style="background-color:#282834;color:white;font-weight:bold;font-size:x-large;">
+                @item.BookingRoomDetails.Room.RoomType.RoomName ( @item.BookingRoomDetails.Room.Hotel.HotelName)
+            </div>
+            <div class="card-body row">
+                <div class="col-md-4">
+                    <img src="@item.BookingRoomDetails.Room.RoomType.RoomTypeImage" class="img-fluid" alt="Room Photo" />
+                </div>
+                <div class="col-md-8">
+                    <button type="button" class="btn m-1" style="background-color:#282834;color:white;font-weight:bold;">
+                        Check In &Aacute; Check Out Date &emsp; :: &emsp;
+                        From &emsp; <span class="badge badge-light" style="color:green;background-color:white;">@item.BookingRoomDetails.CheckInDate</span>
+                        &emsp; - &emsp;To &emsp; <span class="badge badge-light" style="color:green;background-color:white;">@item.BookingRoomDetails.CheckOutDate</span>
+                    </button><br>
+                    <button type="button" class="btn m-1" style="background-color:#282834;color:white;font-weight:bold;">
+                        Quantity of Rooms &emsp; : &emsp;
+                        <span class="badge badge-light" style="color:green;background-color:white;">@item.BookingRoomDetails.RoomQuantity</span>
+                    </button>&emsp;
+                    <button type="button" class="btn m-1" style="background-color:#282834;color:white;font-weight:bold;">
+                        Number of Adults &emsp; : &emsp;
+                        <span class="badge badge-light" style="color:green;background-color:white;">@item.BookingRoomDetails.AdultNo</span>
+                    </button>&emsp;
+                    <button type="button" class="btn m-1" style="background-color:#282834;color:white;font-weight:bold;">
+                        Number of Children &emsp; : &emsp;
+                        <span class="badge badge-light" style="color:green;background-color:white;">@item.BookingRoomDetails.ChildrenNo</span>
+                    </button><br>
+                    <button type="button" class="btn m-1" style="background-color:#282834;color:white;font-weight:bold;font-size:x-large;">
+                        Total Amount Incurred for the Room : <br />
+                        <span class="badge badge-light" style="color:green;background-color:white;font-size:medium;">@item.BookingRoomDetails.RoomPrice</span>
+                        <span style="font-size:small">(Price of Single Room)</span> * <span class="badge badge-light" style="color:green;background-color:white;font-size:medium;">@Convert.ToInt32((new DateTime(@item.BookingRoomDetails.CheckOutDate.Year, @item.BookingRoomDetails.CheckOutDate.Month, @item.BookingRoomDetails.CheckOutDate.Day) - new DateTime(@item.BookingRoomDetails.CheckInDate.Year, @item.BookingRoomDetails.CheckInDate.Month, @item.BookingRoomDetails.CheckInDate.Day)).Days)</span>
+                        <span style="font-size:small">(Number of nights)</span> * <span class="badge badge-light" style="color:green;background-color:white;font-size:medium;">@item.BookingRoomDetails.RoomQuantity</span>
+                        <span style="font-size:small">(Number of Rooms)</span> = <span class="badge badge-light" style="color:green;background-color:white;font-size:medium;">@item.RoomPriceFee</span>
+                    </button><br>
+                    <div class="btn-group m-1" role="group" aria-label="Basic example">
+                        <a type="button" class="btn" style="background-color:#282834;color:white;" asp-action="AddRoomQuantity" asp-route-bookingdetailsid=@item.BookingCartItemId asp-route-quantity=@(item.BookingRoomDetails.RoomQuantity-1)>-</a>
+                        <button type="button" class="btn" style="border-color:#282834;color:black;" disabled>Room Quantity : @item.BookingRoomDetails.RoomQuantity</button>
+                        <a type="button" class="btn" style="background-color:#282834;color:white;" asp-action="AddRoomQuantity" asp-route-bookingdetailsid=@item.BookingCartItemId asp-route-quantity=@(item.BookingRoomDetails.RoomQuantity+1)>+</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 
-<h1>Index</h1>
+    <hr />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                RoomQuantity
-            </th>
-            <th>
-                RoomPrice
-            </th>
-            <th>
-                AdultNo
-            </th>
-            <th>
-                ChildrenNo
-            </th>
-            <th>
-                CheckInDate
-            </th>
-            <th>
-                CheckOutDate
-            </th>
-            <th>
-                Room
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.bookingCart) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingRoomDetails.RoomQuantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingRoomDetails.RoomPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingRoomDetails.AdultNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingRoomDetails.ChildrenNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingRoomDetails.CheckInDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingRoomDetails.CheckOutDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingRoomDetails.Room)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+   <div class="row">
+       <div class="col">
+            <h3>
+                Total : @Model.bookingCart.Select(b=>b.RoomPriceFee).Sum()
+            </h3>
+       </div>
+       <div class="col">
+            <a type="button" class="btn btn-primary" asp-action="CompleteBooking" asp-route-total=@Model.bookingCart.Select(b=>b.RoomPriceFee).Sum()>Proceed To Pay</a>
+       </div>
+   </div>
+
+</div>

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ParkView_Capstone.Models;
+using ParkView_Capstone.Models.Bookings;
 using ParkView_Capstone.Models.Rooms;
+using ParkView_Capstone.ViewModels;
 using System.Diagnostics;
 
 namespace PageView_Capstone.Controllers
@@ -19,7 +21,19 @@ namespace PageView_Capstone.Controllers
         {
             IEnumerable<Room> rooms = _roomRepo.GetAllAvailableRooms("", new DateOnly(2023, 9, 4), new DateOnly(2023, 9, 7), 4, 2);
 
-            return View(rooms);
+            RoomListViewModal roomListViewModal = new RoomListViewModal()
+            {
+                Rooms = rooms,
+                BookingRoomDetails = new BookingRoomDetails()
+                {
+                    CheckInDate = new DateOnly(2023, 9, 4),
+                    CheckOutDate = new DateOnly(2023, 9, 7),
+                    AdultNo = 4,
+                    ChildrenNo = 2
+                }
+            };
+
+            return View(roomListViewModal);
         }
 
         public IActionResult Privacy()

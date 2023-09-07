@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ParkView_Capstone.Models.Rooms;
+using System.ComponentModel.DataAnnotations;
 
 namespace ParkView_Capstone.Models.Bookings
 {
@@ -13,12 +15,15 @@ namespace ParkView_Capstone.Models.Bookings
         public int ChildrenNo { get; set; }
         public DateOnly CheckInDate { get; set; }
         public DateOnly CheckOutDate { get; set; }
+        public DateOnly BookedDate { get; set; }
 
+        [BindNever]
+        public string? UserId { get; set; }
         [BindNever]
         public int TotalPeople => AdultNo + ChildrenNo;
         [BindNever]
         public decimal RoomPriceAmount => RoomPrice * RoomQuantity;
-
-        public Room Room { get; set; }
+        [BindNever]
+        public Room? Room { get; set; }
     }
 }

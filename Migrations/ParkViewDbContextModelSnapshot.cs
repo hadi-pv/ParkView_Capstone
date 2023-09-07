@@ -232,6 +232,9 @@ namespace ParkView_Capstone.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingCartItemId"), 1L, 1);
 
+                    b.Property<DateTime>("BookedDate")
+                        .HasColumnType("date");
+
                     b.Property<string>("BookingCartId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -243,13 +246,12 @@ namespace ParkView_Capstone.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BookingCartItemId");
 
                     b.HasIndex("BookingRoomDetailsId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("BookingCartItems");
                 });
@@ -264,6 +266,9 @@ namespace ParkView_Capstone.Migrations
 
                     b.Property<int>("AdultNo")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("BookedDate")
+                        .HasColumnType("date");
 
                     b.Property<DateTime>("CheckInDate")
                         .HasColumnType("date");
@@ -282,6 +287,9 @@ namespace ParkView_Capstone.Migrations
 
                     b.Property<int>("RoomQuantity")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BookingRoomDetailsId");
 
@@ -306,6 +314,10 @@ namespace ParkView_Capstone.Migrations
 
                     b.Property<int>("ServiceQuantity")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BookingServiceDetailsId");
 
@@ -532,6 +544,12 @@ namespace ParkView_Capstone.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomOccupiedId"), 1L, 1);
 
+                    b.Property<int>("BookingRoomDetailsId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsCancelled")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("RoomCheckIn")
                         .HasColumnType("date");
 
@@ -543,6 +561,10 @@ namespace ParkView_Capstone.Migrations
 
                     b.Property<int>("RoomQuantity")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RoomOccupiedId");
 
@@ -572,6 +594,9 @@ namespace ParkView_Capstone.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("RoomGst")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("RoomName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -592,6 +617,7 @@ namespace ParkView_Capstone.Migrations
                             MaxChildren = 3,
                             MaxPeople = 9,
                             RoomDescription = "It is a Presidential Suite",
+                            RoomGst = 18m,
                             RoomName = "Presidential Suite",
                             RoomTypeImage = ""
                         },
@@ -602,6 +628,7 @@ namespace ParkView_Capstone.Migrations
                             MaxChildren = 2,
                             MaxPeople = 7,
                             RoomDescription = "It is a Executive",
+                            RoomGst = 18m,
                             RoomName = "Executive",
                             RoomTypeImage = ""
                         },
@@ -612,6 +639,7 @@ namespace ParkView_Capstone.Migrations
                             MaxChildren = 2,
                             MaxPeople = 6,
                             RoomDescription = "It is a Super Deluxe",
+                            RoomGst = 12m,
                             RoomName = "Super Deluxe",
                             RoomTypeImage = ""
                         },
@@ -622,6 +650,7 @@ namespace ParkView_Capstone.Migrations
                             MaxChildren = 2,
                             MaxPeople = 4,
                             RoomDescription = "It is a Deluxe",
+                            RoomGst = 12m,
                             RoomName = "Deluxe",
                             RoomTypeImage = ""
                         });
@@ -714,13 +743,7 @@ namespace ParkView_Capstone.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.Navigation("BookingRoomDetails");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Bookings.BookingRoomDetails", b =>
