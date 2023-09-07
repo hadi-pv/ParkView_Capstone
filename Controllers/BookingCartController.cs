@@ -180,7 +180,15 @@ namespace ParkView_Capstone.Controllers
             _bookingCart.CompleteBooking(bookingcartitems, servicecartitems,payid, orderid,sigid);
             return View();
         }
+        
+        public RedirectToActionResult RemoveServiceDetail(int serviceid)
+        {
+            var service=_dbcontext.BookingServiceDetails.SingleOrDefault(s=>s.BookingServiceDetailsId== serviceid);
+            _dbcontext.BookingServiceDetails.Remove(service);
+            _dbcontext.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-            
+
     }
 }

@@ -1,12 +1,15 @@
 ﻿@model BookingCartViewModel
 
 <div class="container">
-    <a type="button" class="btn" style="color:white;background-color:#25a18e" asp-controller="Room" asp-action="Index"
-       asp-route-location="@Model.bookingCart.First().BookingRoomDetails.Room.Hotel.HotelName"
-       asp-route-checkin=@Model.bookingCart.First().BookingRoomDetails.CheckInDate.ToString("yyyy-MM-dd")
-       asp-route-checkout=@Model.bookingCart.First().BookingRoomDetails.CheckOutDate.ToString("yyyy-MM-dd")
-       asp-route-Adults=@Model.bookingCart.First().BookingRoomDetails.AdultNo
-       asp-route-Child=@Model.bookingCart.First().BookingRoomDetails.ChildrenNo>Go Back To Booking</a>
+    @if (Model.bookingCart.Count != 0)
+    {
+        <a type="button" class="btn" style="color:white;background-color:#25a18e" asp-controller="Room" asp-action="Index"
+           asp-route-location="@Model.bookingCart.First().BookingRoomDetails.Room.Hotel.HotelName"
+           asp-route-checkin=@Model.bookingCart.First().BookingRoomDetails.CheckInDate.ToString("yyyy-MM-dd")
+           asp-route-checkout=@Model.bookingCart.First().BookingRoomDetails.CheckOutDate.ToString("yyyy-MM-dd")
+           asp-route-Adults=@Model.bookingCart.First().BookingRoomDetails.AdultNo
+           asp-route-Child=@Model.bookingCart.First().BookingRoomDetails.ChildrenNo>Go Back To Booking</a>
+    }
     <a type="button" class="btn" style="color:white;background-color:#25a18e;width:80%;" asp-controller="Service">Book World Class Services</a>
 </div>
 <br />
@@ -16,7 +19,7 @@
     <hr/>
 
 
-    @if (Model.bookingCart != null)
+    @if (Model.bookingCart.Count != 0)
     {
         @foreach (var item in Model.bookingCart)
         {
@@ -68,7 +71,7 @@
     <div class="container-fluid">
         <h3>Service Cart : </h3>
         <hr />
-        @if (Model.servicecart != null)
+        @if (Model.servicecart.Count != 0)
         {
             @foreach (var item in Model.servicecart)
             {
@@ -85,9 +88,11 @@
                         <button type="button" class="btn m-1" style="background-color:#282834;color:white;font-weight:bold;">
                             Quantity of Service &emsp; : &emsp;
                             <span class="badge badge-light" style="color:#282834;background-color:white;">@item.ServiceQuantity</span>
-                        </button>&emsp;
+                        </button><br/>
+                        <a type="button" style="float:right" class="btn btn-danger" asp-action="RemoveServiceDetail"
+                        asp-route-serviceid=@item.BookingServiceDetailsId>Remove Service</a>
                     </div>
-                </div>
+                </div><br />
             }
         }
     </div>
