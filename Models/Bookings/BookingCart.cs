@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ParkView_Capstone.Models.Rooms;
 using ParkView_Capstone.Models.Servicess;
+using Razorpay.Api;
 
 namespace ParkView_Capstone.Models.Bookings
 {
@@ -132,7 +133,7 @@ namespace ParkView_Capstone.Models.Bookings
                 .ToList());
         }
 
-        public void CompleteBooking(IEnumerable<BookingCartItem> bookingCartItems)
+        public void CompleteBooking(IEnumerable<BookingCartItem> bookingCartItems,string payid, string orderid,string sigid)
         {
             foreach(BookingCartItem bookingCartItem in bookingCartItems)
             {
@@ -145,7 +146,9 @@ namespace ParkView_Capstone.Models.Bookings
                     BookingRoomDetailsId = bookingCartItem.BookingRoomDetailsId,
                     IsCancelled =false,
                     Room = bookingCartItem.BookingRoomDetails.Room,
-                    UserId = bookingCartItem.BookingRoomDetails.UserId
+                    UserId = bookingCartItem.BookingRoomDetails.UserId,
+                    RP_Payment_id = payid,
+                    RP_Signature_id = sigid
                 });
             }
             _dbcontext.SaveChanges();

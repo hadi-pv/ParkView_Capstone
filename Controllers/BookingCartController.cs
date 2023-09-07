@@ -158,10 +158,10 @@ namespace ParkView_Capstone.Controllers
             return RedirectToActionPermanent("ShowPrevOrders");
         }
 
-        public IActionResult SuccessfulPayment()
+        public IActionResult SuccessfulPayment(string payid,string orderid,string sigid)
         {
             var bookingcartitems = _bookingCart.GetBookingCartItems();
-            _bookingCart.CompleteBooking(bookingcartitems);
+            _bookingCart.CompleteBooking(bookingcartitems,payid,orderid,sigid);
             return View();
         }
 

@@ -58,6 +58,10 @@
     <img style="width:100%;height:300px;" src="/images/banner-1.png"></img>
     <div class="centered"><h1 style="color:white">Services</h1></div>
 </div>
+@{
+    DateOnly today = new DateOnly(DateTime.Now.Date.Year, DateTime.Now.Date.Month, DateTime.Now.Date.Day);
+    DateOnly tmrw = today.AddDays(1);
+}
 <section class="book">
     <div class="container flex_space">
         <div class="text">
@@ -65,23 +69,37 @@
         </div>
         <br />
         <div class="form">
-            <form class="grid">
+            <form class="grid" asp-controller="Room" asp-action="Index" method="post">
                 <select style="border-radius: 10px;" name="location" id="location">
                     <option value="" disabled selected hidden>Location</option>
-                    <option value="mumbai">Mumbai</option>
-                    <option value="Blr">Bangalore</option>
-                    <option value="chennai">Chennai</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Bengaluru">Bangalore</option>
+                    <option value="Chennai">Chennai</option>
 
                 </select>
-                <input style="border-radius: 10px;" type="date" placeholder="Araival Date">
-                <input style="border-radius: 10px;" type="date" placeholder="Departure Date">
-                <input style="border-radius: 10px;" type="number" placeholder="Adults">
-                <input style="border-radius: 10px;" type="number" placeholder="Childern">
-                <input style="border-radius: 10px;" type="submit" value="CHECK AVAILABILITY">
+                <input style="border-radius: 10px;" type="date" class="form-control" id="checkin123" name="checkin" placeholder="Araival Date" value="$(this).ToString('yyyy-MM-dd')" min=@today.ToString("yyyy-MM-dd") required>
+                <input style="border-radius: 10px;" type="date" name="checkout" id="checkout123" placeholder="Departure Date" value="$(this).ToString('yyyy-MM-dd')" min=@tmrw.ToString("yyyy-MM-dd") required>
+                <input style="border-radius: 10px;" type="number" name="Adults" placeholder="Adults" required min=1>
+                <input style="border-radius: 10px;" type="number" name="Child" placeholder="Childern" min=0>
+                <input style="border-radius: 10px;background-color:#7FC142;color:white;font-weight:bold;" type="submit" value="CHECK AVAILABILITY">
             </form>
         </div>
     </div>
 </section>
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var $checkinInput = $('#checkin123');
+            var $checkoutInput = $('#checkout123');
+            $checkinInput.on('input', function () {
+                var checkinDate = $checkinInput.val();
+                $checkoutInput.attr('min', checkinDate);
+            });
+        });
+    </script>
+    }
 
 
 

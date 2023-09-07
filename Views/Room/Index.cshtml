@@ -3,7 +3,8 @@
 @{
     DateOnly cidate = new DateOnly(Model.BookingRoomDetails.CheckInDate.Year, Model.BookingRoomDetails.CheckInDate.Month, Model.BookingRoomDetails.CheckInDate.Day);
     DateOnly codate = new DateOnly(Model.BookingRoomDetails.CheckOutDate.Year, Model.BookingRoomDetails.CheckOutDate.Month, Model.BookingRoomDetails.CheckOutDate.Day);
-
+    DateOnly today = new DateOnly(DateTime.Now.Date.Year, DateTime.Now.Date.Month, DateTime.Now.Date.Day);
+    DateOnly tmrw = today.AddDays(1);
 }
 
 <section class="book">
@@ -14,15 +15,15 @@
         <br />
         <div class="form">
             <form class="grid" asp-controller="Room" asp-action="Index" method="post">
-                <select asp-for="@Model.Hotel.HotelLocation" style="border-radius: 10px;" name="location" id="location">
+                <select style="border-radius: 10px;" name="location" id="location">
                     <option value="" disabled selected hidden>Location</option>
                     <option value="Mumbai">Mumbai</option>
                     <option value="Bengaluru">Bangalore</option>
                     <option value="Chennai">Chennai</option>
 
                 </select>
-                <input asp-for=@Model.BookingRoomDetails.CheckInDate style="border-radius: 10px;" type="date" class="form-control" name="checkin" placeholder="Araival Date" value=@cidate.ToString("yyyy-MM-dd")>
-                <input asp-for=@Model.BookingRoomDetails.CheckOutDate style="border-radius: 10px;" type="date" name="checkout" placeholder="Departure Date" value=@codate.ToString("yyyy-MM-dd")>
+                <input id="checkin123" asp-for=@Model.BookingRoomDetails.CheckInDate style="border-radius: 10px;" type="date" class="form-control" name="checkin" placeholder="Araival Date" value=@cidate.ToString("yyyy-MM-dd")>
+                <input id="checkout123" asp-for=@Model.BookingRoomDetails.CheckOutDate style="border-radius: 10px;" type="date" name="checkout" placeholder="Departure Date" value=@codate.ToString("yyyy-MM-dd")>
                 <input asp-for=@Model.BookingRoomDetails.AdultNo style="border-radius: 10px;" type="number" name="Adults" placeholder="Adults" min=1 required>
                 <input asp-for=@Model.BookingRoomDetails.ChildrenNo style="border-radius: 10px;" type="number" name="Child" placeholder="Childern">
                 <input style="border-radius: 10px;background-color:#7FC142;color:white;font-weight:bold;" type="submit" value="CHECK AVAILABILITY">
@@ -30,6 +31,7 @@
         </div>
     </div>
 </section>
+
 <div class="container">
     <br/>
     <h1 style="color:#282834;font-weight:bold;">Available Rooms</h1>
@@ -121,6 +123,17 @@
 
 
 @section Scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var $checkinInput = $('#checkin123');
+            var $checkoutInput = $('#checkout123');
+            $checkinInput.on('input', function () {
+                var checkinDate = $checkinInput.val();
+                $checkoutInput.attr('min', checkinDate);
+            });
+        });
+    </script>
     @foreach(var item in Model.Rooms)
     {
         <script>
