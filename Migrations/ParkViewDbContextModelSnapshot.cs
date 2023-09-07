@@ -271,7 +271,6 @@ namespace ParkView_Capstone.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("BookingCartId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CheckInDate")
@@ -328,6 +327,38 @@ namespace ParkView_Capstone.Migrations
                     b.HasIndex("ServiceId");
 
                     b.ToTable("BookingServiceDetails");
+                });
+
+            modelBuilder.Entity("ParkView_Capstone.Models.Bookings.BookingServiceItem", b =>
+                {
+                    b.Property<int>("BookingServiceItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingServiceItemId"), 1L, 1);
+
+                    b.Property<DateTime>("BookedDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("BookingCartId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("BookingServiceDetailsId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("SericePriceFee")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BookingServiceItemId");
+
+                    b.HasIndex("BookingServiceDetailsId");
+
+                    b.ToTable("BookingServiceItem");
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Facilities.FacilityApply", b =>
@@ -660,7 +691,7 @@ namespace ParkView_Capstone.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ParkView_Capstone.Models.Services.Service", b =>
+            modelBuilder.Entity("ParkView_Capstone.Models.Servicess.Services", b =>
                 {
                     b.Property<int>("ServiceId")
                         .ValueGeneratedOnAdd()
@@ -763,13 +794,24 @@ namespace ParkView_Capstone.Migrations
 
             modelBuilder.Entity("ParkView_Capstone.Models.Bookings.BookingServiceDetails", b =>
                 {
-                    b.HasOne("ParkView_Capstone.Models.Services.Service", "Service")
+                    b.HasOne("ParkView_Capstone.Models.Servicess.Services", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("ParkView_Capstone.Models.Bookings.BookingServiceItem", b =>
+                {
+                    b.HasOne("ParkView_Capstone.Models.Bookings.BookingRoomDetails", "BookingServiceDetails")
+                        .WithMany()
+                        .HasForeignKey("BookingServiceDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BookingServiceDetails");
                 });
 
             modelBuilder.Entity("ParkView_Capstone.Models.Facilities.FacilityApply", b =>

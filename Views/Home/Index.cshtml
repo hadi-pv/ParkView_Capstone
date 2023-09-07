@@ -798,8 +798,8 @@ input:hover {
                     </select>
                     <input style="border-radius: 10px;" type="date" class="form-control" name="checkin" placeholder="Araival Date" value="$(this).ToString('yyyy-MM-dd')" min=@today.ToString("yyyy-MM-dd") required>
                     <input style="border-radius: 10px;" type="date" name="checkout" placeholder="Departure Date" value="$(this).ToString('yyyy-MM-dd')" min=@tmrw.ToString("yyyy-MM-dd") required>
-                    <input style="border-radius: 10px;" type="number" name="Adults" placeholder="Adults">
-                    <input style="border-radius: 10px;" type="number" name="Child" placeholder="Childern">
+                    <input style="border-radius: 10px;" type="number" name="Adults" placeholder="Adults" min="1">
+                    <input style="border-radius: 10px;" type="number" name="Child" placeholder="Childern" min="0">
                     <input style="border-radius: 10px;background-color:#7FC142;color:white;font-weight:bold;" type="submit" value="CHECK AVAILABILITY">
                 </form>
             </div>

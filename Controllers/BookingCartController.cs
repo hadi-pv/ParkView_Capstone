@@ -6,7 +6,7 @@ using ParkView_Capstone.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using ParkView_Capstone.Models.Hotels;
-using ParkView_Capstone.Models.Services;
+using ParkView_Capstone.Models.Servicess;
 
 namespace ParkView_Capstone.Controllers
 {
