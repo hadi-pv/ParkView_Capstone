@@ -3,6 +3,11 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 @inject BookingCart bookingcart
+@inject IServiceRepo servicedbrepo
+
+@{
+    var totalcount = bookingcart.GetBookingCartItems().Count + servicedbrepo.GetCartServiceItems().ToList().Count;
+}
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
@@ -12,7 +17,7 @@
         </li>
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                @if (bookingcart.GetBookingCartItems().Count != 0)
+                @if (totalcount != 0)
                 {
                     <button style="margin-top: 22.5px;font-weight:bold;" id="logout" type="submit" class="nav-link btn btn-link text-dark"
                             onclick="return confirm ('You have items in your cart.\nOnce you logout it will be lost\nYou sure you want to log out?');">

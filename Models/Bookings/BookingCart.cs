@@ -133,7 +133,7 @@ namespace ParkView_Capstone.Models.Bookings
                 .ToList());
         }
 
-        public void CompleteBooking(IEnumerable<BookingCartItem> bookingCartItems,string payid, string orderid,string sigid)
+        public void CompleteBooking(IEnumerable<BookingCartItem> bookingCartItems,IEnumerable<BookingServiceDetails> servicecartitems, string payid, string orderid,string sigid)
         {
             foreach(BookingCartItem bookingCartItem in bookingCartItems)
             {
@@ -150,6 +150,16 @@ namespace ParkView_Capstone.Models.Bookings
                     RP_Payment_id = payid,
                     RP_Signature_id = sigid
                 });
+            }
+            foreach(BookingServiceDetails servicecartitem in servicecartitems)
+            {
+                _dbcontext.BookedServices.Add(new BookedService()
+                {
+                    UserId = servicecartitem.UserId,
+                    BookedServiceDetailsId = servicecartitem.BookingServiceDetailsId,
+                    BookingServiceDetails=_dbcontext.BookingServiceDetails.SingleOrDefault(s=>s.BookingServiceDetailsId==servicecartitem.BookingServiceDetailsId)
+                });
+
             }
             _dbcontext.SaveChanges();
             deleteSession();
@@ -183,6 +193,13 @@ namespace ParkView_Capstone.Models.Bookings
         {
             var booking=_dbcontext.RoomOccupied.SingleOrDefault(o=>o.BookingRoomDetailsId==bookingid);
             _dbcontext.Remove(booking);
+            _dbcontext.SaveChanges();
+        }
+
+        public void DeleteService(int serviceid)
+        {
+            var service=_dbcontext.BookedServices.SingleOrDefault(s=>s.BookedServiceDetailsId==serviceid);
+            _dbcontext.Remove(service);
             _dbcontext.SaveChanges();
         }
 

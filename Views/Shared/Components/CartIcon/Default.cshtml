@@ -1,11 +1,14 @@
 ﻿@model BookingCartViewModel
 
+@{
+    var total = Model.bookingCart.Count + Model.servicecart.Count;
+}
 
     <li class="nav-item">
         <a class="btn btn-dark" style="color:black!important;" asp-controller="BookingCart" asp-action="Index">
             <i class="bi bi-cart" style="font-size:large;"></i>&emsp;
             <span class="badge badge-light" style="padding:5px 10px;color:black!important;background-color:white;" id="cart-status">
-                @Model.bookingCart.Count
+                @total
             </span>
         </a>
     </li>

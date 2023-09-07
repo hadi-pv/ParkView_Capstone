@@ -91,6 +91,23 @@
                     <td>@roomprice</td>
                 </tr>
             }
+            @foreach(var item in Model.Services)
+            {
+                <tr>
+                    <td>@item.Service.ServiceName</td>
+                    <td>@item.ServiceQuantity</td>
+                    <td>-</td>
+                    <td>@item.ServicePriceAmount</td>
+                    <td>@item.ServicePriceAmount</td>
+                    <td>18</td>
+                    @{
+                        var gstamt = item.ServicePriceAmount * 18 / 100;
+                        var roomprice = item.ServicePriceAmount + gstamt;
+                    }
+                    <td>@gstamt</td>
+                    <td>@roomprice</td>
+                </tr>
+            }
             <tr>
                 <td colspan="5"></td>
                 <td colspan="3"><p><strong>Total Amount:</strong> @Model.Total</p></td>

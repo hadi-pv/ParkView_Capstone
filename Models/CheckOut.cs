@@ -7,6 +7,7 @@ namespace ParkView_Capstone.Models
     {
         public string BookingCartId { get; set; }
         public IEnumerable<BookingCartItem> Items { get; set; }
+        public IEnumerable<BookingServiceDetails> Services { get; set; }
         public decimal Total { get; set; }
         public DateOnly BookedDate { get; set; }
 

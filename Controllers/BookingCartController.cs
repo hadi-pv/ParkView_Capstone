@@ -19,25 +19,29 @@ namespace ParkView_Capstone.Controllers
         private readonly BookingCart _bookingCart;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ParkViewDbContext _dbcontext;
+        private readonly IServiceRepo _serviceRepo;
         public IServiceProvider services { get; set; }
 
-        public BookingCartController(IRoomRepo roomRepo, BookingCart bookingCart,UserManager<IdentityUser> userManager,ParkViewDbContext parkViewDbContext,IServiceProvider services)
+        public BookingCartController(IServiceRepo serviceRepo,IRoomRepo roomRepo, BookingCart bookingCart,UserManager<IdentityUser> userManager,ParkViewDbContext parkViewDbContext,IServiceProvider services)
         {
             _roomRepo = roomRepo;
             _bookingCart = bookingCart;
             _userManager = userManager;
             _dbcontext = parkViewDbContext;
             this.services = services;
+            _serviceRepo = serviceRepo;
         }
 
         public IActionResult Index()
         {
             var items = _bookingCart.GetBookingCartItems();
             _bookingCart.BookingCartItems = items;
+            var serviceitems=_serviceRepo.GetCartServiceItems().ToList();
 
             var bookingcartviewmodel = new BookingCartViewModel()
             {
-                bookingCart = items
+                bookingCart = items,
+                servicecart = serviceitems
             };
 
             return View(bookingcartviewmodel);
@@ -98,7 +102,8 @@ namespace ParkView_Capstone.Controllers
         public IActionResult CompleteBooking(decimal total)
         {
             var bookingcartitems=_bookingCart.GetBookingCartItems();
-            if (bookingcartitems == null)
+            var servicecartitems = _serviceRepo.GetCartServiceItems();
+            if (bookingcartitems == null && servicecartitems==null)
             {
                 return RedirectToAction("Index");
             }
@@ -115,8 +120,9 @@ namespace ParkView_Capstone.Controllers
                     BookingCartId = bookingcartitems.First().BookingCartId,
                     Items = bookingcartitems,
                     BookedDate = new DateOnly(DateTime.Now.Date.Year, DateTime.Now.Date.Month, DateTime.Now.Date.Day),
-                    Total = total+gstamt,
-                    User = _dbcontext.Users.SingleOrDefault(s=>s.Id==bookingcartitems.First().UserId)
+                    Total = total+gstamt+servicecartitems.Select(s=>s.ServicePriceAmount).Sum()*118/100,
+                    User = _dbcontext.Users.SingleOrDefault(s=>s.Id==bookingcartitems.First().UserId),
+                    Services=servicecartitems
                 };
                 var key = "rzp_test_HUUxPpsvhCwwbi";
                 var secret = "fIEMLCIeIOR4oU5I0NPWq7xe";
@@ -134,20 +140,23 @@ namespace ParkView_Capstone.Controllers
         {
             var userid = _userManager.GetUserId(HttpContext.User);
             var result = _bookingCart.GetAllPrevorders(userid);
+            var result2 = _serviceRepo.GetPrevServices(userid);
 
             List<CheckOut> checkOutList = new List<CheckOut>();
 
             foreach (var item in result)
             {
+                Console.WriteLine(result2);
                 checkOutList.Add(
                     new CheckOut()
                     {
                         BookingCartId = item.Value.First().BookingCartId,
                         Items = item.Value,
                         BookedDate = item.Value.First().BookedDate,
-                        Total = item.Value.Select(r=>r.RoomPriceFee).Sum(),
-                        User = _dbcontext.Users.SingleOrDefault(s => s.Id == userid)
-                    });
+                        Total = item.Value.Select(r => r.RoomPriceFee).Sum(),
+                        User = _dbcontext.Users.SingleOrDefault(s => s.Id == userid),
+                        Services = result2.Where(r=>r.BookingCartId== item.Value.First().BookingCartId)
+                    }) ;
             }
             return View(checkOutList);
         }
@@ -158,10 +167,17 @@ namespace ParkView_Capstone.Controllers
             return RedirectToActionPermanent("ShowPrevOrders");
         }
 
+        public RedirectToActionResult DeleteService(int serviceid)
+        {
+            _bookingCart.DeleteService(serviceid);
+            return RedirectToActionPermanent("ShowPrevOrders");
+        }
+
         public IActionResult SuccessfulPayment(string payid,string orderid,string sigid)
         {
             var bookingcartitems = _bookingCart.GetBookingCartItems();
-            _bookingCart.CompleteBooking(bookingcartitems,payid,orderid,sigid);
+            var servicecartitems = _serviceRepo.GetCartServiceItems();
+            _bookingCart.CompleteBooking(bookingcartitems, servicecartitems,payid, orderid,sigid);
             return View();
         }
 

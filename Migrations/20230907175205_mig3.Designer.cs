@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParkView_Capstone.Models;
 
@@ -11,9 +12,10 @@ using ParkView_Capstone.Models;
 namespace ParkView_Capstone.Migrations
 {
     [DbContext(typeof(ParkViewDbContext))]
-    partial class ParkViewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230907175205_mig3")]
+    partial class mig3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -706,31 +708,6 @@ namespace ParkView_Capstone.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ParkView_Capstone.Models.Servicess.BookedService", b =>
-                {
-                    b.Property<int>("BookedServiceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookedServiceId"), 1L, 1);
-
-                    b.Property<int>("BookedServiceDetailsId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BookingServiceDetailsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("BookedServiceId");
-
-                    b.HasIndex("BookingServiceDetailsId");
-
-                    b.ToTable("BookedServices");
-                });
-
             modelBuilder.Entity("ParkView_Capstone.Models.Servicess.Services", b =>
                 {
                     b.Property<int>("ServiceId")
@@ -912,15 +889,6 @@ namespace ParkView_Capstone.Migrations
                         .IsRequired();
 
                     b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("ParkView_Capstone.Models.Servicess.BookedService", b =>
-                {
-                    b.HasOne("ParkView_Capstone.Models.Bookings.BookingServiceDetails", "BookingServiceDetails")
-                        .WithMany()
-                        .HasForeignKey("BookingServiceDetailsId");
-
-                    b.Navigation("BookingServiceDetails");
                 });
 #pragma warning restore 612, 618
         }

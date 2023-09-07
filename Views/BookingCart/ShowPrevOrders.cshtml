@@ -70,25 +70,53 @@
                 <th>Total</th>
                 <th></th>
             </tr>
-            @foreach (var item in checkout.Items)
+            @if (checkout.Items != null)
             {
-                <tr>
-                    <td>@item.BookingRoomDetails.Room.RoomType.RoomName</td>
-                    <td>@item.BookingRoomDetails.RoomQuantity</td>
-                    <td>@Convert.ToInt32((new DateTime(@item.BookingRoomDetails.CheckOutDate.Year, @item.BookingRoomDetails.CheckOutDate.Month, @item.BookingRoomDetails.CheckOutDate.Day) - new DateTime(@item.BookingRoomDetails.CheckInDate.Year, @item.BookingRoomDetails.CheckInDate.Month, @item.BookingRoomDetails.CheckInDate.Day)).Days)</td>
-                    <td>@item.BookingRoomDetails.RoomPrice</td>
-                    <td>@item.RoomPriceFee</td>
-                    <td>@item.BookingRoomDetails.Room.RoomType.RoomGst</td>
-                    @{
-                        var gstamt = item.RoomPriceFee * item.BookingRoomDetails.Room.RoomType.RoomGst / 100;
-                        var roomprice = item.RoomPriceFee + gstamt;
-                    }
-                    <td>@gstamt</td>
-                    <td>@roomprice</td>
-                    <td><a class="btn btn-danger" asp-action="DeleteBooking" asp-route-bookingid=@item.BookingRoomDetailsId
-                           onclick="return confirm ('You sure you want to Cancel Booking?');">Cancel Booking</a>
-                    </td>
-                </tr>
+                @foreach (var item in checkout.Items)
+                {
+                    <tr>
+                        <td>@item.BookingRoomDetails.Room.RoomType.RoomName</td>
+                        <td>@item.BookingRoomDetails.RoomQuantity</td>
+                        <td>@Convert.ToInt32((new DateTime(@item.BookingRoomDetails.CheckOutDate.Year, @item.BookingRoomDetails.CheckOutDate.Month, @item.BookingRoomDetails.CheckOutDate.Day) - new DateTime(@item.BookingRoomDetails.CheckInDate.Year, @item.BookingRoomDetails.CheckInDate.Month, @item.BookingRoomDetails.CheckInDate.Day)).Days)</td>
+                        <td>@item.BookingRoomDetails.RoomPrice</td>
+                        <td>@item.RoomPriceFee</td>
+                        <td>@item.BookingRoomDetails.Room.RoomType.RoomGst</td>
+                        @{
+                            var gstamt = item.RoomPriceFee * item.BookingRoomDetails.Room.RoomType.RoomGst / 100;
+                            var roomprice = item.RoomPriceFee + gstamt;
+                        }
+                        <td>@gstamt</td>
+                        <td>@roomprice</td>
+                        <td>
+                            <a class="btn btn-danger" asp-action="DeleteBooking" asp-route-bookingid=@item.BookingRoomDetailsId
+                               onclick="return confirm ('You sure you want to Cancel Booking?');">Cancel Booking</a>
+                        </td>
+                    </tr>
+                }
+            }
+            @if (checkout.Services != null)
+            {
+                @foreach (var item in checkout.Services)
+                {
+                    <tr>
+                        <td>@item.Service.ServiceName</td>
+                        <td>@item.ServiceQuantity</td>
+                        <td>-</td>
+                        <td>@item.ServicePriceAmount</td>
+                        <td>@item.ServicePriceAmount</td>
+                        <td>18</td>
+                        @{
+                            var gstamt = item.ServicePriceAmount * 18 / 100;
+                            var roomprice = item.ServicePriceAmount + gstamt;
+                        }
+                        <td>@gstamt</td>
+                        <td>@roomprice</td>
+                        <td>
+                            <a class="btn btn-danger" asp-action="DeleteService" asp-route-serviceid=@item.BookingServiceDetailsId
+                               onclick="return confirm ('You sure you want to Cancel Service?');">Cancel Service</a>
+                        </td>
+                    </tr>
+                }
             }
         </table>
 
