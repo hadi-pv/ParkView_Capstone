@@ -61,7 +61,9 @@
             <tr>
                 <th>Room Type</th>
                 <th>Quantity</th>
+                <th>No. of Nights</th>
                 <th>Price</th>
+                <th>Total price</th>
                 <th>Gst Percentage</th>
                 <th>Gst Amount</th>
                 <th>Total</th>
@@ -71,10 +73,12 @@
                 <tr>
                     <td>@item.BookingRoomDetails.Room.RoomType.RoomName</td>
                     <td>@item.BookingRoomDetails.RoomQuantity</td>
+                    <td>@Convert.ToInt32((new DateTime(@item.BookingRoomDetails.CheckOutDate.Year, @item.BookingRoomDetails.CheckOutDate.Month, @item.BookingRoomDetails.CheckOutDate.Day) - new DateTime(@item.BookingRoomDetails.CheckInDate.Year, @item.BookingRoomDetails.CheckInDate.Month, @item.BookingRoomDetails.CheckInDate.Day)).Days)</td>
                     <td>@item.BookingRoomDetails.RoomPrice</td>
+                    <td>@item.RoomPriceFee</td>
                     <td>@item.BookingRoomDetails.Room.RoomType.RoomGst</td>
                     @{
-                        var gstamt = item.BookingRoomDetails.Room.RoomType.RoomGst * item.RoomPriceFee;
+                        var gstamt = item.RoomPriceFee * item.BookingRoomDetails.Room.RoomType.RoomGst/100;
                         var roomprice = item.RoomPriceFee + gstamt;
                     }
                     <td>@gstamt</td>

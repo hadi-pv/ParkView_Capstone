@@ -1,0 +1,96 @@
+﻿@model List<CheckOut>
+
+
+<style>
+
+    .receipt {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
+
+    .header {
+        background-color: #282834;
+        color: #fff;
+        padding: 10px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin: 0;
+    }
+
+    .info {
+        margin-top: 20px;
+    }
+
+    p {
+        margin: 5px 0;
+    }
+
+    .total {
+        background-color: #282834;
+        color: #fff;
+        padding: 10px;
+        border-radius: 0 0 10px 10px;
+        margin-top: 20px;
+    }
+
+        .total p {
+            margin: 0;
+        }
+</style>
+
+@foreach(var checkout in Model)
+{
+    <div class="receipt">
+        <div class="header">
+            <h1>Hotel Booking Receipt</h1>
+        </div>
+
+        <div class="info">
+            <p><strong>Receipt Number:</strong> @checkout.BookingCartId</p>
+            <p><strong>Date:</strong> @checkout.BookedDate</p>
+            <p><strong>Customer Name:</strong> @checkout.User.UserName</p>
+            <p><strong>UserName:</strong> @checkout.User.UserName</p>
+        </div>
+
+        <table class="table table-striped" width="100%">
+            <tr>
+                <th>Room Type</th>
+                <th>Quantity</th>
+                <th>No. of Nights</th>
+                <th>Price</th>
+                <th>Total price</th>
+                <th>Gst Percentage</th>
+                <th>Gst Amount</th>
+                <th>Total</th>
+            </tr>
+            @foreach (var item in checkout.Items)
+            {
+                <tr>
+                    <td>@item.BookingRoomDetails.Room.RoomType.RoomName</td>
+                    <td>@item.BookingRoomDetails.RoomQuantity</td>
+                    <td>@Convert.ToInt32((new DateTime(@item.BookingRoomDetails.CheckOutDate.Year, @item.BookingRoomDetails.CheckOutDate.Month, @item.BookingRoomDetails.CheckOutDate.Day) - new DateTime(@item.BookingRoomDetails.CheckInDate.Year, @item.BookingRoomDetails.CheckInDate.Month, @item.BookingRoomDetails.CheckInDate.Day)).Days)</td>
+                    <td>@item.BookingRoomDetails.RoomPrice</td>
+                    <td>@item.RoomPriceFee</td>
+                    <td>@item.BookingRoomDetails.Room.RoomType.RoomGst</td>
+                    @{
+                        var gstamt = item.RoomPriceFee * item.BookingRoomDetails.Room.RoomType.RoomGst / 100;
+                        var roomprice = item.RoomPriceFee + gstamt;
+                    }
+                    <td>@gstamt</td>
+                    <td>@roomprice</td>
+                </tr>
+            }
+        </table>
+
+        <div class="total">
+            <p><strong>Total Amount:</strong> @checkout.Total</p>
+        </div>
+    </div>
+
+}

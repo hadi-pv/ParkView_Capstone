@@ -18,6 +18,8 @@ namespace ParkView_Capstone.Models.Bookings
         public DateOnly BookedDate { get; set; }
 
         [BindNever]
+        public string? BookingCartId { get; set; }
+        [BindNever]
         public string? UserId { get; set; }
         [BindNever]
         public int TotalPeople => AdultNo + ChildrenNo;

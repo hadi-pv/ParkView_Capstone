@@ -5,6 +5,8 @@ using ParkView_Capstone.Models.Rooms;
 using ParkView_Capstone.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using ParkView_Capstone.Models.Hotels;
+using ParkView_Capstone.Models.Services;
 
 namespace ParkView_Capstone.Controllers
 {
@@ -15,13 +17,15 @@ namespace ParkView_Capstone.Controllers
         private readonly BookingCart _bookingCart;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ParkViewDbContext _dbcontext;
+        public IServiceProvider services { get; set; }
 
-        public BookingCartController(IRoomRepo roomRepo, BookingCart bookingCart,UserManager<IdentityUser> userManager,ParkViewDbContext parkViewDbContext)
+        public BookingCartController(IRoomRepo roomRepo, BookingCart bookingCart,UserManager<IdentityUser> userManager,ParkViewDbContext parkViewDbContext,IServiceProvider services)
         {
             _roomRepo = roomRepo;
             _bookingCart = bookingCart;
             _userManager = userManager;
             _dbcontext = parkViewDbContext;
+            this.services = services;
         }
 
         public IActionResult Index()
@@ -56,6 +60,7 @@ namespace ParkView_Capstone.Controllers
         [HttpPost]
         public RedirectToActionResult AddToBookingCart(BookingRoomDetails bookingRoomDetails)
         {
+            ISession session = services.GetRequiredService<IHttpContextAccessor>().HttpContext.Session;
             Console.WriteLine(ModelState);
             if(ModelState.IsValid)
             {
@@ -70,10 +75,12 @@ namespace ParkView_Capstone.Controllers
                     RoomPrice = room.RoomPrice,
                     AdultNo = bookingRoomDetails.AdultNo,
                     ChildrenNo = bookingRoomDetails.ChildrenNo,
-                    CheckInDate = DateOnly.ParseExact(bookingRoomDetails.CheckInDate.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null),
-                    CheckOutDate = DateOnly.ParseExact(bookingRoomDetails.CheckOutDate.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null),
+                    CheckInDate = bookingRoomDetails.CheckInDate== new DateOnly(0001,01,01) ? new DateOnly(2023,09,03): bookingRoomDetails.CheckInDate,
+                    CheckOutDate = bookingRoomDetails.CheckOutDate==new DateOnly(0001,01,01)? new DateOnly(2023, 09, 07) : bookingRoomDetails.CheckOutDate
+                    /*DateOnly.ParseExact(bookingRoomDetails.CheckOutDate.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null)*/,
                     BookedDate = new DateOnly(DateTime.Now.Date.Year, DateTime.Now.Date.Month, DateTime.Now.Date.Day),
-                    UserId = _userManager.GetUserId(HttpContext.User)
+                    UserId = _userManager.GetUserId(HttpContext.User),
+                    BookingCartId = session.GetString("CartId")
                 };
                 _bookingCart.AddToBookingCart(selectedroom);
             }
@@ -99,7 +106,7 @@ namespace ParkView_Capstone.Controllers
                 decimal gstamt=0;
                 foreach (var item in bookingcartitems)
                 {
-                    gstamt = item.RoomPriceFee * item.BookingRoomDetails.Room.RoomType.RoomGst;
+                    gstamt = item.RoomPriceFee * item.BookingRoomDetails.Room.RoomType.RoomGst/100;
                 }
                 CheckOut checkOut = new CheckOut()
                 {
@@ -111,6 +118,28 @@ namespace ParkView_Capstone.Controllers
                 };
                 return View(checkOut);
             }
+        }
+
+        public IActionResult ShowPrevOrders()
+        {
+            var userid = _userManager.GetUserId(HttpContext.User);
+            var result = _bookingCart.GetAllPrevorders(userid);
+
+            List<CheckOut> checkOutList = new List<CheckOut>();
+
+            foreach (var item in result)
+            {
+                checkOutList.Add(
+                    new CheckOut()
+                    {
+                        BookingCartId = item.Value.First().BookingCartId,
+                        Items = item.Value,
+                        BookedDate = item.Value.First().BookedDate,
+                        Total = item.Value.Select(r=>r.RoomPriceFee).Sum(),
+                        User = _dbcontext.Users.SingleOrDefault(s => s.Id == userid)
+                    });
+            }
+            return View(checkOutList);
         }
             
     }

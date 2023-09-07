@@ -103,6 +103,30 @@ namespace ParkView_Capstone.Models.Bookings
             deleteSession();
         }
 
+        public Dictionary<string,List<BookingCartItem>> GetAllPrevorders(string userid)
+        {
+            List<int> bookedrooms = _dbcontext.RoomOccupied.Where(r => r.UserId == userid).Select(r => r.BookingRoomDetailsId).ToList();
+            List<BookingRoomDetails> bookingRoomDetails = _dbcontext.BookingRoomDetails.Where(b => bookedrooms.Contains(b.BookingRoomDetailsId)).ToList();
+            Dictionary<string, List<BookingCartItem>> result=new Dictionary<string, List<BookingCartItem>>();
+            foreach(BookingRoomDetails item in bookingRoomDetails)
+            {
+                if (!result.Keys.Any(k => k == item.BookingCartId))
+                {
+                    result[item.BookingCartId] = new List<BookingCartItem>()
+                    {
+                        _dbcontext.BookingCartItems.Include(b=>b.BookingRoomDetails).Include(b=>b.BookingRoomDetails.Room).Include(b=>b.BookingRoomDetails.Room.RoomType).SingleOrDefault(c=>c.BookingRoomDetailsId==item.BookingRoomDetailsId)
+                    };
+                }
+                else
+                {
+                    result[item.BookingCartId].Add(
+                        _dbcontext.BookingCartItems.Include(b => b.BookingRoomDetails).Include(b => b.BookingRoomDetails.Room).Include(b => b.BookingRoomDetails.Room.RoomType).SingleOrDefault(c => c.BookingRoomDetailsId == item.BookingRoomDetailsId)
+                        );
+                }
+            }
+            return result;
+        }
+
         public void deleteSession()
         {
             ISession session = serviceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext.Session;

@@ -270,6 +270,10 @@ namespace ParkView_Capstone.Migrations
                     b.Property<DateTime>("BookedDate")
                         .HasColumnType("date");
 
+                    b.Property<string>("BookingCartId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CheckInDate")
                         .HasColumnType("date");
 
