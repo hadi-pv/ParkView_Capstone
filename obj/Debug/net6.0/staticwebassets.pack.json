@@ -693,6 +693,10 @@
       "PackagePath": "staticwebassets\\images\\logo3.png"
     },
     {
+      "Id": "C:\\Users\\PranayMhaiske\\source\\repos\\NewProj2.0\\wwwroot\\images\\map.jpg",
+      "PackagePath": "staticwebassets\\images\\map.jpg"
+    },
+    {
       "Id": "C:\\Users\\PranayMhaiske\\source\\repos\\NewProj2.0\\wwwroot\\images\\room-1.png",
       "PackagePath": "staticwebassets\\images\\room-1.png"
     },

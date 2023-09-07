@@ -709,8 +709,8 @@ input:hover {
                              Great International Hotel
                         </p>
                         <div class="flex">
-                            <button class="primary-btn">READ MORE</button>
-                            <button class="secondary-btn">CONTACT US</button>
+                            <a asp-controller="Home" asp-action="Aboutus" class="primary-btn">READ MORE</a>
+                            <a asp-controller="Home" asp-action="Contact" style="margin-left:10px" class="secondary-btn">CONTACT US</a>
                         </div>
                         
                     </div>
@@ -723,8 +723,8 @@ input:hover {
                             Luxury Hotel
                         </p>
                         <div class="flex">
-                            <button class="primary-btn">READ MORE</button>
-                            <button class="secondary-btn">CONTACT US</button>
+                            <a asp-controller="Home" asp-action="Aboutus" class="primary-btn">READ MORE</a>
+                            <a asp-controller="Home" asp-action="Contact" style="margin-left:10px" class="secondary-btn">CONTACT US</a>
                         </div>
                     </div>
                 </div>
@@ -736,8 +736,8 @@ input:hover {
                             Early Booking
                         </p>
                         <div class="flex">
-                            <button class="primary-btn">READ MORE</button>
-                            <button class="secondary-btn">CONTACT US</button>
+                            <a asp-controller="Home" asp-action="Aboutus" class="primary-btn">READ MORE</a>
+                            <a asp-controller="Home" asp-action="Contact" style="margin-left:10px" class="secondary-btn">CONTACT US</a>
                         </div>
                     </div>
                 </div>
@@ -784,18 +784,18 @@ input:hover {
             <br />
             <div class="form">
                 <form class="grid">
-                    <select style="border-radius: 10%;" name="location" id="location">
+                    <select style="border-radius: 10px;" name="location" id="location">
                         <option value="" disabled selected hidden>Location</option>
                         <option value="mumbai">Mumbai</option>
                         <option value="Blr">Bangalore</option>
                         <option value="chennai">Chennai</option>
-                        
+
                     </select>
-                    <input style="border-radius: 10%;"  type="date" placeholder="Araival Date">
-                    <input style="border-radius: 10%;" type="date" placeholder="Departure Date">
-                    <input style="border-radius: 10%;" type="number" placeholder="Adults">
-                    <input style="border-radius: 10%;"  type="number" placeholder="Childern">
-                    <input style="border-radius: 10%;" type="submit" value="CHECK AVAILABILITY">
+                    <input style="border-radius: 10px;" type="date" placeholder="Araival Date">
+                    <input style="border-radius: 10px;" type="date" placeholder="Departure Date">
+                    <input style="border-radius: 10px;" type="number" placeholder="Adults">
+                    <input style="border-radius: 10px;" type="number" placeholder="Childern">
+                    <input style="border-radius: 10px;" type="submit" value="CHECK AVAILABILITY">
                 </form>
             </div>
         </div>
@@ -814,7 +814,7 @@ input:hover {
                 <p>
                     The ParkView Palace Hotel, commonly referred to as the ParkView Hotel, is an iconic luxury hotel situated in Mumbai, India. Established in 1903 by the Palace family, it boasts a captivating blend of architectural styles and has become a symbol of luxury and hospitality. Nestled in the Colaba area overlooking the Arabian Sea, the hotel offers opulent rooms and suites, award-winning dining options, and a rich history. The ParkView Hotel has hosted numerous prominent figures and remains a sought-after destination for both leisure and business travelers, as well as a historic landmark in the vibrant city of Mumbai.
                 </p>
-                <button class="primary-btn">ABOUT US</button>
+                <a asp-controller="Home" asp-action="Aboutus" class="primary-btn">ABOUT US</a>
             </div>
             <div class="right">
                 <img src="images/about.png" alt="">

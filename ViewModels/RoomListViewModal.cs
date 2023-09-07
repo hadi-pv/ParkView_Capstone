@@ -5,7 +5,8 @@ namespace ParkView_Capstone.ViewModels
 {
     public class RoomListViewModal
     {
-        public IEnumerable<Room> Rooms { get; set; }
+        public IEnumerable<Room> Rooms{get; set; }
         public BookingRoomDetails BookingRoomDetails { get; set; }
     }
 }
+ 
