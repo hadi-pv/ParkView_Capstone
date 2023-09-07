@@ -14,19 +14,19 @@
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 @if (bookingcart.GetBookingCartItems().Count != 0)
                 {
-                    <button id="logout" type="submit" class="nav-link btn btn-link text-dark" style="font-weight:bold;margin-top:22.5px"
+                    <button style="margin-top: 22.5px;font-weight:bold;" id="logout" type="submit" class="nav-link btn btn-link text-dark"
                             onclick="return confirm ('You have items in your cart.\nOnce you logout it will be lost\nYou sure you want to log out?');">
                         LOGOUT
                     </button>
                 }
                 else
                 {
-                    <button id="logout" type="submit" class="nav-link btn btn-link text-dark" style="font-weight:bold;margin-top:22.5px">LOGOUT</button>
+                    <button style="margin-top: 22.5px;font-weight:bold;" id="logout" type="submit" class="nav-link btn  text-dark">LOGOUT</button>
                 }
             </form>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-controller="BookingCart" asp-action="ShowPrevOrders">Previous Orders</a>
+            <a class="nav-link text-dark" id="register" asp-controller="BookingCart" asp-action="ShowPrevOrders"> Previous Orders</a>
         </li>
     }
     else

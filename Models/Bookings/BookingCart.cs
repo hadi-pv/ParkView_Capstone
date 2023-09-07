@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ParkView_Capstone.Models.Rooms;
-using ParkView_Capstone.Models.Services;
+using ParkView_Capstone.Models.Servicess;
 
 namespace ParkView_Capstone.Models.Bookings
 {
@@ -9,6 +9,10 @@ namespace ParkView_Capstone.Models.Bookings
     {
         public string BookingCartId { get; set; }
         public List<BookingCartItem> BookingCartItems { get; set; }
+
+        public List<BookingServiceItem> BookingServiceItems { get; set; }
+
+       
         public decimal Total { get; set; }
         private readonly ParkViewDbContext _dbcontext;
         public IServiceProvider serviceProvider { get; set; }
@@ -69,6 +73,33 @@ namespace ParkView_Capstone.Models.Bookings
             _dbcontext.SaveChanges();
         }
 
+        public void AddServicesToBookingCart(BookingServiceDetails serviceDetails)
+        {
+            var brdetails = _dbcontext.BookingServiceItem.Include(b => b.BookingServiceDetails).SingleOrDefault(
+                b => b.BookingServiceDetails.ServiceId == serviceDetails.ServiceId &&
+                b.BookingCartId == BookingCartId);
+
+            if (brdetails == null)
+            {
+                brdetails = new BookingServiceItem()
+                {
+                    BookingCartId = BookingCartId,
+                    BookingServiceDetailsId = serviceDetails.BookingServiceDetailsId,
+                    BookingServiceDetails = serviceDetails,
+                    BookedDate = new DateOnly(DateTime.Now.Date.Year, DateTime.Now.Date.Month, DateTime.Now.Date.Day),
+                    SericePriceFee = serviceDetails.ServicePriceAmount,
+                    UserId = serviceDetails.UserId
+                };
+                _dbcontext.BookingServiceItem.Add(brdetails);
+            }
+            else
+            {
+                brdetails.BookingServiceDetails = serviceDetails;
+            }
+            _dbcontext.SaveChanges();
+        }
+
+
         public void RemoveFromCart(BookingCartItem bcitem)
         {
             if (bcitem.BookingRoomDetails.RoomQuantity > 1)
@@ -92,6 +123,15 @@ namespace ParkView_Capstone.Models.Bookings
                 .ToList());
         }
 
+        public List<BookingServiceItem> GetBookingServiceItems()
+        {
+            return BookingServiceItems ??
+                (BookingServiceItems = _dbcontext.BookingServiceItem
+                .Where(c => c.BookingCartId == BookingCartId)
+                .Include(s => s.BookingServiceDetails).Include(s => s.BookingServiceDetails.Service)
+                .ToList());
+        }
+
         public void CompleteBooking(IEnumerable<BookingCartItem> bookingCartItems)
         {
             foreach(BookingCartItem bookingCartItem in bookingCartItems)
@@ -103,7 +143,7 @@ namespace ParkView_Capstone.Models.Bookings
                     RoomCheckOut = bookingCartItem.BookingRoomDetails.CheckOutDate,
                     RoomQuantity = bookingCartItem.BookingRoomDetails.RoomQuantity,
                     BookingRoomDetailsId = bookingCartItem.BookingRoomDetailsId,
-                    IsCancelled=false,
+                    IsCancelled =false,
                     Room = bookingCartItem.BookingRoomDetails.Room,
                     UserId = bookingCartItem.BookingRoomDetails.UserId
                 });

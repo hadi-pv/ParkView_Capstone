@@ -1,0 +1,117 @@
+﻿@model IEnumerable<ParkView_Capstone.Models.Servicess.Services>
+<style>
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-gap: 20px;
+    }
+
+    input {
+        outline: none;
+        border: none;
+        width: 100%;
+    }
+
+    .book {
+        padding: 40px 0;
+        background: #282834;
+        color: #fff;
+    }
+
+    h1 {
+        font-family: serif;
+    }
+
+    .book h1 {
+        font-size: 28px;
+    }
+
+        .book h1 span {
+            color: #7fc142;
+        }
+
+    .book input {
+        padding: 20px;
+    }
+
+        .book input:nth-last-child(1) {
+            background: #7fc142;
+            color: #fff;
+        }
+
+    .textcon {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
+
+
+<div class="textcon">
+    <img style="width:100%;height:300px;" src="/images/banner-1.png"></img>
+    <div class="centered"><h1 style="color:white">Services</h1></div>
+</div>
+<section class="book">
+    <div class="container flex_space">
+        <div class="text">
+            <h1> <span>Book</span> Your Rooms </h1>
+        </div>
+        <br />
+        <div class="form">
+            <form class="grid">
+                <select style="border-radius: 10px;" name="location" id="location">
+                    <option value="" disabled selected hidden>Location</option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="Blr">Bangalore</option>
+                    <option value="chennai">Chennai</option>
+
+                </select>
+                <input style="border-radius: 10px;" type="date" placeholder="Araival Date">
+                <input style="border-radius: 10px;" type="date" placeholder="Departure Date">
+                <input style="border-radius: 10px;" type="number" placeholder="Adults">
+                <input style="border-radius: 10px;" type="number" placeholder="Childern">
+                <input style="border-radius: 10px;" type="submit" value="CHECK AVAILABILITY">
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+<br />
+<br />
+
+
+
+<h4 style="text-align:center;color:green;font-weight:bold">LIST</h4>
+
+<div style="margin:10px;" class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var item in Model)
+    {
+
+        <div class="col">
+            <div  style="width:90%"class="card h-100">
+                <img style="height: 240px;" src=@item.ServiceImage alt="">
+                <div class="card-body">
+                    <h2 class="card-title">@item.ServiceName</h2>
+                    <h5>Price : @item.ServicePrice</h5>
+                    <br>
+                    <hr>
+                    <h5>Description</h5>
+                    <p class="card-text">@item.ServiceDescription</p>
+
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+<br />
+<br />

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ParkView_Capstone.Models.Services;
+using ParkView_Capstone.Models.Servicess;
 using ParkView_Capstone.Models.Bookings;
 using ParkView_Capstone.Models.Facilities;
 using ParkView_Capstone.Models.Rooms;
@@ -17,7 +17,7 @@ namespace ParkView_Capstone.Models
 
 
 
-        public DbSet<Service> Services { get; set; }
+        public DbSet<Services> Services { get; set; }
 
         public DbSet<Hotel> Hotel { get; set; }
 
@@ -25,7 +25,7 @@ namespace ParkView_Capstone.Models
         public DbSet<BookingRoomDetails> BookingRoomDetails { get; set; }
         public DbSet<BookingServiceDetails> BookingServiceDetails { get; set; }
 
-
+        public DbSet<BookingServiceItem> BookingServiceItem { get; set; }
 
         public DbSet<FacilityApply> FacilityApply { get; set; }
         public DbSet<FacilityType> FacilityType { get; set; }

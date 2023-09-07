@@ -11,8 +11,15 @@ builder.Services.AddControllersWithViews()
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddAuthentication().AddGoogle(
+    googleoptions =>
+    {
+        googleoptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+        googleoptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+    });
 builder.Services.AddSession();
 builder.Services.AddScoped<IRoomRepo,RoomDbRepo>();
+builder.Services.AddScoped<IServiceRepo,ServiceDbRepo>();
 builder.Services.AddScoped<BookingCart>(sp => BookingCart.GetCart(sp));
 builder.Services.AddDbContext<ParkViewDbContext>(options =>
 {

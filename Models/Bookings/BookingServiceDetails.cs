@@ -1,4 +1,4 @@
-﻿using ParkView_Capstone.Models.Services;
+﻿using ParkView_Capstone.Models.Servicess;
 
 namespace ParkView_Capstone.Models.Bookings
 {
@@ -11,6 +11,6 @@ namespace ParkView_Capstone.Models.Bookings
         public string UserId { get; set; }
         public DateOnly BookedDate => new DateOnly(DateTime.Now.Date.Year, DateTime.Now.Date.Month, DateTime.Now.Date.Day);
 
-        public Service Service{ get; set; }
+        public Services? Service{ get; set; }
     }
 }
