@@ -58,7 +58,7 @@ namespace ParkView_Capstone.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult AddToBookingCart(BookingRoomDetails bookingRoomDetails)
+        public RedirectToActionResult AddToBookingCart(BookingRoomDetails bookingRoomDetails,string cidate,string codate)
         {
             ISession session = services.GetRequiredService<IHttpContextAccessor>().HttpContext.Session;
             Console.WriteLine(ModelState);
@@ -75,8 +75,8 @@ namespace ParkView_Capstone.Controllers
                     RoomPrice = room.RoomPrice,
                     AdultNo = bookingRoomDetails.AdultNo,
                     ChildrenNo = bookingRoomDetails.ChildrenNo,
-                    CheckInDate = bookingRoomDetails.CheckInDate== new DateOnly(0001,01,01) ? new DateOnly(2023,09,03): bookingRoomDetails.CheckInDate,
-                    CheckOutDate = bookingRoomDetails.CheckOutDate==new DateOnly(0001,01,01)? new DateOnly(2023, 09, 07) : bookingRoomDetails.CheckOutDate
+                    CheckInDate = bookingRoomDetails.CheckInDate== new DateOnly(0001,01,01) ? DateOnly.ParseExact(cidate,"yyyy-MM-dd", null) : bookingRoomDetails.CheckInDate,
+                    CheckOutDate = bookingRoomDetails.CheckOutDate==new DateOnly(0001,01,01)? DateOnly.ParseExact(codate, "yyyy-MM-dd", null) : bookingRoomDetails.CheckOutDate
                     /*DateOnly.ParseExact(bookingRoomDetails.CheckOutDate.ToString("yyyy-MM-dd"), "yyyy-MM-dd", null)*/,
                     BookedDate = new DateOnly(DateTime.Now.Date.Year, DateTime.Now.Date.Month, DateTime.Now.Date.Day),
                     UserId = _userManager.GetUserId(HttpContext.User),

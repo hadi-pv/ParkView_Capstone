@@ -1,26 +1,31 @@
 ﻿@model RoomListViewModal
 
+@{
+    DateOnly cidate = new DateOnly(Model.BookingRoomDetails.CheckInDate.Year, Model.BookingRoomDetails.CheckInDate.Month, Model.BookingRoomDetails.CheckInDate.Day);
+    DateOnly codate = new DateOnly(Model.BookingRoomDetails.CheckOutDate.Year, Model.BookingRoomDetails.CheckOutDate.Month, Model.BookingRoomDetails.CheckOutDate.Day);
+
+}
 
 <section class="book">
     <div class="container flex_space">
         <div class="text">
-            <h1> <span style="color:#25a18e;">Book</span> Your Rooms </h1>
+            <h1> <span>Book</span> Your Rooms </h1>
         </div>
         <br />
         <div class="form">
-            <form class="grid">
-                <select style="border-radius: 10px;" name="location" id="location">
+            <form class="grid" asp-controller="Room" asp-action="Index" method="post">
+                <select asp-for="@Model.Hotel.HotelLocation" style="border-radius: 10px;" name="location" id="location">
                     <option value="" disabled selected hidden>Location</option>
-                    <option value="mumbai">Mumbai</option>
-                    <option value="Blr">Bangalore</option>
-                    <option value="chennai">Chennai</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Bengaluru">Bangalore</option>
+                    <option value="Chennai">Chennai</option>
 
                 </select>
-                <input style="border-radius: 10px;" type="date" placeholder="Araival Date">
-                <input style="border-radius: 10px;" type="date" placeholder="Departure Date">
-                <input style="border-radius: 10px;" type="number" placeholder="Adults">
-                <input style="border-radius: 10px;" type="number" placeholder="Childern">
-                <input style="border-radius: 10px;background-color:#25a18e;" type="submit" value="CHECK AVAILABILITY">
+                <input asp-for=@Model.BookingRoomDetails.CheckInDate style="border-radius: 10px;" type="date" class="form-control" name="checkin" placeholder="Araival Date" value=@cidate.ToString("yyyy-MM-dd")>
+                <input asp-for=@Model.BookingRoomDetails.CheckOutDate style="border-radius: 10px;" type="date" name="checkout" placeholder="Departure Date" value=@codate.ToString("yyyy-MM-dd")>
+                <input asp-for=@Model.BookingRoomDetails.AdultNo style="border-radius: 10px;" type="number" name="Adults" placeholder="Adults">
+                <input asp-for=@Model.BookingRoomDetails.ChildrenNo style="border-radius: 10px;" type="number" name="Child" placeholder="Childern">
+                <input style="border-radius: 10px;background-color:#7FC142;color:white;font-weight:bold;" type="submit" value="CHECK AVAILABILITY">
             </form>
         </div>
     </div>
@@ -60,12 +65,13 @@
                                     </div>
                                     <div class="row m-1">
                                         <div class="form-group col">
+                                            
                                             <label class="control-label" asp-for="@Model.BookingRoomDetails.CheckInDate">Check In Date : </label>
-                                            <input class="form-control" type="date" asp-for=@Model.BookingRoomDetails.CheckInDate value=@Model.BookingRoomDetails.CheckInDate.ToString("yyyy-MM-dd") />
+                                            <input class="form-control" type="date" asp-for=@Model.BookingRoomDetails.CheckInDate value=@cidate.ToString("yyyy-MM-dd") name="cidate"/>
                                         </div>
                                         <div class="form-group col">
                                             <label class="control-label" asp-for="@Model.BookingRoomDetails.CheckOutDate">Check Out Date : </label>
-                                            <input class="form-control" type="date" asp-for="@Model.BookingRoomDetails.CheckOutDate" value=@Model.BookingRoomDetails.CheckOutDate.ToString("yyyy-MM-dd") />
+                                            <input class="form-control" type="date" asp-for="@Model.BookingRoomDetails.CheckOutDate" value=@codate.ToString("yyyy-MM-dd") name="codate"/>
                                         </div>
                                     </div>
                                     <div class="form-group row m-1">

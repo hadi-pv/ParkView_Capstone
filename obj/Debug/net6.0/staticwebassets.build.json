@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VDn4lq2ZE/VXhDrI2MsDmFIvMHk9HGqXn+YLIgsPQlY=",
+  "Hash": "xBXh4gHfdk4SNvaYn22IstYYaDsxEOBihbhzhwlH8lE=",
   "Source": "ParkView_Capstone",
   "BasePath": "_content/ParkView_Capstone",
   "Mode": "Default",
@@ -3993,6 +3993,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\logo3.png"
+    },
+    {
+      "Identity": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\map.jpg",
+      "SourceId": "ParkView_Capstone",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\",
+      "BasePath": "_content/ParkView_Capstone",
+      "RelativePath": "images/map.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\map.jpg"
     },
     {
       "Identity": "C:\\Users\\AbdulHadiPV\\OneDrive - Kongsberg Digital AS\\Desktop\\Training\\0Capstone\\PageView_Capstone\\wwwroot\\images\\room-1.png",

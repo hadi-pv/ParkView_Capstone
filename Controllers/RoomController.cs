@@ -15,19 +15,20 @@ namespace ParkView_Capstone.Controllers
             _roomRepo = roomRepo;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string location , string checkin,string checkout, int Adults , int Child)
         {
-            IEnumerable<Room> rooms = _roomRepo.GetAllAvailableRooms("Bengaluru", new DateOnly(2023, 9, 4), new DateOnly(2023, 9, 7), 5,3);
+            IEnumerable<Room> rooms = _roomRepo.GetAllAvailableRooms(location, DateOnly.ParseExact(checkin, "yyyy-MM-dd", null), DateOnly.ParseExact(checkout, "yyyy-MM-dd", null), Adults,Child);
 
             RoomListViewModal roomListViewModal = new RoomListViewModal()
             {
                 Rooms = rooms,
+                Hotel = _roomRepo.GetAllHotels.SingleOrDefault(h => h.HotelLocation== location),
                 BookingRoomDetails = new BookingRoomDetails()
                 {
-                    CheckInDate = new DateOnly(2023, 9, 4),
-                    CheckOutDate = new DateOnly(2023, 9, 7),
-                    AdultNo = 5,
-                    ChildrenNo = 3
+                    CheckInDate = DateOnly.ParseExact(checkin, "yyyy-MM-dd", null),
+                    CheckOutDate = DateOnly.ParseExact(checkout, "yyyy-MM-dd", null),
+                    AdultNo = Adults,
+                    ChildrenNo = Child
                 }
             };
 
@@ -42,6 +43,32 @@ namespace ParkView_Capstone.Controllers
             RoomsViewModel roomsViewModel=new RoomsViewModel(room,facilities);
 
             return View(roomsViewModel);
+        }
+
+        public IActionResult Roomtype()
+        {
+            IEnumerable<Room> rooms = _roomRepo.GetAllAvailableRooms("", new DateOnly(2023, 9, 4), new DateOnly(2023, 9, 7), 4, 2);
+
+            RoomListViewModal roomListViewModal = new RoomListViewModal()
+            {
+                Rooms = rooms,
+                BookingRoomDetails = new BookingRoomDetails()
+                {
+                    CheckInDate = new DateOnly(2023, 9, 4),
+                    CheckOutDate = new DateOnly(2023, 9, 7),
+                    AdultNo = 4,
+                    ChildrenNo = 2
+                }
+            };
+
+            return View(roomListViewModal);
+        }
+
+        public IActionResult Hoteltype()
+        {
+            IEnumerable<Room> rooms = _roomRepo.GetAllAvailableRooms("", new DateOnly(2023, 9, 4), new DateOnly(2023, 9, 7), 4, 2);
+
+            return View(rooms);
         }
 
 

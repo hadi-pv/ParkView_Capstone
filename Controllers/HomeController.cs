@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ParkView_Capstone.Models;
+using ParkView_Capstone.Models.Bookings;
 using ParkView_Capstone.Models.Rooms;
+using ParkView_Capstone.ViewModels;
 using System.Diagnostics;
 
 namespace PageView_Capstone.Controllers
@@ -17,9 +19,15 @@ namespace PageView_Capstone.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Room> rooms = _roomRepo.GetAllAvailableRooms("", new DateOnly(2023, 9, 4), new DateOnly(2023, 9, 7), 4, 2);
+            IEnumerable<Room> rooms = _roomRepo.GetAllRooms;
 
-            return View(rooms);
+            RoomListViewModal roomListViewModal = new RoomListViewModal()
+            {
+                Rooms = rooms,
+                BookingRoomDetails = new BookingRoomDetails()
+            };
+
+            return View(roomListViewModal);
         }
 
         public IActionResult Privacy()
@@ -31,6 +39,11 @@ namespace PageView_Capstone.Controllers
         {
             return View();
         }
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

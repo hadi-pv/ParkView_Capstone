@@ -1,5 +1,7 @@
 ﻿@using Microsoft.CodeAnalysis.Differencing;
-@model IEnumerable<ParkView_Capstone.Models.Rooms.Room>
+
+ 
+@model RoomListViewModal
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -63,7 +65,7 @@ button {
 
 .primary-btn {
   padding: 15px 40px;
-  background: #25a18e;
+  background: #7FC142;
   font-weight: bold;
   color: white;
 }
@@ -108,7 +110,7 @@ header ul li a {
 }
 
 header ul li a:hover {
-  color: #25a18e;
+  color: #7FC142;
 }
 
 header i {
@@ -225,7 +227,7 @@ h1 {
 }
 
 .book h1 span {
-  color: #25a18e;
+  color: #7FC142;
 }
 
 .book input {
@@ -233,7 +235,7 @@ h1 {
 }
 
 .book input:nth-last-child(1) {
-  background: #25a18e;
+  background: #7FC142;
   color: #fff;
 }
 
@@ -313,7 +315,7 @@ h1 {
 .counter hr {
   width: 50%;
   margin: 10px auto;
-  background: #25a18e;
+  background: #7FC142;
   height: 2px;
   border: none;
 }
@@ -347,7 +349,7 @@ h1 {
   line-height: 10px;
   margin-left: 20px;
   font-weight: 350;
-  color: #25a18e;
+  color: #7FC142;
 }
 
 .rooms h3 span {
@@ -362,7 +364,7 @@ h1 {
   top: -20%;
   height: 50px;
   width: 50px;
-  background: #25a18e !important;
+  background: #7FC142 !important;
 }
 
 .owl-carousel1 .owl-nav .owl-prev i,
@@ -480,7 +482,7 @@ h1 {
 
 .services i {
   font-size: 50px;
-  color: #25a18e;
+  color: #7FC142;
   transition: 0.5s;
 }
 
@@ -497,7 +499,7 @@ h1 {
 }
 
 .services .box:hover {
-  background: #25a18e;
+  background: #7FC142;
   color: #fff;
   cursor: pointer;
 }
@@ -543,7 +545,7 @@ h1 {
 
 .Customer h3 {
   margin-top: 20px;
-  color: #25a18e;
+  color: #7FC142;
 }
 
 .Customer span {
@@ -557,11 +559,11 @@ h1 {
 }
 
 .owl-carousel2 .owl-dots i {
-  color: #25a18e;
+  color: #7FC142;
 }
 
 .owl-carousel2 .owl-dots i:hover button {
-  color: #25a18e !important;
+  color: #7FC142 !important;
 }
 
 .owl-carousel2 span {
@@ -570,8 +572,8 @@ h1 {
 }
 
 .owl-carousel2 .active span {
-  background: #25a18e !important;
-  border: 2px solid #25a18e;
+  background: #7FC142 !important;
+  border: 2px solid #7FC142;
 }
 
 /*--------Customer---------*/
@@ -581,7 +583,7 @@ h1 {
 }
 
 .news i {
-  color: #25a18e;
+  color: #7FC142;
   text-transform: capitalize;
   font-size: 18px;
 }
@@ -667,7 +669,7 @@ footer li {
 }
 
 footer i {
-  color: #25a18e;
+  color: #7FC142;
   margin: 20px 0;
   margin-right: 20px;
 }
@@ -709,8 +711,8 @@ input:hover {
                              Great International Hotel
                         </p>
                         <div class="flex">
-                            <button class="primary-btn">READ MORE</button>
-                            <button class="secondary-btn">CONTACT US</button>
+                            <a asp-controller="Home" asp-action="Aboutus" class="primary-btn">READ MORE</a>
+                            <a asp-controller="Home" asp-action="Contact" style="margin-left:10px" class="secondary-btn">CONTACT US</a>
                         </div>
                         
                     </div>
@@ -723,8 +725,8 @@ input:hover {
                             Luxury Hotel
                         </p>
                         <div class="flex">
-                            <button class="primary-btn">READ MORE</button>
-                            <button class="secondary-btn">CONTACT US</button>
+                            <a asp-controller="Home" asp-action="Aboutus" class="primary-btn">READ MORE</a>
+                            <a asp-controller="Home" asp-action="Contact" style="margin-left:10px" class="secondary-btn">CONTACT US</a>
                         </div>
                     </div>
                 </div>
@@ -736,8 +738,8 @@ input:hover {
                             Early Booking
                         </p>
                         <div class="flex">
-                            <button class="primary-btn">READ MORE</button>
-                            <button class="secondary-btn">CONTACT US</button>
+                            <a asp-controller="Home" asp-action="Aboutus" class="primary-btn">READ MORE</a>
+                            <a asp-controller="Home" asp-action="Contact" style="margin-left:10px" class="secondary-btn">CONTACT US</a>
                         </div>
                     </div>
                 </div>
@@ -774,7 +776,10 @@ input:hover {
         })
     </script>
 
-
+    @{
+        DateOnly today = new DateOnly(DateTime.Now.Date.Year, DateTime.Now.Date.Month, DateTime.Now.Date.Day);
+        DateOnly tmrw = today.AddDays(1);
+    }
 
     <section class="book">
         <div class="container flex_space">
@@ -783,19 +788,19 @@ input:hover {
             </div>
             <br />
             <div class="form">
-                <form class="grid">
+                <form class="grid" asp-controller="Room" asp-action="Index" method="post">
                     <select style="border-radius: 10px;" name="location" id="location">
                         <option value="" disabled selected hidden>Location</option>
-                        <option value="mumbai">Mumbai</option>
-                        <option value="Blr">Bangalore</option>
-                        <option value="chennai">Chennai</option>
-                        
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Bengaluru">Bangalore</option>
+                        <option value="Chennai">Chennai</option>
+
                     </select>
-                    <input style="border-radius: 10px;"  type="date" placeholder="Araival Date">
-                    <input style="border-radius: 10px;" type="date" placeholder="Departure Date">
-                    <input style="border-radius: 10px;" type="number" placeholder="Adults">
-                    <input style="border-radius: 10px;"  type="number" placeholder="Childern">
-                    <input style="border-radius: 10px;" type="submit" value="CHECK AVAILABILITY">
+                    <input style="border-radius: 10px;" type="date" class="form-control" name="checkin" placeholder="Araival Date" value="$(this).ToString('yyyy-MM-dd')" min=@today.ToString("yyyy-MM-dd") required>
+                    <input style="border-radius: 10px;" type="date" name="checkout" placeholder="Departure Date" value="$(this).ToString('yyyy-MM-dd')" min=@tmrw.ToString("yyyy-MM-dd") required>
+                    <input style="border-radius: 10px;" type="number" name="Adults" placeholder="Adults">
+                    <input style="border-radius: 10px;" type="number" name="Child" placeholder="Childern">
+                    <input style="border-radius: 10px;background-color:#7FC142;color:white;font-weight:bold;" type="submit" value="CHECK AVAILABILITY">
                 </form>
             </div>
         </div>
@@ -814,7 +819,7 @@ input:hover {
                 <p>
                     The ParkView Palace Hotel, commonly referred to as the ParkView Hotel, is an iconic luxury hotel situated in Mumbai, India. Established in 1903 by the Palace family, it boasts a captivating blend of architectural styles and has become a symbol of luxury and hospitality. Nestled in the Colaba area overlooking the Arabian Sea, the hotel offers opulent rooms and suites, award-winning dining options, and a rich history. The ParkView Hotel has hosted numerous prominent figures and remains a sought-after destination for both leisure and business travelers, as well as a historic landmark in the vibrant city of Mumbai.
                 </p>
-                <button class="primary-btn">ABOUT US</button>
+                <a asp-controller="Home" asp-action="Aboutus" class="primary-btn">ABOUT US</a>
             </div>
             <div class="right">
                 <img src="images/about.png" alt="">
@@ -859,7 +864,7 @@ input:hover {
 
             <div class="content mtop">
                 <div class="owl-carousel  owl-theme non-nav">
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Rooms)
                     {
                         <div class="items">
                             <div class="image">
@@ -892,7 +897,7 @@ input:hover {
 
             <div class="content mtop">
                 <div class="owl-carousel owl-carousel1 owl-theme">
-                   @foreach(var item in Model.Select(r=>r.RoomType).Distinct()) {
+                   @foreach(var item in Model.Rooms.Select(r=>r.RoomType).Distinct()) {
                     <div class="items">
                         <div class="image">
                             <img src=@item.RoomTypeImage alt="">
