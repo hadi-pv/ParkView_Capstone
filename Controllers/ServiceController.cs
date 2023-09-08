@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ParkView_Capstone.Models;
 using ParkView_Capstone.Models.Bookings;
 using ParkView_Capstone.Models.Rooms;
@@ -23,6 +24,7 @@ namespace ParkView_Capstone.Controllers
             return View(servs);
         }
 
+        [Authorize]
         public RedirectToActionResult AddBookingServices(int serviceid)
         {
             var services = _servRepo.GetAllServices.SingleOrDefault(s=>s.ServiceId == serviceid);

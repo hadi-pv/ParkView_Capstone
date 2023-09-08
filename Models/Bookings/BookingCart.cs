@@ -11,7 +11,6 @@ namespace ParkView_Capstone.Models.Bookings
         public string BookingCartId { get; set; }
         public List<BookingCartItem> BookingCartItems { get; set; }
 
-        public List<BookingServiceItem> BookingServiceItems { get; set; }
 
        
         public decimal Total { get; set; }
@@ -74,31 +73,6 @@ namespace ParkView_Capstone.Models.Bookings
             _dbcontext.SaveChanges();
         }
 
-        public void AddServicesToBookingCart(BookingServiceDetails serviceDetails)
-        {
-            var brdetails = _dbcontext.BookingServiceItem.Include(b => b.BookingServiceDetails).SingleOrDefault(
-                b => b.BookingServiceDetails.ServiceId == serviceDetails.ServiceId &&
-                b.BookingCartId == BookingCartId);
-
-            if (brdetails == null)
-            {
-                brdetails = new BookingServiceItem()
-                {
-                    BookingCartId = BookingCartId,
-                    BookingServiceDetailsId = serviceDetails.BookingServiceDetailsId,
-                    BookingServiceDetails = serviceDetails,
-                    BookedDate = new DateOnly(DateTime.Now.Date.Year, DateTime.Now.Date.Month, DateTime.Now.Date.Day),
-                    SericePriceFee = serviceDetails.ServicePriceAmount,
-                    UserId = serviceDetails.UserId
-                };
-                _dbcontext.BookingServiceItem.Add(brdetails);
-            }
-            else
-            {
-                brdetails.BookingServiceDetails = serviceDetails;
-            }
-            _dbcontext.SaveChanges();
-        }
 
 
         public void RemoveFromCart(BookingCartItem bcitem)
@@ -121,15 +95,6 @@ namespace ParkView_Capstone.Models.Bookings
                 .Where(c => c.BookingCartId == BookingCartId)
                 .Include(s => s.BookingRoomDetails).Include(s=>s.BookingRoomDetails.Room)
                 .Include(s => s.BookingRoomDetails.Room.RoomType).Include(s => s.BookingRoomDetails.Room.Hotel)
-                .ToList());
-        }
-
-        public List<BookingServiceItem> GetBookingServiceItems()
-        {
-            return BookingServiceItems ??
-                (BookingServiceItems = _dbcontext.BookingServiceItem
-                .Where(c => c.BookingCartId == BookingCartId)
-                .Include(s => s.BookingServiceDetails).Include(s => s.BookingServiceDetails.Service)
                 .ToList());
         }
 

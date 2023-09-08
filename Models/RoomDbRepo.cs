@@ -42,7 +42,7 @@ namespace ParkView_Capstone.Models
             else if(AdultNo==default(int) & location == null)
             {
                 rooms = GlobalRooms;
-            }
+            }else
             {
                  rooms = GetAllRooms;
             }

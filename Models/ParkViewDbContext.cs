@@ -26,7 +26,6 @@ namespace ParkView_Capstone.Models
         public DbSet<BookingRoomDetails> BookingRoomDetails { get; set; }
         public DbSet<BookingServiceDetails> BookingServiceDetails { get; set; }
 
-        public DbSet<BookingServiceItem> BookingServiceItem { get; set; }
 
         public DbSet<FacilityApply> FacilityApply { get; set; }
         public DbSet<FacilityType> FacilityType { get; set; }
